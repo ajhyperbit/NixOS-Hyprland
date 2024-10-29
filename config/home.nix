@@ -49,8 +49,8 @@
   gtk = {
     enable = true;
 
-    gtk.theme.package = pkgs.nordic;
-    gtk.theme.name = "nordic";
+    theme.package = pkgs.nordic;
+    theme.name = "nordic";
   };
   home = {
     username = "${username}";
