@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "nixos-conf",
+			"path": "../dotfiles/nixos-conf"
+		},
+		{
+			"name": "NixOS-Hyprland",
+			"path": "."
+		},
+		{
+			"name": "NixOS-Hyprland-F'dUp",
+			"path": "../NixOS-Hyprland-F'dUp"
+		},
+		{
+			"name": "hypr",
+			"path": "../.config/hypr"
+		}
+	],
+	"settings": {}
+}
