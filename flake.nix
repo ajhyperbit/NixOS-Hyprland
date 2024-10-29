@@ -61,7 +61,7 @@ outputs = inputs@{
           home-manager.useUserPackages = true;
           home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
           home-manager.extraSpecialArgs = {inherit inputs self username;};
-          home-manager.backupFileExtension = "hm-bak";
+          home-manager.backupFileExtension = "backup";
         }
         #wayland.windowManager.hyprland {
         #  enable = true;

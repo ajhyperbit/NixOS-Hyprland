@@ -1081,6 +1081,13 @@ let
   '';
 
   documentation.nixos.enable = false;
+  
+  #home-manager.useGlobalPkgs = true;
+  #home-manager.useUserPackages = true;
+  #home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
+  #home-manager.extraSpecialArgs = {inherit inputs self username;};
+  #home-manager.backupFileExtension = "hm-bak";
+
 
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
