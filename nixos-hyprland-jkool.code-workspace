@@ -15,6 +15,9 @@
 		{
 			"name": "hypr",
 			"path": "../.config/hypr"
+		},
+		{
+			"path": "../dotfiles/nixos"
 		}
 	],
 	"settings": {}

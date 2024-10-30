@@ -390,6 +390,8 @@ let
   #qalculate-qt
   lastpass-cli
   dconf2nix
+  coppwr
+  pwvucontrol
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
@@ -431,6 +433,12 @@ let
     wlogout
     yad
     yt-dlp
+
+(pkgs.hyprland.override { # or inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+  #enableXWayland = true;  # whether to enable XWayland
+  #legacyRenderer = false; # whether to use the legacy renderer (for old GPUs)
+  withSystemd = true;     # whether to build with systemd support
+})
 
   
   #Hyperland  #https://www.youtube.com/watch?v=61wGzIv12Ds
@@ -521,7 +529,12 @@ let
   ];
 
   hardware = {
-    pulseaudio.enable = false;
+    pulseaudio ={
+    
+    enable = false;
+    package = pkgs.pulseaudioFull;
+
+    };
     
     bluetooth = {
 	    enable = true;
@@ -763,6 +776,42 @@ let
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
+        wireplumber = {
+            configPackages = [
+              (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/11-bluetooth-policy.conf" ''
+                wireplumber.settings = {
+                  bluetooth.autoswitch-to-headset-profile = false
+                }'')
+                ];
+            extraConfig = {
+              "log-level-debug" = {
+                "context.properties" = {
+                  # Output Debug log messages as opposed to only the default level (Notice)
+                  "log.level" = "D";
+                };
+              };
+              "wh-1000xm3-ldac-hq" = {
+                "monitor.bluez.rules" = [
+                  {
+                    matches = [
+                      {
+                        # Match any bluetooth device with ids equal to that of a WH-1000XM3
+                        "device.name" = "~bluez_card.*";
+                        "device.product.id" = "0x0cd3";
+                        "device.vendor.id" = "usb:054c";
+                      }
+                    ];
+                    actions = {
+                      update-props = {
+                        # Set quality to high quality instead of the default of auto
+                        "bluez5.a2dp.ldac.quality" = "hq";
+                      };
+                    };
+                  }
+                ];
+              };
+            };
+          };
       };
 
     #Auto CPU Freq
@@ -941,13 +990,14 @@ let
     no_hardware_cursors = "true";
     #WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
-    KDE_FULL_SESSION = "true";
+    #KDE_FULL_SESSION = "true";
     GBM_BACKEND = "nvidia-drm";
     LIBVA_DRIVER_NAME = "nvidia";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    QT_QPA_PLATFORM = "wayland;xcb";
+    #QT_QPA_PLATFORM = "wayland;xcb";
     #QT_QPA_PLATFORMTHEME= "qt5ct";
-    GDK_BACKEND = "wayland,x11,*";
+    #GDK_BACKEND = "wayland,x11,*";
+    #NVD_BACKEND = "direct";
   };
   };
 
@@ -1005,6 +1055,7 @@ let
         xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
       ];
+      xdgOpenUsePortal = true;
     configPackages = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal
@@ -1115,13 +1166,13 @@ let
   };
 
   # zram
-  #zramSwap = {
-	#  enable = true;
-	#  priority = 100;
-	#  memoryPercent = 30;
-	#  swapDevices = 1;
-  #  algorithm = "zstd";
-  #  };
+  zramSwap = {
+	  enable = true;
+	  priority = 100;
+	  memoryPercent = 30;
+	  swapDevices = 1;
+    algorithm = "zstd";
+    };
 
   #powerManagement = {
   #	enable = true;

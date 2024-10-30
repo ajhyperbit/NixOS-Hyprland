@@ -72,11 +72,17 @@
   #
   #};
   
-  #stylix = {
-  #  #enable = true;
-  #  autoEnable = true; #default is true
-  #  polarity = "dark";
-  #};
+  stylix = {
+    #enable = true;
+    autoEnable = true; #default is true
+    polarity = "dark";
+    cursor = {
+      name = "Oxygen-Zion";
+      package = pkgs.oxygen;
+      size = 24;
+    };
+  };
+
 
   #dconf = {
   #  settings = {

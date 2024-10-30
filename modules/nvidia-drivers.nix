@@ -55,7 +55,7 @@ hardware = {
   	};
 
 
-      nvidia = {
+  nvidia = {
 
     # Modesetting is required.
     modesetting.enable = true;
@@ -64,12 +64,14 @@ hardware = {
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
-      
+
+    forceFullCompositionPipeline = true;
+
     #dynamicBoost.enable = true; # Dynamic Boost
 
     nvidiaPersistenced = false;
@@ -92,14 +94,14 @@ hardware = {
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    #  version = "550.40.07";
-    #  sha256_64bit = "sha256-KYk2xye37v7ZW7h+uNJM/u8fNf7KyGTZjiaU03dJpK0=";
-    #  sha256_aarch64 = "sha256-AV7KgRXYaQGBFl7zuRcfnTGr8rS5n13nGUIe3mJTXb4=";
-    #  openSha256 = "sha256-mRUTEWVsbjq+psVe+kAT6MjyZuLkG2yRDxCMvDJRL1I=";
-    #  settingsSha256 = "sha256-c30AQa4g4a1EHmaEu1yc05oqY01y+IusbBuq+P6rMCs=";
-    #  persistencedSha256 = lib.fakeSha256;
-    #};
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "555.58.02";
+      sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+      sha256_aarch64 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+      openSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+      settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+      persistencedSha256 = lib.fakeSha256;
+    };
   };
 
   nvidia-container-toolkit.enable = true;
