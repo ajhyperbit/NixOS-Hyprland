@@ -396,6 +396,7 @@ let
   libsForQt5.breeze-gtk
   libsForQt5.qt5ct
   libsForQt5.breeze-icons
+  libsForQt5.oxygen
 
   #Makes other distros available to me
   #distrobox
@@ -483,6 +484,8 @@ let
 
   hyprcursor # requires unstable channel
   
+  #check if running via xwayland or wayland
+  xorg.xwininfo
 
   #Bluetooth
   #blueman
@@ -526,7 +529,7 @@ let
 	    settings = {
 		    General = {
 		      Enable = "Source,Sink,Media,Socket";
-		      Experimental = true;
+		      #Experimental = true;
 		    };
       };
     };
@@ -999,7 +1002,7 @@ let
       wlr.enable = true;
       extraPortals = with pkgs; [ 
         #xdg-desktop-portal
-        #xdg-desktop-portal-kde
+        xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
       ];
     configPackages = [

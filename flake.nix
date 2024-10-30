@@ -18,6 +18,8 @@
       url = "github:numtide/flake-utils";
     };
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes"; 
+
+    stylix.url = "github:danth/stylix";
     #inputs.flake-compat = {
     #  url = "github:edolstra/flake-compat";
     #  flake = false;
@@ -28,6 +30,7 @@ outputs = inputs@{
   self,
   nixpkgs,
   home-manager,
+  stylix,
   ...
   }:
     	let
@@ -63,6 +66,7 @@ outputs = inputs@{
           home-manager.extraSpecialArgs = {inherit inputs self username;};
           home-manager.backupFileExtension = "backup";
         }
+        stylix.nixosModules.stylix
         #wayland.windowManager.hyprland {
         #  enable = true;
         #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
