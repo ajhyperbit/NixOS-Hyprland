@@ -17,11 +17,11 @@ let
   imports = [
     ./hardware.nix
     ./users.nix
-    ../../modules/amd-drivers.nix
-    ../../modules/nvidia-drivers.nix
-    ../../modules/nvidia-prime-drivers.nix
-    ./../modules/intel-drivers.nix
-    ../../modules/vm-guest-services.nix
+    #../../modules/amd-drivers.nix
+    #../../modules/nvidia-drivers.nix
+    #../../modules/nvidia-prime-drivers.nix
+    ../../modules/intel-drivers.nix
+    #../../modules/vm-guest-services.nix
     ../../modules/local-hardware-clock.nix
   ];
 
@@ -36,8 +36,8 @@ let
     #"modprobe.blacklist=sp5100_tco" #watchdog for AMD
     #"modprobe.blacklist=iTCO_wdt" #watchdog for Intel
     "nohibernate"
-    "amd_iommu=on"
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    #"amd_iommu=on"
+    #"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
     tmp.cleanOnBoot = true;
     #supportedFilesystems = ["ntfs"];
@@ -55,9 +55,11 @@ let
     };
 
     initrd = { 
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "uas" "thunderbolt"];
       kernelModules = [ ];
     };
+	
+      kernelModules = [ "kvm-intel" ];
 
     # Make /tmp a tmpfs
     tmp = {
