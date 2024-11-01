@@ -36,6 +36,7 @@ outputs = inputs@{
     	let
       system = "x86_64-linux";
       host = "nixos";
+      #host = "nixtop";
       username = "ajhyperbit";
 
     pkgs = import nixpkgs {
