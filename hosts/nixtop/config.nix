@@ -355,6 +355,7 @@ let
   dconf2nix
   coppwr
   pwvucontrol
+  filezilla
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
@@ -600,10 +601,10 @@ let
   #  };
 
   networking = {
-    hostName = "nixos";
+    hostName = "nixtop";
     networkmanager.enable = true;
     enableIPv6 = false;
-    interfaces.enp6s0.wakeOnLan.enable = true;
+    #interfaces.enp6s0.wakeOnLan.enable = true;
     timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
     firewall.enable = true;
     #Allow VNC and Synergy through firewall
