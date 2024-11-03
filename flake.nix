@@ -71,7 +71,6 @@ outputs = inputs@{
           home-manager.backupFileExtension = "backup";
         }
         stylix.nixosModules.stylix
-        #nixos-hardware.nixosModules.framework-11th-gen-intel
         #wayland.windowManager.hyprland {
         #  enable = true;
         #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
