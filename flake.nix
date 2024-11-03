@@ -17,7 +17,9 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
-    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes"; 
+    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
     #inputs.flake-compat = {
@@ -31,12 +33,13 @@ outputs = inputs@{
   nixpkgs,
   home-manager,
   stylix,
+  nixos-hardware,
   ...
   }:
     	let
       system = "x86_64-linux";
-      #host = "nixos";
-      host = "nixtop";
+      host = "nixos";
+      #host = "nixtop";
       username = "ajhyperbit";
 
     pkgs = import nixpkgs {
@@ -68,6 +71,7 @@ outputs = inputs@{
           home-manager.backupFileExtension = "backup";
         }
         stylix.nixosModules.stylix
+        #nixos-hardware.nixosModules.framework-11th-gen-intel
         #wayland.windowManager.hyprland {
         #  enable = true;
         #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
