@@ -19,7 +19,7 @@
     };
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
     #inputs.flake-compat = {
@@ -33,7 +33,7 @@ outputs = inputs@{
   nixpkgs,
   home-manager,
   stylix,
-  nixos-hardware,
+  #nixos-hardware,
   ...
   }:
     	let
