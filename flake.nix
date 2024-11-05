@@ -22,6 +22,8 @@
     #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
+
+    #nixos-vfio.url = "github:j-brn/nixos-vfio";
     #inputs.flake-compat = {
     #  url = "github:edolstra/flake-compat";
     #  flake = false;
@@ -33,6 +35,7 @@ outputs = inputs@{
   nixpkgs,
   home-manager,
   stylix,
+  #nixos-vfio,
   #nixos-hardware,
   ...
   }:
@@ -71,6 +74,7 @@ outputs = inputs@{
           home-manager.backupFileExtension = "backup";
         }
         stylix.nixosModules.stylix
+        #nixos-vfio.nixosModules.vfio
         #nixos-hardware.nixosModules.framework-11th-gen-intel
         #wayland.windowManager.hyprland {
         #  enable = true;
