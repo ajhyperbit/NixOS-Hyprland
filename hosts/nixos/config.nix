@@ -90,13 +90,29 @@ let
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
       substituters = [
-        "https://nix-gaming.cachix.org" 
-        "https://hyprland.cachix.org"
-        ];
-      trusted-public-keys = [
-        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
+      "https://cache.nixos.org?priority=10"
+
+      #"https://anyrun.cachix.org"
+      #"https://fufexan.cachix.org"
+      #"https://helix.cachix.org"
+      "https://hyprland.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://nix-gaming.cachix.org"
+      #"https://yazi.cachix.org"
+    ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+
+      #"anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      #"fufexan.cachix.org-1:LwCDjCJNJQf5XD2BV+yamQIMZfcKWR9ISIFy5curUsY="
+      #"helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      #"yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+    ];
+
     };
       gc = {
         automatic = true;
@@ -642,10 +658,16 @@ let
     enableIPv6 = false;
     interfaces.enp6s0.wakeOnLan.enable = true;
     timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
-    firewall.enable = true;
+    #firewall.enable = true;
     #Allow VNC and Synergy through firewall
     firewall.allowedTCPPorts = [ 5900 24800 ];
     #firewall.allowedUDPPorts = [ ... ];
+    firewall = {
+    enable = true;
+    trustedInterfaces = ["tailscale0"];
+    # required to connect to Tailscale exit nodes
+    checkReversePath = "loose";
+  };
   };
 
   # Set your time zone.
@@ -689,7 +711,10 @@ let
 
     #gnome.gnome-keyring.enable = true;
 
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      openFirewall = true;
+    };
 
     envfs.enable = true;
 
@@ -935,6 +960,13 @@ let
 		  tumbler
   	  ];
 
+    nh = {
+      enable = true;
+      #clean.enable = true;
+      #clean.extraArgs = "--keep-since 4d --keep 3";
+      #flake = "";
+    };
+
     #KDE window borders fix
     dconf.enable = true;
     #fuse.userAllowOther = true;
@@ -952,7 +984,17 @@ let
       proton-ge-bin
       steamtinkerlaunch
       ];
+      gamescopeSession.enable = true;
     };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+      args = [
+        "--rt"
+        "--expose-wayland"
+      ];
+    };
+    
 
     #Virtualization (Windows VM) #TODO: move to it's own module (unsure if laptop will ever do some kind of Windows VM stuff, might just RDP/Parsec/VNC into it.)
     virt-manager.enable = true;

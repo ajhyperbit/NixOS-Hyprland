@@ -19,6 +19,8 @@
     };
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
+    #fufexan-dotfiles.url = "github:fufexan/dotfiles";
+
     #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
@@ -35,6 +37,7 @@ outputs = inputs@{
   nixpkgs,
   home-manager,
   stylix,
+  #fufexan-dotfiles,
   #nixos-vfio,
   #nixos-hardware,
   ...
@@ -74,6 +77,9 @@ outputs = inputs@{
           home-manager.backupFileExtension = "backup";
         }
         stylix.nixosModules.stylix
+        #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
+        #fufexan-dotfiles.nixosModules.theme
+
         #nixos-vfio.nixosModules.vfio
         #nixos-hardware.nixosModules.framework-11th-gen-intel
         #wayland.windowManager.hyprland {
