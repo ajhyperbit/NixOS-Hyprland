@@ -25,6 +25,8 @@
 
     stylix.url = "github:danth/stylix";
 
+    #github:JaKooLit/NixOS-Hyprland
+
     #nixos-vfio.url = "github:j-brn/nixos-vfio";
     #inputs.flake-compat = {
     #  url = "github:edolstra/flake-compat";
