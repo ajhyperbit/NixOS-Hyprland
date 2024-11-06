@@ -581,25 +581,6 @@ let
 #  nvidia-container-toolkit.enable = true;
   };
 
-  #NOTE: From Chris Titus' configuration.nix
-  #    kernelModules = ["tcp_bbr"];
-  #    kernel.sysctl = {
-  #      "net.ipv4.tcp_congestion_control" = "bbr";
-  #      "net.core.default_qdisc" = "fq";
-  #      "net.core.wmem_max" = 1073741824;
-  #      "net.core.rmem_max" = 1073741824;
-  #      "net.ipv4.tcp_rmem" = "4096 87380 1073741824";
-  #      "net.ipv4.tcp_wmem" = "4096 87380 1073741824";
-  #    };
-  #  };
-
-  #  networking = {
-  #    hostName = "nixos-studio";
-  #    networkmanager.enable = true;
-  #    enableIPv6 = false;
-  #    firewall.enable = false;
-  #  };
-
   networking = {
     hostName = "nixtop";
     networkmanager.enable = true;
@@ -799,16 +780,16 @@ let
     #Hyprland
     hypridle.enable = true;
         
-    #greetd = {
-    #  enable = true;
-    #  vt = 3;
-    #  settings = {
-    #    default_session = {
-    #      user = username;
-    #      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
-    #    };
-    #  };
-    #};
+    greetd = {
+      enable = true;
+      vt = 3;
+      settings = {
+        default_session = {
+          user = username;
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
+        };
+      };
+    };
 
     smartd = {
       enable = false;
@@ -829,34 +810,6 @@ let
 
   };
   
-
-  #NOTE: From Chris Titus' configuration.nix
-  #nixpkgs.overlays = [
-  #  (final: prev: {
-  #    dwm = prev.dwm.overrideAttrs (old: {src = /home/${user}/CTT-Nix/system/dwm-titus;}); #FIX ME: Update with path to your dwm folder
-  #  })
-  #];
-
-  #NOTE: From Chris Titus' configuration.nix
-  #users.users.titus = {
-  #  isNormalUser = true;
-  #  description = "Titus";
-  #  extraGroups = [
-  #    "flatpak"
-  #    "disk"
-  #    "qemu"
-  #    "kvm"
-  #    "libvirtd"
-  #    "sshd"
-  #    "networkmanager"
-  #    "wheel"
-  #    "audio"
-  #    "video"
-  #    "libvirtd"
-  #    "root"
-  #  ];
-  #};
-
   users.users.ajhyperbit = {
     isNormalUser = true;
     description = "AJHyperBit";
