@@ -54,6 +54,8 @@ let
       #timeout = 300;
     };
 
+    kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+
     initrd = { 
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
       kernelModules = [ ];
@@ -270,19 +272,19 @@ let
   };
 
 
-  lib.mkMerge = [{
-    environment.systemPackages = 
-    
-    let
-      winapps =
-        (import (builtins.fetchTarball "https://github.com/winapps-org/winapps/archive/main.tar.gz"))
-        .packages."x86_64-linux";
-    in
-    [
-      winapps.winapps
-      winapps.winapps-launcher # optional
-    ];
-    }];
+  #lib.mkMerge = [{
+  #  environment.systemPackages = 
+  #  
+  #  let
+  #    winapps =
+  #      (import (builtins.fetchTarball "https://github.com/winapps-org/winapps/archive/main.tar.gz"))
+  #      .packages."x86_64-linux";
+  #  in
+  #  [
+  #    winapps.winapps
+  #    winapps.winapps-launcher # optional
+  #  ];
+  #  }];
 
   environment.systemPackages = (with pkgs; [
 

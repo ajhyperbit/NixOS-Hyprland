@@ -17,6 +17,12 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
     #fufexan-dotfiles.url = "github:fufexan/dotfiles";
@@ -39,6 +45,7 @@ outputs = inputs@{
   nixpkgs,
   home-manager,
   stylix,
+  winapps,
   #fufexan-dotfiles,
   #nixos-vfio,
   #nixos-hardware,
@@ -79,6 +86,11 @@ outputs = inputs@{
           home-manager.backupFileExtension = "backup";
         }
         stylix.nixosModules.stylix
+      ({ pkgs, ... }: {
+        environment.systemPackages = [
+          winapps.packages.${system}.winapps
+          winapps.packages.${system}.winapps-launcher # optional
+        ];})
         #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
         #fufexan-dotfiles.nixosModules.theme
 
