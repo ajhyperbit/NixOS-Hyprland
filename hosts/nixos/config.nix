@@ -301,6 +301,8 @@ let
   wget
   google-chrome
   chromium
+  (chromium.override { enableWideVine = true; })
+  floorp
     # System Packages
     baobab
     btrfs-progs
@@ -1122,8 +1124,9 @@ let
       wlr.enable = true;
       extraPortals = with pkgs; [ 
         #xdg-desktop-portal
-        xdg-desktop-portal-kde
+        #xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
+        #xdg-desktop-portal-hyprland
       ];
       xdgOpenUsePortal = true;
     configPackages = [
