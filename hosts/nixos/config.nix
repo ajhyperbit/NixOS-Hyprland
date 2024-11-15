@@ -487,6 +487,7 @@ let
   dconf2nix
   coppwr
   pwvucontrol
+  beekeeper-studio
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
