@@ -209,7 +209,6 @@ let
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
       "noauto" # Do not auto mount, require explict mounting
-      #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
@@ -227,7 +226,6 @@ let
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
       "noauto" # Do not auto mount, require explict mounting
-      #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
@@ -245,7 +243,6 @@ let
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
       "noauto" # Do not auto mount, require explict mounting
-      #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
@@ -263,7 +260,6 @@ let
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
       "noauto" # Do not auto mount, require explict mounting
-      #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
@@ -377,6 +373,9 @@ let
   fastfetch
   ghfetch
   screenfetch
+  cpufetch
+  ramfetch
+  disfetch
   xrdp
   xorg.xinit
   x11vnc
@@ -395,6 +394,10 @@ let
   #canon-cups-ufr2
   #cups-bjnp
   
+  #Torrenting
+  #qbittorrent
+  miru
+
   #Vulkan
   vulkan-loader
   vulkan-validation-layers
@@ -944,6 +947,12 @@ let
     nfs.server.enable = false;
 
 	  upower.enable = true;
+
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+
 
   };
 
