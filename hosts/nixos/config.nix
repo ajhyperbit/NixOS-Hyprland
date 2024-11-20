@@ -208,7 +208,7 @@ let
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
-      "noauto" # Do not auto mount, require explict mounting
+      #"noauto" # Do not auto mount, require explict mounting
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
@@ -225,7 +225,7 @@ let
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
-      "noauto" # Do not auto mount, require explict mounting
+      #"noauto" # Do not auto mount, require explict mounting
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
@@ -242,7 +242,7 @@ let
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
-      "noauto" # Do not auto mount, require explict mounting
+      #"noauto" # Do not auto mount, require explict mounting
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
@@ -259,7 +259,7 @@ let
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
-      "noauto" # Do not auto mount, require explict mounting
+      #"noauto" # Do not auto mount, require explict mounting
       "uid=1000" 
       "gid=100" 
       "dmask=007" 
