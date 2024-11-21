@@ -173,7 +173,7 @@ let
   fileSystems."/run/media/ajhyperbit/SATA SSD" = {
     device = "/dev/disk/by-uuid/c879995c-386a-42c2-bc3b-8d02a03c61de";
     fsType = "ext4";
-    options = [ 
+    options = [
       # If you don't have this options attribute, it'll default to "defaults" 
       # boot options for fstab. Search up fstab mount options you can use
       "users" # Allows any user to mount and unmount
@@ -185,87 +185,87 @@ let
   fileSystems."/run/media/ajhyperbit/Transfer" = {
     device = "/dev/disk/by-uuid/F7F7-F2D7";
     fsType = "exfat";
-    options = [ 
+    options = [
       # If you don't have this options attribute, it'll default to "defaults" 
       # boot options for fstab. Search up fstab mount options you can use
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
       #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
-      "uid=1000" 
-      "gid=100" 
-      "dmask=007" 
+      "uid=1000"
+      "gid=100"
+      "dmask=007"
       "fmask=117"
     ];
   };
 
-  fileSystems."/run/media/ajhyperbit/SATA SSD1" = {
-    device = "/dev/disk/by-uuid/DA4416764416561B";
-    #fsType = "ntfs";
-    options = [ 
-      # If you don't have this options attribute, it'll default to "defaults" 
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-      #"noauto" # Do not auto mount, require explict mounting
-      "uid=1000" 
-      "gid=100" 
-      "dmask=007" 
-      "fmask=117"
-    ];
-  };
+  #fileSystems."/run/media/ajhyperbit/SATA SSD1" = {
+  #  device = "/dev/disk/by-uuid/DA4416764416561B";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
 
-  fileSystems."/run/media/ajhyperbit/DATA" = {
-    device = "/dev/disk/by-uuid/7C120D0C120CCCD8";
-    #fsType = "ntfs";
-    options = [ 
-      # If you don't have this options attribute, it'll default to "defaults" 
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-      #"noauto" # Do not auto mount, require explict mounting
-      "uid=1000" 
-      "gid=100" 
-      "dmask=007" 
-      "fmask=117"
-    ];
-  };
+  #fileSystems."/run/media/ajhyperbit/DATA" = {
+  #  device = "/dev/disk/by-uuid/7C120D0C120CCCD8";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
   
-  fileSystems."/run/media/ajhyperbit/Archive" = {
-    device = "/dev/disk/by-uuid/D6C68616C685F751";
-    #fsType = "ntfs";
-    options = [ 
-      # If you don't have this options attribute, it'll default to "defaults" 
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-      #"noauto" # Do not auto mount, require explict mounting
-      "uid=1000" 
-      "gid=100" 
-      "dmask=007" 
-      "fmask=117"
-    ];
-  };
+  #fileSystems."/run/media/ajhyperbit/Archive" = {
+  #  device = "/dev/disk/by-uuid/D6C68616C685F751";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
 
-  fileSystems."/run/media/ajhyperbit/Windows" = {
-    device = "/dev/disk/by-uuid/80B872A7B8729AFC";
-    #fsType = "ntfs";
-    options = [ 
-      # If you don't have this options attribute, it'll default to "defaults" 
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-      #"noauto" # Do not auto mount, require explict mounting
-      "uid=1000" 
-      "gid=100" 
-      "dmask=007" 
-      "fmask=117"
-    ];
-  };
+  #fileSystems."/run/media/ajhyperbit/Windows" = {
+  #  device = "/dev/disk/by-uuid/80B872A7B8729AFC";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
 
 
   #lib.mkMerge = [{
