@@ -388,6 +388,9 @@ let
   #keepassxc
   #Manage Files as admin
   kdePackages.kio-admin
+  lm_sensors
+  netdata
+  #fanctl
   #Printing #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
   #cups-filters
   #cups-printers
@@ -495,6 +498,8 @@ let
   libsForQt5.qt5ct
   libsForQt5.breeze-icons
   libsForQt5.oxygen
+
+  furmark
 
   #Makes other distros available to me
   #distrobox
@@ -954,6 +959,9 @@ let
       package = pkgs.mariadb;
     };
 
+    #asusd = {
+    #  enable = true;
+    #};
 
   };
 
@@ -1035,6 +1043,9 @@ let
       ];
     };
     
+    coolercontrol.enable = true;
+
+    #rog-control-center.enable = true;
 
     #Virtualization (Windows VM) #TODO: move to it's own module (unsure if laptop will ever do some kind of Windows VM stuff, might just RDP/Parsec/VNC into it.)
     virt-manager.enable = true;
@@ -1054,7 +1065,7 @@ let
   
     nix-ld = {
       enable = true;
-      libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+      #libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
     };
   };
 
@@ -1262,9 +1273,42 @@ let
 	#  cpuFreqGovernor = "schedutil";
   #};
 
-  hardware.logitech.wireless = {
-    enable = true;
-    enableGraphical = true;
+  hardware = {
+    logitech.wireless = {
+      enable = true;
+      enableGraphical = true;
+    };
+    #fancontrol = {
+    #  enable = true;
+    #};
+    #uni-sync = {
+    #  enable = true;
+    #  devices = 
+    #  [
+    #    {
+    #      device_id = "VID:3314/PID:41216/SN:6243168001";
+    #      sync_rgb = true;
+    #      channels = [
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #      ];
+    #    }
+    #  ];
+    #};
   };
 
 
