@@ -282,6 +282,8 @@ let
   #  ];
   #  }];
 
+  #ANCHOR Packages
+
   environment.systemPackages = (with pkgs; [
 
   #(catppuccin-sddm.override {
@@ -291,6 +293,8 @@ let
   #  #background = "${./wallpaper.png}";
   #  loginBackground = true;
   #  })
+
+  #TODO Refactor
 
   neovim  
   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -490,7 +494,9 @@ let
   dconf2nix
   coppwr
   pwvucontrol
-  beekeeper-studio
+  #School
+  beekeeper-studio 
+  onedrivegui
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
@@ -508,7 +514,7 @@ let
     ags        
     btop
     brightnessctl # for brightness control
-    cava
+    #cava
     #cliphist
     #eog
     eog
@@ -760,6 +766,8 @@ let
   #  useXkbConfig = true;
   #};
 
+  #ANCHOR - Services
+
   services = {
     # Enable the OpenSSH daemon.
     openssh = {
@@ -959,6 +967,8 @@ let
       package = pkgs.mariadb;
     };
 
+    onedrive.enable = true;
+
     #asusd = {
     #  enable = true;
     #};
@@ -984,6 +994,8 @@ let
       "greeter"
     ];
   };
+
+  #ANCHOR - Programs
 
   programs ={
     
@@ -1070,7 +1082,7 @@ let
   };
 
 
-  environment= {
+  environment = {
     #shellAliases = {
     #  google-chrome = "google-chrome-stable"
     #};
@@ -1278,6 +1290,7 @@ let
       enable = true;
       enableGraphical = true;
     };
+
     #fancontrol = {
     #  enable = true;
     #};
