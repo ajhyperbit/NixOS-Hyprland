@@ -494,9 +494,7 @@ let
   dconf2nix
   coppwr
   pwvucontrol
-  #School
-  beekeeper-studio 
-  onedrivegui
+  dmidecode
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
@@ -506,6 +504,14 @@ let
   libsForQt5.oxygen
 
   furmark
+
+  #School
+  libreoffice-qt
+    hunspell
+    hunspellDicts.en_US
+    hunspellDicts.en-us
+  beekeeper-studio 
+  onedrivegui
 
   #Makes other distros available to me
   #distrobox
