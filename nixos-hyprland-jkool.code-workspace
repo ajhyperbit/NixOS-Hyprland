@@ -18,6 +18,9 @@
 		},
 		{
 			"path": "../dotfiles/nixos"
+		},
+		{
+			"path": "../Hyprland-Dots"
 		}
 	],
 	"settings": {}
