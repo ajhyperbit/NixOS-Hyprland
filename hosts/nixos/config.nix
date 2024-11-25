@@ -11,7 +11,7 @@ let
         requests
         pyquery # needed for hyprland-dots Weather script
         ]
-    );
+  );
   
   in {
   imports = [
@@ -54,6 +54,8 @@ let
       #timeout = 300;
     };
 
+    kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+
     initrd = { 
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
       kernelModules = [ ];
@@ -90,13 +92,29 @@ let
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
       substituters = [
-        "https://nix-gaming.cachix.org" 
-        "https://hyprland.cachix.org"
-        ];
-      trusted-public-keys = [
-        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
+      "https://cache.nixos.org?priority=10"
+
+      #"https://anyrun.cachix.org"
+      #"https://fufexan.cachix.org"
+      #"https://helix.cachix.org"
+      "https://hyprland.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://nix-gaming.cachix.org"
+      #"https://yazi.cachix.org"
+    ];
+
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+
+      #"anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      #"fufexan.cachix.org-1:LwCDjCJNJQf5XD2BV+yamQIMZfcKWR9ISIFy5curUsY="
+      #"helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      #"yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+    ];
+
     };
       gc = {
         automatic = true;
@@ -155,46 +173,116 @@ let
   fileSystems."/run/media/ajhyperbit/SATA SSD" = {
     device = "/dev/disk/by-uuid/c879995c-386a-42c2-bc3b-8d02a03c61de";
     fsType = "ext4";
-    options = [ 
+    options = [
       # If you don't have this options attribute, it'll default to "defaults" 
       # boot options for fstab. Search up fstab mount options you can use
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
-    
     ];
   };
 
   fileSystems."/run/media/ajhyperbit/Transfer" = {
     device = "/dev/disk/by-uuid/F7F7-F2D7";
     fsType = "exfat";
-    options = [ 
+    options = [
       # If you don't have this options attribute, it'll default to "defaults" 
       # boot options for fstab. Search up fstab mount options you can use
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
       #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
-      "uid=1000" 
-      "gid=100" 
-      "dmask=007" 
+      "uid=1000"
+      "gid=100"
+      "dmask=007"
       "fmask=117"
     ];
   };
 
-  lib.mkMerge = [{
-    environment.systemPackages = 
-    
-    let
-      winapps =
-        (import (builtins.fetchTarball "https://github.com/winapps-org/winapps/archive/main.tar.gz"))
-        .packages."x86_64-linux";
-    in
-    [
-      winapps.winapps
-      winapps.winapps-launcher # optional
-    ];
-    }];
+  #fileSystems."/run/media/ajhyperbit/SATA SSD1" = {
+  #  device = "/dev/disk/by-uuid/DA4416764416561B";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
+
+  #fileSystems."/run/media/ajhyperbit/DATA" = {
+  #  device = "/dev/disk/by-uuid/7C120D0C120CCCD8";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
+  
+  #fileSystems."/run/media/ajhyperbit/Archive" = {
+  #  device = "/dev/disk/by-uuid/D6C68616C685F751";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
+
+  #fileSystems."/run/media/ajhyperbit/Windows" = {
+  #  device = "/dev/disk/by-uuid/80B872A7B8729AFC";
+  #  #fsType = "ntfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults" 
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #"noauto" # Do not auto mount, require explict mounting
+  #    #"uid=1000"
+  #    #"gid=100"
+  #    #"dmask=007"
+  #    #"fmask=117"
+  #  ];
+  #};
+
+
+  #lib.mkMerge = [{
+  #  environment.systemPackages = 
+  #  
+  #  let
+  #    winapps =
+  #      (import (builtins.fetchTarball "https://github.com/winapps-org/winapps/archive/main.tar.gz"))
+  #      .packages."x86_64-linux";
+  #  in
+  #  [
+  #    winapps.winapps
+  #    winapps.winapps-launcher # optional
+  #  ];
+  #  }];
+
+  #ANCHOR Packages
 
   environment.systemPackages = (with pkgs; [
 
@@ -206,11 +294,15 @@ let
   #  loginBackground = true;
   #  })
 
+  #TODO Refactor
+
   neovim  
   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   wget
   google-chrome
   chromium
+  (chromium.override { enableWideVine = true; })
+  floorp
     # System Packages
     baobab
     btrfs-progs
@@ -285,6 +377,9 @@ let
   fastfetch
   ghfetch
   screenfetch
+  cpufetch
+  ramfetch
+  disfetch
   xrdp
   xorg.xinit
   x11vnc
@@ -297,12 +392,19 @@ let
   #keepassxc
   #Manage Files as admin
   kdePackages.kio-admin
+  lm_sensors
+  netdata
+  #fanctl
   #Printing #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
   #cups-filters
   #cups-printers
   #canon-cups-ufr2
   #cups-bjnp
   
+  #Torrenting
+  #qbittorrent
+  miru
+
   #Vulkan
   vulkan-loader
   vulkan-validation-layers
@@ -392,6 +494,7 @@ let
   dconf2nix
   coppwr
   pwvucontrol
+  dmidecode
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
@@ -400,6 +503,16 @@ let
   libsForQt5.breeze-icons
   libsForQt5.oxygen
 
+  furmark
+
+  #School
+  libreoffice-qt
+    hunspell
+    hunspellDicts.en_US
+    hunspellDicts.en-us
+  beekeeper-studio 
+  onedrivegui
+
   #Makes other distros available to me
   #distrobox
   
@@ -407,7 +520,7 @@ let
     ags        
     btop
     brightnessctl # for brightness control
-    cava
+    #cava
     #cliphist
     #eog
     eog
@@ -617,35 +730,22 @@ let
 #  nvidia-container-toolkit.enable = true;
   };
 
-  #NOTE: From Chris Titus' configuration.nix
-  #    kernelModules = ["tcp_bbr"];
-  #    kernel.sysctl = {
-  #      "net.ipv4.tcp_congestion_control" = "bbr";
-  #      "net.core.default_qdisc" = "fq";
-  #      "net.core.wmem_max" = 1073741824;
-  #      "net.core.rmem_max" = 1073741824;
-  #      "net.ipv4.tcp_rmem" = "4096 87380 1073741824";
-  #      "net.ipv4.tcp_wmem" = "4096 87380 1073741824";
-  #    };
-  #  };
-
-  #  networking = {
-  #    hostName = "nixos-studio";
-  #    networkmanager.enable = true;
-  #    enableIPv6 = false;
-  #    firewall.enable = false;
-  #  };
-
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
     enableIPv6 = false;
     interfaces.enp6s0.wakeOnLan.enable = true;
     timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
-    firewall.enable = true;
+    #firewall.enable = true;
     #Allow VNC and Synergy through firewall
     firewall.allowedTCPPorts = [ 5900 24800 ];
     #firewall.allowedUDPPorts = [ ... ];
+    firewall = {
+    enable = true;
+    trustedInterfaces = ["tailscale0"];
+    # required to connect to Tailscale exit nodes
+    checkReversePath = "loose";
+  };
   };
 
   # Set your time zone.
@@ -672,6 +772,8 @@ let
   #  useXkbConfig = true;
   #};
 
+  #ANCHOR - Services
+
   services = {
     # Enable the OpenSSH daemon.
     openssh = {
@@ -689,7 +791,10 @@ let
 
     #gnome.gnome-keyring.enable = true;
 
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      openFirewall = true;
+    };
 
     envfs.enable = true;
 
@@ -835,16 +940,16 @@ let
     #Hyprland
     hypridle.enable = true;
         
-    #greetd = {
-    #  enable = true;
-    #  vt = 3;
-    #  settings = {
-    #    default_session = {
-    #      user = username;
-    #      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
-    #    };
-    #  };
-    #};
+    greetd = {
+      enable = true;
+      vt = 3;
+      settings = {
+        default_session = {
+          user = username;
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
+        };
+      };
+    };
 
     smartd = {
       enable = false;
@@ -863,35 +968,18 @@ let
 
 	  upower.enable = true;
 
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+
+    onedrive.enable = true;
+
+    #asusd = {
+    #  enable = true;
+    #};
+
   };
-  
-
-  #NOTE: From Chris Titus' configuration.nix
-  #nixpkgs.overlays = [
-  #  (final: prev: {
-  #    dwm = prev.dwm.overrideAttrs (old: {src = /home/${user}/CTT-Nix/system/dwm-titus;}); #FIX ME: Update with path to your dwm folder
-  #  })
-  #];
-
-  #NOTE: From Chris Titus' configuration.nix
-  #users.users.titus = {
-  #  isNormalUser = true;
-  #  description = "Titus";
-  #  extraGroups = [
-  #    "flatpak"
-  #    "disk"
-  #    "qemu"
-  #    "kvm"
-  #    "libvirtd"
-  #    "sshd"
-  #    "networkmanager"
-  #    "wheel"
-  #    "audio"
-  #    "video"
-  #    "libvirtd"
-  #    "root"
-  #  ];
-  #};
 
   users.users.ajhyperbit = {
     isNormalUser = true;
@@ -908,9 +996,12 @@ let
       "audio"
       "video"
       "libvirtd"
-      "root" 
+      "root"
+      "greeter"
     ];
   };
+
+  #ANCHOR - Programs
 
   programs ={
     
@@ -935,6 +1026,13 @@ let
 		  tumbler
   	  ];
 
+    nh = {
+      enable = true;
+      #clean.enable = true;
+      #clean.extraArgs = "--keep-since 4d --keep 3";
+      #flake = "";
+    };
+
     #KDE window borders fix
     dconf.enable = true;
     #fuse.userAllowOther = true;
@@ -952,7 +1050,20 @@ let
       proton-ge-bin
       steamtinkerlaunch
       ];
+      gamescopeSession.enable = true;
     };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+      args = [
+        "--rt"
+        "--expose-wayland"
+      ];
+    };
+    
+    coolercontrol.enable = true;
+
+    #rog-control-center.enable = true;
 
     #Virtualization (Windows VM) #TODO: move to it's own module (unsure if laptop will ever do some kind of Windows VM stuff, might just RDP/Parsec/VNC into it.)
     virt-manager.enable = true;
@@ -972,12 +1083,12 @@ let
   
     nix-ld = {
       enable = true;
-      libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+      #libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
     };
   };
 
 
-  environment= {
+  environment = {
     #shellAliases = {
     #  google-chrome = "google-chrome-stable"
     #};
@@ -1052,8 +1163,9 @@ let
       wlr.enable = true;
       extraPortals = with pkgs; [ 
         #xdg-desktop-portal
-        xdg-desktop-portal-kde
+        #xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
+        #xdg-desktop-portal-hyprland
       ];
       xdgOpenUsePortal = true;
     configPackages = [
@@ -1179,9 +1291,43 @@ let
 	#  cpuFreqGovernor = "schedutil";
   #};
 
-  hardware.logitech.wireless = {
-    enable = true;
-    enableGraphical = true;
+  hardware = {
+    logitech.wireless = {
+      enable = true;
+      enableGraphical = true;
+    };
+
+    #fancontrol = {
+    #  enable = true;
+    #};
+    #uni-sync = {
+    #  enable = true;
+    #  devices = 
+    #  [
+    #    {
+    #      device_id = "VID:3314/PID:41216/SN:6243168001";
+    #      sync_rgb = true;
+    #      channels = [
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #        {
+    #          mode = "Manual";
+    #          speed = 100;
+    #        }
+    #      ];
+    #    }
+    #  ];
+    #};
   };
 
 

@@ -11,7 +11,7 @@ let
         requests
         pyquery # needed for hyprland-dots Weather script
         ]
-    );
+  );
   
   in {
   imports = [
@@ -968,14 +968,14 @@ let
       enable = true;
       wlr.enable = true;
       extraPortals = with pkgs; [ 
-        #xdg-desktop-portal
-        xdg-desktop-portal-kde
-        xdg-desktop-portal-gtk
+        #xdg-desktop-portals
+        #xdg-desktop-portal-kde
+        #xdg-desktop-portal-gtk
       ];
       xdgOpenUsePortal = true;
     configPackages = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal
+      #pkgs.xdg-desktop-portal-gtk
+      #pkgs.xdg-desktop-portal
     ];
 
     config = {

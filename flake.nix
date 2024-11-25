@@ -22,6 +22,15 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
+
+    #nixpkgs-pr355948.url = "github:NixOS/nixpkgs/bdd6ddd20d7f5ff12ef5a8156603550516d9d5c2"; #FIXME: Try yeeting this part on 11/25/24, otherwise wait till 12/5/24, and it'll probably be fixed
+    #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
+    #master.url = "github:nixos/nixpkgs/master";
+
+    #github:JaKooLit/NixOS-Hyprland
+
+    #nixos-vfio.url = "github:j-brn/nixos-vfio";
     #inputs.flake-compat = {
     #  url = "github:edolstra/flake-compat";
     #  flake = false;
@@ -36,11 +45,11 @@ outputs = inputs@{
   nixos-hardware,
   ...
   }:
-    	let
-      system = "x86_64-linux";
-      host = "nixos";
-      #host = "nixtop";
-      username = "ajhyperbit";
+    let
+    system = "x86_64-linux";
+    #host = "nixos";
+    host = "nixtop";
+    username = "ajhyperbit";
 
     pkgs = import nixpkgs {
        	inherit system;
@@ -61,7 +70,7 @@ outputs = inputs@{
         inherit self;
         };
       modules = [
-				./hosts/${host}/config.nix 
+				./hosts/${host}/config.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -71,6 +80,16 @@ outputs = inputs@{
           home-manager.backupFileExtension = "backup";
         }
         stylix.nixosModules.stylix
+      ({ pkgs, ... }: {
+        environment.systemPackages = [
+          winapps.packages.${system}.winapps
+          winapps.packages.${system}.winapps-launcher # optional
+        ];})
+        #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
+        #fufexan-dotfiles.nixosModules.theme
+
+        #nixos-vfio.nixosModules.vfio
+        #nixos-hardware.nixosModules.framework-11th-gen-intel
         #wayland.windowManager.hyprland {
         #  enable = true;
         #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
