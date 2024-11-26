@@ -23,7 +23,6 @@
 
     stylix.url = "github:danth/stylix";
 
-    #nixpkgs-pr355948.url = "github:NixOS/nixpkgs/bdd6ddd20d7f5ff12ef5a8156603550516d9d5c2"; #FIXME: Try yeeting this part on 11/25/24, otherwise wait till 12/5/24, and it'll probably be fixed
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
     #master.url = "github:nixos/nixpkgs/master";
