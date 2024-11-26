@@ -17,6 +17,7 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+    
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -81,8 +82,6 @@ outputs = inputs@{
         stylix.nixosModules.stylix
       ({ pkgs, ... }: {
         environment.systemPackages = [
-          winapps.packages.${system}.winapps
-          winapps.packages.${system}.winapps-launcher # optional
         ];})
         #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
         #fufexan-dotfiles.nixosModules.theme
