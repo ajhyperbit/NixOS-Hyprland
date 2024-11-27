@@ -920,15 +920,15 @@ let
                 ];
               };
             };
-          };
+        };
       };
 
     #Auto CPU Freq
     #auto-cpufreq.enable = true;
     # Fwupd # Firmware updater
-    fwupd = {
-      enable = true;
-    };
+    #fwupd = {
+    #  enable = true;
+    #};
         #Printing 
         #TODO: look into gutenprint and brlaser and/or pkgs.brgenml1lpr and pkgs.brgenml1cupswrapper for brother printers)
         #TODO: add this link into a future compiled file https://askubuntu.com/questions/1090410/16-04-how-do-i-install-canon-pixma-mg3620-driver
@@ -1065,7 +1065,7 @@ let
       ];
     };
     
-    coolercontrol.enable = true;
+    #coolercontrol.enable = true;
 
     #rog-control-center.enable = true;
 
