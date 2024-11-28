@@ -877,6 +877,8 @@ let
   };
   };
 
+    services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
+
   # zram
   zramSwap = {
 	  enable = true;
