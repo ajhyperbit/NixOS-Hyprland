@@ -517,10 +517,10 @@ let
   #distrobox
   
   # Hyprland Stuff
-      (ags.overrideAttrs (oldAttrs: {
-        inherit (oldAttrs) pname;
-        version = "1.8.2";
-      }))
+    (ags.overrideAttrs (oldAttrs: {
+      inherit (oldAttrs) pname;
+      version = "1.8.2";
+    }))
     #ags
     btop
     brightnessctl # for brightness control
@@ -920,15 +920,15 @@ let
                 ];
               };
             };
-          };
+        };
       };
 
     #Auto CPU Freq
     #auto-cpufreq.enable = true;
     # Fwupd # Firmware updater
-    fwupd = {
-      enable = true;
-    };
+    #fwupd = {
+    #  enable = true;
+    #};
         #Printing 
         #TODO: look into gutenprint and brlaser and/or pkgs.brgenml1lpr and pkgs.brgenml1cupswrapper for brother printers)
         #TODO: add this link into a future compiled file https://askubuntu.com/questions/1090410/16-04-how-do-i-install-canon-pixma-mg3620-driver
@@ -1065,7 +1065,7 @@ let
       ];
     };
     
-    coolercontrol.enable = true;
+    #coolercontrol.enable = true;
 
     #rog-control-center.enable = true;
 
@@ -1279,6 +1279,9 @@ let
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
+
+  services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
+  
   };
 
   # zram
