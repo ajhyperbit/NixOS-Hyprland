@@ -875,10 +875,11 @@ let
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
-  };
 
     services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
-
+  
+  };
+  
   # zram
   zramSwap = {
 	  enable = true;
