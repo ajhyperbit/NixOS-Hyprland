@@ -312,7 +312,7 @@ let
     ags        
     btop
     brightnessctl # for brightness control
-    cava
+    #cava
     #cliphist
     eog
     gnome-system-monitor
@@ -458,6 +458,7 @@ let
   };
 
   services = {
+    desktopManager.plasma6.enable = true;
     # Enable the OpenSSH daemon.
     openssh = {
       enable = true;
@@ -501,7 +502,6 @@ let
       };
 
       #desktopManager.plasma5.enable = true;
-      desktopManager.plasma6.enable = true;
 
       displayManager = {
         #x11VNC / VNC
@@ -684,7 +684,7 @@ let
   
     nix-ld = {
       enable = true;
-      libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+      #libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
     };
   };
 
