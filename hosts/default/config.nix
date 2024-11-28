@@ -11,7 +11,7 @@ let
         requests
         pyquery # needed for hyprland-dots Weather script
         ]
-    );
+  );
   
   in {
   imports = [
