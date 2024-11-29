@@ -664,7 +664,7 @@ let
       };
     };
 
-    nvidia.nvidiaPersistenced = lib.mkForce true;
+    #nvidia.nvidiaPersistenced = lib.mkForce true;
 
 #    opengl = {
 #      enable = true;
