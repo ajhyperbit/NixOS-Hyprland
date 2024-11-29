@@ -663,6 +663,9 @@ let
 		    };
       };
     };
+
+    nvidia.nvidiaPersistenced = true;
+
 #    opengl = {
 #      enable = true;
 #      driSupport32Bit = lib.mkDefault true;
