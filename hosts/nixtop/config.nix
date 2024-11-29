@@ -2,10 +2,7 @@
 
 { config, pkgs, host, username, options, lib, inputs, system, ...}: 
 
-lib.mkMerge [
-
 let
-  
   inherit (import ./variables.nix) keyboardLayout;
   python-packages = pkgs.python3.withPackages (
     ps:
@@ -16,6 +13,7 @@ let
   );
   
   in {
+  lib.mkMerge = [{
   imports = [
     ./hardware.nix
     ./users.nix
@@ -79,4 +77,5 @@ let
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 }
-]
+];
+}
