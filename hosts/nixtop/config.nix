@@ -5,7 +5,6 @@
 lib.mkMerge [
 
 let
-  host = "nixtop";
   
   inherit (import ./variables.nix) keyboardLayout;
   python-packages = pkgs.python3.withPackages (
@@ -42,6 +41,8 @@ let
   };
 
   drivers.intel.enable = true;
+
+  hardware.networking.hostName = "nixtop";
 
   services = {
   };

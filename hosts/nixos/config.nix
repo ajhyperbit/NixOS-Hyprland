@@ -48,6 +48,8 @@ let
   drivers.nvidia.enable = true;
   #vm.guest-services.enable = false;
 
+  hardware.networking.hostName = "nixos";
+
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
