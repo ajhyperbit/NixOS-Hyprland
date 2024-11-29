@@ -983,6 +983,11 @@ let
     #  enable = true;
     #};
 
+    sunshine = {
+      enable = true;
+      openFirewall = true;
+    };
+
   };
 
   users.users.ajhyperbit = {
