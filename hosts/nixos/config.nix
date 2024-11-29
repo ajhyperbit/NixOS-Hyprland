@@ -1008,6 +1008,7 @@ let
       "libvirtd"
       "root"
       "greeter"
+      "uinput"
     ];
   };
 
