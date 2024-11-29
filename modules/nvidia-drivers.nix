@@ -74,7 +74,7 @@ hardware = {
 
     #dynamicBoost.enable = true; # Dynamic Boost
 
-    nvidiaPersistenced = false;
+    nvidiaPersistenced = mkDefault false;
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
