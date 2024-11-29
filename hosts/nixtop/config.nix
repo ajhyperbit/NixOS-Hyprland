@@ -298,6 +298,7 @@ let
   pwvucontrol
   filezilla
   miru
+  moonlight
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
