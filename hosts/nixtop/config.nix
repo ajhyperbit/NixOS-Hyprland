@@ -146,9 +146,7 @@ let
 
 
   #Games
-  steam
     gamescope
-  steamtinkerlaunch
   rare
   protonup-qt
     #For Need for Speed Most Wanted
