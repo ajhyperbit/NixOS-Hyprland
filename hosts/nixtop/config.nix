@@ -36,6 +36,7 @@ let
     #"modprobe.blacklist=sp5100_tco" #watchdog for AMD
     #"modprobe.blacklist=iTCO_wdt" #watchdog for Intel
     "nohibernate"
+    "i915.force_probe=9a49"
     ];
     tmp.cleanOnBoot = true;
     #supportedFilesystems = ["ntfs"];
