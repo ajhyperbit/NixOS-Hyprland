@@ -989,6 +989,8 @@ let
       capSysAdmin = true;
     };
 
+    seatd.enable = true;
+
   };
 
   users.users.ajhyperbit = {
