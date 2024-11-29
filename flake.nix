@@ -71,6 +71,7 @@ outputs = inputs@{
         };
       modules = [
 				./hosts/${host}/config.nix
+        nixos-hardware.nixosModules.framework-11th-gen-intel
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -87,7 +88,6 @@ outputs = inputs@{
         #fufexan-dotfiles.nixosModules.theme
 
         #nixos-vfio.nixosModules.vfio
-        #nixos-hardware.nixosModules.framework-11th-gen-intel
         #wayland.windowManager.hyprland {
         #  enable = true;
         #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
