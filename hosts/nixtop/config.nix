@@ -175,7 +175,7 @@ let
     })
   smartmontools
   gsmartcontrol
-  gnome.gnome-disk-utility
+  gnome-disk-utility
   busybox
 
   #System tools
