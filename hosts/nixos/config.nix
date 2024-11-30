@@ -354,6 +354,7 @@ let
       winetricks
     ];
     })
+  smartmontools
   gsmartcontrol
 
   #System tools
