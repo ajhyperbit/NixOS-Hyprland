@@ -176,8 +176,8 @@ let
   smartmontools
   gsmartcontrol
   gnome-disk-utility
-  busybox
   usbutils
+  busybox
 
   #System tools
   gparted
