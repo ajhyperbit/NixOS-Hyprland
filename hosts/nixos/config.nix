@@ -354,6 +354,7 @@ let
       winetricks
     ];
     })
+  smartmontools
   gsmartcontrol
 
   #System tools
@@ -663,6 +664,9 @@ let
 		    };
       };
     };
+
+    #nvidia.nvidiaPersistenced = lib.mkForce true;
+
 #    opengl = {
 #      enable = true;
 #      driSupport32Bit = lib.mkDefault true;
@@ -952,6 +956,10 @@ let
           user = username;
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
         };
+        initial_session = {
+          user = username;
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
+        };
       };
     };
 
@@ -983,6 +991,14 @@ let
     #  enable = true;
     #};
 
+    sunshine = {
+      enable = true;
+      openFirewall = true;
+      capSysAdmin = true;
+    };
+
+    seatd.enable = true;
+
   };
 
   users.users.ajhyperbit = {
@@ -1002,6 +1018,7 @@ let
       "libvirtd"
       "root"
       "greeter"
+      "uinput"
     ];
   };
 
