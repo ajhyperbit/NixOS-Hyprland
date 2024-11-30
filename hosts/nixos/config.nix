@@ -356,6 +356,7 @@ let
     })
   smartmontools
   gsmartcontrol
+  gnome.gnome-disk-utility
 
   #System tools
   gparted
