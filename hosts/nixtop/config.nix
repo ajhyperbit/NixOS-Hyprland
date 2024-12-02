@@ -36,22 +36,13 @@ let
     #"modprobe.blacklist=sp5100_tco" #watchdog for AMD
     #"modprobe.blacklist=iTCO_wdt" #watchdog for Intel
     "nohibernate"
-    #"amd_iommu=on"
-    #"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "i915.force_probe=9a49"
     ];
     tmp.cleanOnBoot = true;
     #supportedFilesystems = ["ntfs"];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-      #grub = {
-      #  device = "nodev";
-      #  efiSupport = true;
-      #  enable = true;
-      #  useOSProber = true;
-      #  timeoutStyle = "menu";
-      #};
-      #timeout = 300;
     };
 
     initrd = { 
@@ -81,9 +72,7 @@ let
 
   };
 
-  #drivers.nvidia.enable = true;
   drivers.intel.enable = true;
-  #vm.guest-services.enable = false;
   local.hardware-clock.enable = true;
 
 
@@ -111,39 +100,8 @@ let
   nixpkgs = {
     config = {
       allowUnfree = true;
-  #    allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"];
-  #    packageOverrides = pkgs: {
-  #      
-  #      #Make unstable packages available
-  #      unstable = import (fetchTarball {
-  #        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  #        sha256 = "17pikpqk1icgy4anadd9yg3plwfrsmfwv1frwm78jg2rf84jcmq2";
-  #      }) {config = { allowUnfree = true; };};
-  #      
-  #      #old_chrome = import (fetchTarball {
-  #      #  url = "https://github.com/nixos/nixpkgs/archive/f02fa2f654c7bcc45f0e815c29d093da7f1245b4.tar.gz";
-  #      #  sha256 = "";
-  #      #}) {config = { allowUnfree = true; };};
-  #
-  #  };
-    
-    
-    #overlays = [
-    #  (self: super: {
-    #    google-chrome = super.google-chrome.override {
-    #      commandLineArgs =
-    #        "--password-store=basic";
-    #    };
-    #  })
-    #];
-
     };
   };
-
-  #fileSystems."/" = {
-  #  device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
-  #  fsType = "ext4";
-  #};
 
   lib.mkMerge = [{
     environment.systemPackages = 
@@ -160,14 +118,6 @@ let
     }];
 
   environment.systemPackages = (with pkgs; [
-
-  #(catppuccin-sddm.override {
-  #  flavor = "mocha";
-  #  font  = "Noto Sans";
-  #  fontSize = "9";
-  #  #background = "${./wallpaper.png}";
-  #  loginBackground = true;
-  #  })
 
   neovim  
   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -197,9 +147,7 @@ let
 
 
   #Games
-  steam
     gamescope
-  steamtinkerlaunch
   rare
   protonup-qt
     #For Need for Speed Most Wanted
@@ -225,7 +173,11 @@ let
       winetricks
     ];
     })
+  smartmontools
   gsmartcontrol
+  gnome-disk-utility
+  usbutils
+  busybox
 
   #System tools
   gparted
@@ -314,8 +266,6 @@ let
     gittyup
     gh
   vscode-fhs
-  #quickemu
-  #quickgui
   direnv
   python3Full
 	python312Packages.pip
@@ -323,7 +273,6 @@ let
   docker
   nodejs_22
   obsidian
-  #synergy
 
   #Twitch
   chatterino2
@@ -332,10 +281,8 @@ let
   spotify
   parsec-bin
   unrar
-  #zenith-nvidia
   clinfo
   gwe
-  #nvtopPackages.nvidia
   virtualglLib
   tailscale
   parsec-bin
@@ -350,12 +297,13 @@ let
   xclicker
   #Calculators
   kdePackages.kcalc
-  #qalculate-qt
   lastpass-cli
   dconf2nix
   coppwr
   pwvucontrol
   filezilla
+  miru
+  moonlight-qt
 
   libsForQt5.kde-gtk-config
   libsForQt5.breeze-qt5
@@ -363,17 +311,13 @@ let
   libsForQt5.qt5ct
   libsForQt5.breeze-icons
   libsForQt5.oxygen
-
-  #Makes other distros available to me
-  #distrobox
   
   # Hyprland Stuff
     ags        
     btop
     brightnessctl # for brightness control
-    cava
+    #cava
     #cliphist
-    #eog
     eog
     gnome-system-monitor
     #file-roller
@@ -448,10 +392,6 @@ let
   
   #Polkit agent
   polkit
-  #libsForQt5.polkit-qt
-  #kdePackages.polkit-qt-1
-  #libsForQt5.polkit-kde-agent
-  #kdePackages.polkit-kde-agent-1
   polkit_gnome
 
   hyprcursor # requires unstable channel
@@ -463,30 +403,9 @@ let
   #blueman
   overskride
 
-  #Compilers
-  #gcc
-  #clang
-  #nvc
-
-  #glib
-  #cmake
-  #pkg-config
-
   #Libraries
   libsecret
   egl-wayland
-
-  #gobject-introspection
-  #dbus-glib
-  #gtk4
-  #gtk3
-  #gjs
-  #libpulseaudio
-  #pam
-  #typescript
-  #ninja
-  #axel
-  #tinyxml-2
 
   ]) ++ [
 	  python-packages
@@ -510,75 +429,6 @@ let
 		    };
       };
     };
-#    opengl = {
-#      enable = true;
-#      driSupport32Bit = lib.mkDefault true;
-#      
-#      #---------------------------------------------------------------------
-#      # Install additional packages that improve graphics performance and compatibility.
-#      #---------------------------------------------------------------------
-#      extraPackages = with pkgs; [
-#        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-#        libvdpau
-#        libvdpau-va-gl
-#        vdpauinfo
-#        nvidia-vaapi-driver
-#        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-#        vaapiVdpau
-#        #vulkan-validation-layers
-#  	    libva
-# 		    libva-utils		
-#      ];
-#      graphics = {
-#        enable = true;
-#        enable32Bit = lib.mkDefault true;
-#        #---------------------------------------------------------------------
-#        # Install additional packages that improve graphics performance and compatibility.
-#        #---------------------------------------------------------------------
-#        extraPackages = with pkgs; [
-#          intel-media-driver # LIBVA_DRIVER_NAME=iHD
-#          libvdpau-va-gl
-#          nvidia-vaapi-driver
-#          vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-#          vaapiVdpau
-#          vulkan-validation-layers
-#        ];
-#      
-#    };
-
-#    nvidia = {
-#
-#    # Modesetting is required.
-#    modesetting.enable = true;
-#
-#    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-#    # Enable this if you have graphical corruption issues or application crashes after waking
-#    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
-#    # of just the bare essentials.
-#    powerManagement.enable = false;
-#
-#    # Fine-grained power management. Turns off GPU when not in use.
-#    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-#    powerManagement.finegrained = false;
-#
-#    # Use the NVidia open source kernel module (not to be confused with the
-#    # independent third-party "nouveau" open source driver).
-#    # Support is limited to the Turing and later architectures. Full list of 
-#    # supported GPUs is at: 
-#    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-#    # Only available from driver 515.43.04+
-#    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-#    open = false;
-#
-#    # Enable the Nvidia settings menu,
-#	# accessible via `nvidia-settings`.
-#    nvidiaSettings = true;
-#
-#    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-#    package = config.boot.kernelPackages.nvidiaPackages.stable;
-#  };
-#
-#  nvidia-container-toolkit.enable = true;
   };
 
   networking = {
@@ -611,13 +461,8 @@ let
   };
   };
 
-  #console = {
-  #  packages = [pkgs.terminus_font];
-  #  font = "${pkgs.terminus_font}/share/consolefonts/ter-i22b.psf.gz";
-  #  useXkbConfig = true;
-  #};
-
   services = {
+    desktopManager.plasma6.enable = true;
     # Enable the OpenSSH daemon.
     openssh = {
       enable = true;
@@ -629,25 +474,9 @@ let
 
     dbus.enable = true;
 
-    #Different Compositor that might be conflicting
-    #picom.enable = true;
-
-    #gnome.gnome-keyring.enable = true;
-
     tailscale.enable = true;
 
     envfs.enable = true;
-
-    #DDNS config
-    #ddclient = {
-    #  enable = true;
-    #  configFile = "/etc/ddclient/ddclient.conf";
-    #};
-
-    #clamav = {
-    #  scanner.enable = true;
-    #  updater.enable = true;
-    #};
 
     fstrim = {
       enable = true;
@@ -676,8 +505,7 @@ let
         variant = "";
       };
 
-
-      desktopManager.plasma5.enable = true; 
+      #desktopManager.plasma5.enable = true;
 
       displayManager = {
         #x11VNC / VNC
@@ -686,35 +514,6 @@ let
         '';
       };
     };
-        #These might have been renamed as well
-        # Enable the GNOME Desktop Environment.
-        #displayManager.gdm.enable = true;
-        #desktopManager.gnome.enable = true;
-
-        #services.desktopManager.plasma6.enable = true;
-        #Plasma wayland stuff
-        #services.displayManager.sddm.wayland.enable = true;
-        #services.displayManager.defaultSession = "plasmawayland"; #uncomment to enable plasma wayland, recomment to enable plasma x11
-
-        # Enable Pantheon Desktop
-        #services.xserver.desktopManager.pantheon.enable = true;
-
-        # Enable MATE Desktop
-        #services.xserver.desktopManager.mate.enable = true;
-
-        # Enable Cinnamon Desktop
-        #services.xserver.desktopManager.cinnamon.enable = true;
-        #services.cinnamon.apps.enable = true;
-
-        #environment.systemPackages = [
-        #  pkgs.cinnamon.cinnamon-common
-        #];
-
-        #From Chris Titus' configuration.nix
-        #lightdm.enable = true;
-        #setupCommands = ''
-        #  ${pkgs.xorg.xrandr}/bin/xrandr --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal
-        #'';
   
       pipewire = {
         enable = true;
@@ -809,7 +608,7 @@ let
 	  upower.enable = true;
 
   };
-
+  
   users.users.ajhyperbit = {
     isNormalUser = true;
     description = "AJHyperBit";
@@ -889,7 +688,7 @@ let
   
     nix-ld = {
       enable = true;
-      libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+      #libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
     };
   };
 
@@ -962,34 +761,34 @@ let
   };
 
   #XDG Portals
-  xdg = {
-    #autostart.enable = true;
-    portal = {
-      enable = true;
-      wlr.enable = true;
-      extraPortals = with pkgs; [ 
-        #xdg-desktop-portals
-        #xdg-desktop-portal-kde
-        #xdg-desktop-portal-gtk
-      ];
-      xdgOpenUsePortal = true;
-    configPackages = [
-      #pkgs.xdg-desktop-portal-gtk
-      #pkgs.xdg-desktop-portal
-    ];
-
-    config = {
-    #  common = {
-    #    default = [
-    #      "kde"
-    #      ];
-    #  };
-      #"org.freedesktop.impl.portal.FileChooser"= [
-      #  "kde"
-      #    ];
-    };
-    };
-  };
+  #xdg = {
+  #  #autostart.enable = true;
+  #  portal = {
+  #    enable = true;
+  #    wlr.enable = true;
+  #    extraPortals = with pkgs; [ 
+  #      #xdg-desktop-portals
+  #      #xdg-desktop-portal-kde
+  #      #xdg-desktop-portal-gtk
+  #    ];
+  #    xdgOpenUsePortal = true;
+  #  configPackages = [
+  #    #pkgs.xdg-desktop-portal-gtk
+  #    #pkgs.xdg-desktop-portal
+  #  ];
+  #
+  #  config = {
+  #  #  common = {
+  #  #    default = [
+  #  #      "kde"
+  #  #      ];
+  #  #  };
+  #    #"org.freedesktop.impl.portal.FileChooser"= [
+  #    #  "kde"
+  #    #    ];
+  #  };
+  #  };
+  #};
 
   #TODO: I dunno (research later?) (still don't know, keeping it anyway)
   qt = {
@@ -1080,8 +879,11 @@ let
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
-  };
 
+    services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
+  
+  };
+  
   # zram
   zramSwap = {
 	  enable = true;
@@ -1091,33 +893,10 @@ let
     algorithm = "zstd";
     };
 
-  #powerManagement = {
-  #	enable = true;
-	#  cpuFreqGovernor = "schedutil";
-  #};
-
   hardware.logitech.wireless = {
     enable = true;
     enableGraphical = true;
   };
-
-
-
-  #systemd = {
-  #  user.services.polkit = {
-  #    description = "polkit";
-  #    wantedBy = [ "graphical-session.target" ];
-  #    wants = [ "graphical-session.target" ];
-  #    after = [ "graphical-session.target" ];
-  #    serviceConfig = {
-  #        Type = "simple";
-  #        ExecStart = "${pkgs.polkit}/libexec/polkit-gnome-authentication-agent-1";
-  #        Restart = "on-failure";
-  #        RestartSec = 1;
-  #        TimeoutStopSec = 10;
-  #      };
-  #  };
-  #};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
