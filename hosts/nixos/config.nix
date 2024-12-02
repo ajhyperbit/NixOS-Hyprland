@@ -167,6 +167,12 @@ let
 
   networking.hostName = "${host}";
 
+  lib.mkMerge = [{
+    environment.systemPackages = with pkgs; [
+      davinci-resolve-studio
+  ];}
+  ];
+
   #ANCHOR - Services
 
   services = {
