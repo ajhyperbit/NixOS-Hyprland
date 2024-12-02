@@ -2,8 +2,11 @@
 
 { config, pkgs, host, username, options, lib, inputs, system, ...}: 
 
+lib.mkMerge [
+
 let
-  
+  host = "nixos";
+
   inherit (import ./variables.nix) keyboardLayout;
   python-packages = pkgs.python3.withPackages (
     ps:
@@ -17,12 +20,12 @@ let
   imports = [
     ./hardware.nix
     ./users.nix
+    ../../hosts/common/common.nix
     #../../modules/amd-drivers.nix
     ../../modules/nvidia-drivers.nix
     #../../modules/nvidia-prime-drivers.nix
     #../../modules/intel-drivers.nix
     ../../modules/vm-guest-services.nix
-    ../../modules/local-hardware-clock.nix
   ];
 
   # BOOT related stuff
@@ -30,29 +33,9 @@ let
     #kernelPackages = pkgs.linuxPackages_latest; # Kernel
 
     kernelParams = [
-    "systemd.mask=systemd-vconsole-setup.service"
-    "systemd.mask=dev-tpmrm0.device" #this is to mask that stupid 1.5 mins systemd bug
-    "nowatchdog" 
-    #"modprobe.blacklist=sp5100_tco" #watchdog for AMD
-    #"modprobe.blacklist=iTCO_wdt" #watchdog for Intel
-    "nohibernate"
     "amd_iommu=on"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
-    tmp.cleanOnBoot = true;
-    #supportedFilesystems = ["ntfs"];
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-      #grub = {
-      #  device = "nodev";
-      #  efiSupport = true;
-      #  enable = true;
-      #  useOSProber = true;
-      #  timeoutStyle = "menu";
-      #};
-      #timeout = 300;
-    };
 
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
 
@@ -60,100 +43,13 @@ let
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
       kernelModules = [ ];
     };
-
-    # Make /tmp a tmpfs
-    tmp = {
-      useTmpfs = false;
-      tmpfsSize = "30%";
-      };
-    
-    # Appimage Support
-    binfmt.registrations.appimage = {
-      wrapInterpreterInShell = false;
-      interpreter = "${pkgs.appimage-run}/bin/appimage-run";
-      recognitionType = "magic";
-      offset = 0;
-      mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
-      magicOrExtension = ''\x7fELF....AI\x02'';
-      };
-    
-    plymouth.enable = false;  
-
   };
 
   drivers.nvidia.enable = true;
   #vm.guest-services.enable = false;
-  local.hardware-clock.enable = true;
 
+  hardware.networking.hostName = "nixos";
 
-  nix = {
-    settings = {
-      #warn-dirty = false;
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-      substituters = [
-      "https://cache.nixos.org?priority=10"
-
-      #"https://anyrun.cachix.org"
-      #"https://fufexan.cachix.org"
-      #"https://helix.cachix.org"
-      "https://hyprland.cachix.org"
-      "https://nix-community.cachix.org"
-      "https://nix-gaming.cachix.org"
-      #"https://yazi.cachix.org"
-    ];
-
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-
-      #"anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-      #"fufexan.cachix.org-1:LwCDjCJNJQf5XD2BV+yamQIMZfcKWR9ISIFy5curUsY="
-      #"helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      #"yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
-    ];
-
-    };
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 60d";
-    };
-  };
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-  #    allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"];
-  #    packageOverrides = pkgs: {
-  #      
-  #      #Make unstable packages available
-  #      unstable = import (fetchTarball {
-  #        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  #        sha256 = "17pikpqk1icgy4anadd9yg3plwfrsmfwv1frwm78jg2rf84jcmq2";
-  #      }) {config = { allowUnfree = true; };};
-  #      
-  #      #old_chrome = import (fetchTarball {
-  #      #  url = "https://github.com/nixos/nixpkgs/archive/f02fa2f654c7bcc45f0e815c29d093da7f1245b4.tar.gz";
-  #      #  sha256 = "";
-  #      #}) {config = { allowUnfree = true; };};
-  #
-  #  };
-    
-    
-    #overlays = [
-    #  (self: super: {
-    #    google-chrome = super.google-chrome.override {
-    #      commandLineArgs =
-    #        "--password-store=basic";
-    #    };
-    #  })
-    #];
-
-    };
-  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
@@ -785,29 +681,6 @@ let
   #ANCHOR - Services
 
   services = {
-    # Enable the OpenSSH daemon.
-    openssh = {
-      enable = true;
-      #Allow X11vnc through SSH. (probably unneccesary with tailscale)
-      settings.X11Forwarding = true;
-    };
-
-    flatpak.enable = true;
-
-    dbus.enable = true;
-
-    #Different Compositor that might be conflicting
-    #picom.enable = true;
-
-    #gnome.gnome-keyring.enable = true;
-
-    tailscale = {
-      enable = true;
-      openFirewall = true;
-    };
-
-    envfs.enable = true;
-
     #DDNS config
     ddclient = {
       enable = true;
@@ -1135,49 +1008,6 @@ let
   };
   };
 
-  fonts = {
-    #Fonts support 
-    enableDefaultPackages = true;
-
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-emoji
-      fira-code
-      jetbrains-mono
-      terminus_font
-      font-awesome
-      source-han-sans
-      source-han-sans-japanese
-      source-han-serif-japanese
-      nerdfonts
-    ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        monospace = ["Meslo LG M Regular Nerd Font Complete Mono"];
-        serif = ["Noto Serif" "Source Han Serif"];
-        sansSerif = ["Noto Sans" "Source Han Sans"];
-      };
-     };
-    };
-
-  #Virtualisation
-  virtualisation = {
-    libvirtd.enable = true;
-    # Enable common container config files in /etc/containers
-    containers = {
-      enable = true;
-      };
-    #Podman https://nixos.wiki/wiki/Podman
-    podman = {
-      enable = true;
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-      };
-  };
-
   #XDG Portals
   xdg = {
     #autostart.enable = true;
@@ -1209,170 +1039,8 @@ let
     };
   };
 
-  #TODO: I dunno (research later?) (still don't know, keeping it anyway)
-  qt = {
-    enable = true;
-    style = "breeze";
-    platformTheme = "kde";
-  };
-
-  security = {
-    pam = {
-      services = {
-        sddm.kwallet.enable = true;
-        #login.kwallet.enable = true;
-        kde.kwallet.enable = true;
-        hyprland.kwallet.enable = true;
-        #sddm.enableGnomeKeyring = true;
-        #login.enableGnomeKeyring = true;
-        #kde.enableGnomeKeyring = true;
-        #hyprland.enableGnomeKeyring = true;
-        swaylock = {
-          text = ''
-            auth include login
-          '';
-        };
-      };
-    };
-    rtkit.enable = true;
-
-    polkit = {
-    enable = true;
-    extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        if (
-          subject.isInGroup("users")
-            && (
-              action.id == "org.freedesktop.login1.reboot" ||
-              action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
-              action.id == "org.freedesktop.login1.power-off" ||
-              action.id == "org.freedesktop.login1.power-off-multiple-sessions"
-            )
-          )
-        {
-          return polkit.Result.YES;
-        }
-      })
-    '';
-    };
-  };
-  
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   # Microcode
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  #Sleep settings
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
-
-  documentation.nixos.enable = false;
-  
-  #home-manager.useGlobalPkgs = true;
-  #home-manager.useUserPackages = true;
-  #home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
-  #home-manager.extraSpecialArgs = {inherit inputs self username;};
-  #home-manager.backupFileExtension = "hm-bak";
-
-
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-    };
-    services.flatpak-repo = {
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
-
-  services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
-  
-  };
-
-  # zram
-  zramSwap = {
-	  enable = true;
-	  priority = 100;
-	  memoryPercent = 30;
-	  swapDevices = 1;
-    algorithm = "zstd";
-    };
-
-  #powerManagement = {
-  #	enable = true;
-	#  cpuFreqGovernor = "schedutil";
-  #};
-
-  hardware = {
-    logitech.wireless = {
-      enable = true;
-      enableGraphical = true;
-    };
-
-    #fancontrol = {
-    #  enable = true;
-    #};
-    #uni-sync = {
-    #  enable = true;
-    #  devices = 
-    #  [
-    #    {
-    #      device_id = "VID:3314/PID:41216/SN:6243168001";
-    #      sync_rgb = true;
-    #      channels = [
-    #        {
-    #          mode = "Manual";
-    #          speed = 100;
-    #        }
-    #        {
-    #          mode = "Manual";
-    #          speed = 100;
-    #        }
-    #        {
-    #          mode = "Manual";
-    #          speed = 100;
-    #        }
-    #        {
-    #          mode = "Manual";
-    #          speed = 100;
-    #        }
-    #      ];
-    #    }
-    #  ];
-    #};
-  };
-
-
-
-  #systemd = {
-  #  user.services.polkit = {
-  #    description = "polkit";
-  #    wantedBy = [ "graphical-session.target" ];
-  #    wants = [ "graphical-session.target" ];
-  #    after = [ "graphical-session.target" ];
-  #    serviceConfig = {
-  #        Type = "simple";
-  #        ExecStart = "${pkgs.polkit}/libexec/polkit-gnome-authentication-agent-1";
-  #        Restart = "on-failure";
-  #        RestartSec = 1;
-  #        TimeoutStopSec = 10;
-  #      };
-  #  };
-  #};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -1382,3 +1050,4 @@ let
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 }
+]
