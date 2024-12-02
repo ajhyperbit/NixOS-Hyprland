@@ -403,8 +403,8 @@ let
     #ags    
     btop
     brightnessctl # for brightness control
-    cava
-    #cliphist
+    #cava
+    cliphist
     eog
     gnome-system-monitor
     file-roller
