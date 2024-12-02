@@ -1,6 +1,6 @@
 # Main default config
 
-{ config, pkgs, host, username, options, lib, inputs, system, ...}: 
+{ config, pkgs, lap-host, username, options, lib, inputs, system, ...}: 
 
 let
   
@@ -40,7 +40,7 @@ let
 
   drivers.intel.enable = true;
 
-  networking.hostName = "${host}";
+  networking.hostName = "${lap-host}";
 
   services = {
   };
