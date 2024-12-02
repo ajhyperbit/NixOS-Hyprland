@@ -45,21 +45,10 @@ let
   drivers.nvidia.enable = true;
   #vm.guest-services.enable = false;
 
-
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
     fsType = "ext4";
   };
-
-  #fileSystems."/boot" = {
-  #device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
-  #fsType = "ext4";
-  #};
-
-  #fileSystems."/home" = {
-  #device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
-  #fsType = "ext4";
-  #};
 
   fileSystems."/run/media/ajhyperbit/SATA SSD" = {
     device = "/dev/disk/by-uuid/c879995c-386a-42c2-bc3b-8d02a03c61de";
@@ -90,87 +79,10 @@ let
     ];
   };
 
-  #fileSystems."/run/media/ajhyperbit/SATA SSD1" = {
-  #  device = "/dev/disk/by-uuid/DA4416764416561B";
-  #  #fsType = "ntfs";
-  #  options = [
-  #    # If you don't have this options attribute, it'll default to "defaults" 
-  #    # boot options for fstab. Search up fstab mount options you can use
-  #    "users" # Allows any user to mount and unmount
-  #    "nofail" # Prevent system from failing if this drive doesn't mount
-  #    "exec" # Permit execution of binaries and other executable files
-  #    #"noauto" # Do not auto mount, require explict mounting
-  #    #"uid=1000"
-  #    #"gid=100"
-  #    #"dmask=007"
-  #    #"fmask=117"
-  #  ];
-  #};
-
-  #fileSystems."/run/media/ajhyperbit/DATA" = {
-  #  device = "/dev/disk/by-uuid/7C120D0C120CCCD8";
-  #  #fsType = "ntfs";
-  #  options = [
-  #    # If you don't have this options attribute, it'll default to "defaults" 
-  #    # boot options for fstab. Search up fstab mount options you can use
-  #    "users" # Allows any user to mount and unmount
-  #    "nofail" # Prevent system from failing if this drive doesn't mount
-  #    "exec" # Permit execution of binaries and other executable files
-  #    #"noauto" # Do not auto mount, require explict mounting
-  #    #"uid=1000"
-  #    #"gid=100"
-  #    #"dmask=007"
-  #    #"fmask=117"
-  #  ];
-  #};
-  
-  #fileSystems."/run/media/ajhyperbit/Archive" = {
-  #  device = "/dev/disk/by-uuid/D6C68616C685F751";
-  #  #fsType = "ntfs";
-  #  options = [
-  #    # If you don't have this options attribute, it'll default to "defaults" 
-  #    # boot options for fstab. Search up fstab mount options you can use
-  #    "users" # Allows any user to mount and unmount
-  #    "nofail" # Prevent system from failing if this drive doesn't mount
-  #    "exec" # Permit execution of binaries and other executable files
-  #    #"noauto" # Do not auto mount, require explict mounting
-  #    #"uid=1000"
-  #    #"gid=100"
-  #    #"dmask=007"
-  #    #"fmask=117"
-  #  ];
-  #};
-
-  #fileSystems."/run/media/ajhyperbit/Windows" = {
-  #  device = "/dev/disk/by-uuid/80B872A7B8729AFC";
-  #  #fsType = "ntfs";
-  #  options = [
-  #    # If you don't have this options attribute, it'll default to "defaults" 
-  #    # boot options for fstab. Search up fstab mount options you can use
-  #    "users" # Allows any user to mount and unmount
-  #    "nofail" # Prevent system from failing if this drive doesn't mount
-  #    "exec" # Permit execution of binaries and other executable files
-  #    #"noauto" # Do not auto mount, require explict mounting
-  #    #"uid=1000"
-  #    #"gid=100"
-  #    #"dmask=007"
-  #    #"fmask=117"
-  #  ];
-  #};
-
-
-  #console = {
-  #  packages = [pkgs.terminus_font];
-  #  font = "${pkgs.terminus_font}/share/consolefonts/ter-i22b.psf.gz";
-  #  useXkbConfig = true;
-  #};
-
   networking.hostName = "${host}";
 
-  lib.mkMerge = [{
-    environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
       davinci-resolve-studio
-  ];}
   ];
 
   #ANCHOR - Services
