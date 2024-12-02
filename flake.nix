@@ -47,8 +47,8 @@ outputs = inputs@{
   }:
     let
     system = "x86_64-linux";
-    #host = "nixos";
-    host = "nixtop";
+    host = "nixos";
+    lap-host = "nixtop";
     username = "ajhyperbit";
 
     pkgs = import nixpkgs {
@@ -71,6 +71,40 @@ outputs = inputs@{
         };
       modules = [
 				./hosts/${host}/config.nix
+        #nixos-hardware.nixosModules.framework-11th-gen-intel
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
+          home-manager.extraSpecialArgs = {inherit inputs self username;};
+          home-manager.backupFileExtension = "backup";
+        }
+        stylix.nixosModules.stylix
+      ({ pkgs, ... }: {
+        environment.systemPackages = [
+        ];})
+        #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
+        #fufexan-dotfiles.nixosModules.theme
+
+        #nixos-vfio.nixosModules.vfio
+        #wayland.windowManager.hyprland {
+        #  enable = true;
+        #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+        #}
+      ];
+      };
+      "${lap-host}" = nixpkgs.lib.nixosSystem rec {
+      system = "x86_64-linux";
+      specialArgs = {
+			  inherit system;
+			  inherit inputs;
+			  inherit username;
+			  inherit lap-host;
+        inherit self;
+        };
+      modules = [
+				./hosts/${lap-host}/config.nix
         nixos-hardware.nixosModules.framework-11th-gen-intel
         home-manager.nixosModules.home-manager
         {
@@ -94,6 +128,7 @@ outputs = inputs@{
         #}
       ];
       };
+    
     };
   };
 }
