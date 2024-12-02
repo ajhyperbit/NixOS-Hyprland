@@ -202,6 +202,7 @@ let
   wine
   wine64
   wine-staging
+  wine-wayland
   winetricks
   playonlinux
   protontricks
@@ -227,6 +228,7 @@ let
   ddclient
   #cinnamon.nemo-with-extensions
   vlc
+  mpv
   xdotool
   pciutils
   kdePackages.kate
@@ -559,6 +561,8 @@ let
   };
   };
 
+  #ANCHOR Services
+
   services = {
     desktopManager.plasma6.enable = true;
     # Enable the OpenSSH daemon.
@@ -770,7 +774,7 @@ let
     ];
   };
 
-  #ANCHOR - Programs
+  #ANCHOR Programs
 
   programs ={
     
