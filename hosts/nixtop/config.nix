@@ -40,6 +40,8 @@ let
 
   drivers.intel.enable = true;
 
+  networking.hostName = "${host}";
+
   services = {
   };
 

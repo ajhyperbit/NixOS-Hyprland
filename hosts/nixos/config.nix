@@ -165,6 +165,8 @@ let
   #  useXkbConfig = true;
   #};
 
+  networking.hostName = "${host}";
+
   #ANCHOR - Services
 
   services = {

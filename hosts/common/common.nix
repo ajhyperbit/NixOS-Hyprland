@@ -525,7 +525,6 @@ let
   };
 
   networking = {
-    hostName = "${host}";
     networkmanager.enable = true;
     enableIPv6 = false;
     interfaces.enp6s0.wakeOnLan.enable = true;
