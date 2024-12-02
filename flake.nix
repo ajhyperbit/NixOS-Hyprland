@@ -71,6 +71,7 @@ outputs = inputs@{
         };
       modules = [
 				./hosts/${host}/config.nix
+        ./hosts/common/common.nix
         #nixos-hardware.nixosModules.framework-11th-gen-intel
         home-manager.nixosModules.home-manager
         {
@@ -105,6 +106,7 @@ outputs = inputs@{
         };
       modules = [
 				./hosts/${lap-host}/config.nix
+        ./hosts/common/common.nix
         nixos-hardware.nixosModules.framework-11th-gen-intel
         home-manager.nixosModules.home-manager
         {
