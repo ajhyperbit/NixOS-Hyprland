@@ -24,6 +24,11 @@
 
     stylix.url = "github:danth/stylix";
 
+    alejandra = {
+      url = "github:kamadorueda/alejandra/3.1.0";
+      inputs.nixpkgs.follows = "nixpkgs"; 
+    };
+
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
     #master.url = "github:nixos/nixpkgs/master";
@@ -43,6 +48,7 @@ outputs = inputs@{
   home-manager,
   stylix,
   nixos-hardware,
+  alejandra,
   ...
   }:
     let
@@ -82,10 +88,22 @@ outputs = inputs@{
           home-manager.extraSpecialArgs = {inherit inputs self username;};
           home-manager.backupFileExtension = "backup";
         }
+        
         stylix.nixosModules.stylix
-      ({ pkgs, ... }: {
-        environment.systemPackages = [
-        ];})
+        
+        {
+          environment.systemPackages = [alejandra.defaultPackage.${system}];
+        }
+      
+      (
+        { pkgs, ... }: {
+        
+          environment.systemPackages = [
+          
+          ];
+        }
+      )
+        
         #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
         #fufexan-dotfiles.nixosModules.theme
 
