@@ -1,21 +1,27 @@
 # Main default config
-
-{ config, pkgs, host, username, options, lib, inputs, system, ...}: 
-
-let
-  
+{
+  config,
+  pkgs,
+  host,
+  username,
+  options,
+  lib,
+  inputs,
+  system,
+  ...
+}: let
   inherit (import ./variables.nix) keyboardLayout;
   python-packages = pkgs.python3.withPackages (
     ps:
       with ps; [
         requests
         pyquery # needed for hyprland-dots Weather script
-        ]
+      ]
   );
-  
-  in {
+in {
   imports = [
-  ../../modules/local-hardware-clock.nix
+    ./users.nix
+    ../../modules/local-hardware-clock.nix
   ];
 
   # BOOT related stuff
@@ -23,12 +29,12 @@ let
     #kernelPackages = pkgs.linuxPackages_latest; # Kernel
 
     kernelParams = [
-    "systemd.mask=systemd-vconsole-setup.service"
-    "systemd.mask=dev-tpmrm0.device" #this is to mask that stupid 1.5 mins systemd bug
-    "nowatchdog" 
-    #"modprobe.blacklist=sp5100_tco" #watchdog for AMD
-    #"modprobe.blacklist=iTCO_wdt" #watchdog for Intel
-    "nohibernate"
+      "systemd.mask=systemd-vconsole-setup.service"
+      "systemd.mask=dev-tpmrm0.device" #this is to mask that stupid 1.5 mins systemd bug
+      "nowatchdog"
+      #"modprobe.blacklist=sp5100_tco" #watchdog for AMD
+      #"modprobe.blacklist=iTCO_wdt" #watchdog for Intel
+      "nohibernate"
     ];
     tmp.cleanOnBoot = true;
     #supportedFilesystems = ["ntfs"];
@@ -45,17 +51,17 @@ let
       #timeout = 300;
     };
 
-    initrd = { 
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-      kernelModules = [ ];
+    initrd = {
+      availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
+      kernelModules = [];
     };
 
     # Make /tmp a tmpfs
     tmp = {
       useTmpfs = false;
       tmpfsSize = "30%";
-      };
-    
+    };
+
     # Appimage Support
     binfmt.registrations.appimage = {
       wrapInterpreterInShell = false;
@@ -64,10 +70,9 @@ let
       offset = 0;
       mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
       magicOrExtension = ''\x7fELF....AI\x02'';
-      };
-    
-    plymouth.enable = false;  
+    };
 
+    plymouth.enable = false;
   };
 
   local.hardware-clock.enable = true;
@@ -75,454 +80,447 @@ let
   nix = {
     settings = {
       #warn-dirty = false;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       auto-optimise-store = true;
       substituters = [
-      "https://cache.nixos.org?priority=10"
+        "https://cache.nixos.org?priority=10"
 
-      #"https://anyrun.cachix.org"
-      #"https://fufexan.cachix.org"
-      #"https://helix.cachix.org"
-      "https://hyprland.cachix.org"
-      "https://nix-community.cachix.org"
-      "https://nix-gaming.cachix.org"
-      #"https://yazi.cachix.org"
-    ];
+        #"https://anyrun.cachix.org"
+        #"https://fufexan.cachix.org"
+        #"https://helix.cachix.org"
+        "https://hyprland.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://nix-gaming.cachix.org"
+        #"https://yazi.cachix.org"
+      ];
 
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
 
-      #"anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-      #"fufexan.cachix.org-1:LwCDjCJNJQf5XD2BV+yamQIMZfcKWR9ISIFy5curUsY="
-      #"helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      #"yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
-    ];
-
+        #"anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+        #"fufexan.cachix.org-1:LwCDjCJNJQf5XD2BV+yamQIMZfcKWR9ISIFy5curUsY="
+        #"helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+        #"yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+      ];
     };
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 60d";
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 60d";
     };
   };
 
   nixpkgs = {
     config = {
       allowUnfree = true;
-  #    allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"];
-  #    packageOverrides = pkgs: {
-  #      
-  #      #Make unstable packages available
-  #      unstable = import (fetchTarball {
-  #        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  #        sha256 = "17pikpqk1icgy4anadd9yg3plwfrsmfwv1frwm78jg2rf84jcmq2";
-  #      }) {config = { allowUnfree = true; };};
-  #      
-  #      #old_chrome = import (fetchTarball {
-  #      #  url = "https://github.com/nixos/nixpkgs/archive/f02fa2f654c7bcc45f0e815c29d093da7f1245b4.tar.gz";
-  #      #  sha256 = "";
-  #      #}) {config = { allowUnfree = true; };};
-  #
-  #  };
-    
-    
-    #overlays = [
-    #  (self: super: {
-    #    google-chrome = super.google-chrome.override {
-    #      commandLineArgs =
-    #        "--password-store=basic";
-    #    };
-    #  })
-    #];
+      #    allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"];
+      #    packageOverrides = pkgs: {
+      #
+      #      #Make unstable packages available
+      #      unstable = import (fetchTarball {
+      #        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+      #        sha256 = "17pikpqk1icgy4anadd9yg3plwfrsmfwv1frwm78jg2rf84jcmq2";
+      #      }) {config = { allowUnfree = true; };};
+      #
+      #      #old_chrome = import (fetchTarball {
+      #      #  url = "https://github.com/nixos/nixpkgs/archive/f02fa2f654c7bcc45f0e815c29d093da7f1245b4.tar.gz";
+      #      #  sha256 = "";
+      #      #}) {config = { allowUnfree = true; };};
+      #
+      #  };
 
+      #overlays = [
+      #  (self: super: {
+      #    google-chrome = super.google-chrome.override {
+      #      commandLineArgs =
+      #        "--password-store=basic";
+      #    };
+      #  })
+      #];
     };
   };
 
   #ANCHOR Packages
 
-  environment.systemPackages = (with pkgs; [
+  environment.systemPackages =
+    (with pkgs; [
+      #(catppuccin-sddm.override {
+      #  flavor = "mocha";
+      #  font  = "Noto Sans";
+      #  fontSize = "9";
+      #  #background = "${./wallpaper.png}";
+      #  loginBackground = true;
+      #  })
 
-  #(catppuccin-sddm.override {
-  #  flavor = "mocha";
-  #  font  = "Noto Sans";
-  #  fontSize = "9";
-  #  #background = "${./wallpaper.png}";
-  #  loginBackground = true;
-  #  })
+      #TODO Refactor
 
-  #TODO Refactor
+      neovim
+      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      wget
+      google-chrome
+      chromium
+      (chromium.override {enableWideVine = true;})
+      floorp
+      # System Packages
+      baobab
+      btrfs-progs
+      clang
+      curl
+      #cpufrequtils
+      duf
+      eza
+      ffmpeg
+      glib #for gsettings to work
+      gsettings-qt
+      killall
+      libappindicator
+      openssl #required by Rainbow borders
+      xdg-user-dirs
+      xdg-utils
+      fastfetch
+      (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
+      #ranger
 
-  neovim  
-  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  wget
-  google-chrome
-  chromium
-  (chromium.override { enableWideVine = true; })
-  floorp
-    # System Packages
-    baobab
-    btrfs-progs
-    clang
-    curl
-    #cpufrequtils
-    duf
-    eza
-    ffmpeg   
-    glib #for gsettings to work
-    gsettings-qt
-    killall
-    libappindicator
-    openssl #required by Rainbow borders
-    xdg-user-dirs
-    xdg-utils
-    fastfetch
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
-    #ranger
-
-
-
-  #Games
-  steam
-    gamescope
-  steamtinkerlaunch
-  rare
-  protonup-qt
-    #For Need for Speed Most Wanted
-    glibc
-  discord
+      #Games
+      steam
+      gamescope
+      steamtinkerlaunch
+      rare
+      protonup-qt
+      #For Need for Speed Most Wanted
+      glibc
+      discord
       (discord.override {
-      # remove any overrides that you don't want
-      withOpenASAR = true;
-      withVencord = true;
+        # remove any overrides that you don't want
+        withOpenASAR = true;
+        withVencord = true;
       })
-    vesktop #for sharing audio on discord, since normal discord has
-  wine
-  wine64
-  wine-staging
-  wine-wayland
-  winetricks
-  playonlinux
-  protontricks
-  bottles
-  (lutris.override {
-    extraPkgs = pkgs: [
-      # List package dependencies here
-      wineWowPackages.stable
+      vesktop #for sharing audio on discord, since normal discord has
+      wine
+      wine64
+      wine-staging
+      wine-wayland
       winetricks
+      playonlinux
+      protontricks
+      bottles
+      (lutris.override {
+        extraPkgs = pkgs: [
+          # List package dependencies here
+          wineWowPackages.stable
+          winetricks
+        ];
+      })
+      gsmartcontrol
+
+      #System tools
+      gparted
+      monitor
+      putty
+      htop
+      remmina
+      ethtool
+      hwinfo
+      wireshark
+      ddclient
+      #cinnamon.nemo-with-extensions
+      vlc
+      mpv
+      xdotool
+      pciutils
+      kdePackages.kate
+      #libsForQt5.sddm-kcm
+      #libsForQt5.kwin
+      neofetch
+      fastfetch
+      ghfetch
+      screenfetch
+      cpufetch
+      ramfetch
+      disfetch
+      xrdp
+      xorg.xinit
+      x11vnc
+      nix-index
+      fetchutils
+      #Antivirus GUI
+      #clamtk
+      #Password things
+      pass
+      #keepassxc
+      #Manage Files as admin
+      kdePackages.kio-admin
+      lm_sensors
+      netdata
+      #fanctl
+      #Printing #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
+      #cups-filters
+      #cups-printers
+      #canon-cups-ufr2
+      #cups-bjnp
+
+      #Torrenting
+      #qbittorrent
+      miru
+
+      #Vulkan
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-tools
+
+      #Windows VM or Filesystem compatiblity
+      qemu
+      exfatprogs
+      #Related to Virtualisation in settings
+      dive # look into docker image layers
+      podman-tui # status of containers in the terminal
+      #docker-compose # start group of containers for dev
+      podman-compose # start group of containers for dev
+
+      #Productivity / Video things
+      (wrapOBS {
+        plugins = with pkgs.obs-studio-plugins; [
+          wlrobs
+          obs-backgroundremoval
+          obs-pipewire-audio-capture
+          obs-vkcapture
+          obs-multi-rtmp
+          obs-source-clone
+          obs-source-record
+          obs-source-switcher
+          obs-websocket
+          waveform
+          obs-vaapi
+          obs-teleport
+          obs-scale-to-sound
+          obs-nvfbc
+          #obs-ndi
+          obs-move-transition
+          obs-command-source
+          input-overlay
+          #advanced-scene-switcher
+          droidcam-obs
+        ];
+      })
+
+      #davinci-resolve-studio
+
+      #Coding
+      gitFull
+      gittyup
+      gh
+      vscode-fhs
+      #alejandra
+      #quickemu
+      #quickgui
+      direnv
+      python3Full
+      python312Packages.pip
+      virtualenv
+      docker
+      nodejs_22
+      obsidian
+      #synergy
+
+      #Twitch
+      chatterino2
+
+      #Misc
+      spotify
+      parsec-bin
+      unrar
+      zenith-nvidia
+      clinfo
+      gwe
+      nvtopPackages.nvidia
+      virtualglLib
+      tailscale
+      parsec-bin
+      jq
+      qdirstat
+      service-wrapper
+      autokey
+      ntfs3g
+      nvd
+      p7zip
+      rpi-imager
+      xclicker
+      #Calculators
+      kdePackages.kcalc
+      #qalculate-qt
+      lastpass-cli
+      dconf2nix
+      coppwr
+      pwvucontrol
+      dmidecode
+
+      libsForQt5.kde-gtk-config
+      libsForQt5.breeze-qt5
+      libsForQt5.breeze-gtk
+      libsForQt5.qt5ct
+      libsForQt5.breeze-icons
+      libsForQt5.oxygen
+
+      furmark
+
+      #School
+      libreoffice-qt
+      hunspell
+      hunspellDicts.en_US
+      hunspellDicts.en-us
+      beekeeper-studio
+      onedrivegui
+
+      #Makes other distros available to me
+      #distrobox
+
+      # Hyprland Stuff
+      (ags.overrideAttrs (oldAttrs: {
+        inherit (oldAttrs) pname;
+        version = "1.8.2";
+      }))
+      #ags
+      btop
+      brightnessctl # for brightness control
+      #cava
+      #cliphist
+      #eog
+      eog
+      gnome-system-monitor
+      #file-roller
+      gtk-engine-murrine #for gtk themes
+      hypridle # requires unstable channel
+      imagemagick
+      inxi
+      libsForQt5.qtstyleplugin-kvantum #kvantum
+      nwg-look # requires unstable channel
+      nvtopPackages.full
+      pamixer
+      pavucontrol
+      playerctl
+      pyprland
+      qt6ct
+      qt6.qtwayland
+      qt6Packages.qtstyleplugin-kvantum #kvantum
+      swappy
+      unzip
+      wallust
+      wlogout
+      yad
+      yt-dlp
+
+      (pkgs.hyprland.override {
+        # or inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+        #enableXWayland = true;  # whether to enable XWayland
+        #legacyRenderer = false; # whether to use the legacy renderer (for old GPUs)
+        withSystemd = true; # whether to build with systemd support
+      })
+
+      #Hyperland  #https://www.youtube.com/watch?v=61wGzIv12Ds
+      #Terminals
+      kitty
+      #Alternatives
+      #alacritty
+      #wezterm
+
+      #Screenshots
+      hyprshot
+      grim
+      slurp
+      wl-clipboard
+
+      meson
+      waybar
+      (
+        pkgs.waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+        })
+      )
+      #eww
+      dunst
+      #mako
+      libnotify
+      swaynotificationcenter
+      networkmanagerapplet
+      #Wallpaper Daemons
+      #hyprpaper
+      #swaybg
+      #wpaperd
+      #mpvpaper
+      swww
+      #App Launcher
+      #most popular
+      rofi-wayland
+      #gtk rofi
+      wofi
+      #Wiki also suggests
+      bemenu
+      fuzzel
+      tofi
+
+      #Polkit agent
+      polkit
+      #libsForQt5.polkit-qt
+      #kdePackages.polkit-qt-1
+      #libsForQt5.polkit-kde-agent
+      #kdePackages.polkit-kde-agent-1
+      polkit_gnome
+
+      hyprcursor # requires unstable channel
+
+      #check if running via xwayland or wayland
+      xorg.xwininfo
+
+      #Bluetooth
+      #blueman
+      overskride
+
+      #Compilers
+      #gcc
+      #clang
+      #nvc
+
+      #glib
+      #cmake
+      #pkg-config
+
+      #Libraries
+      libsecret
+      egl-wayland
+
+      #gobject-introspection
+      #dbus-glib
+      #gtk4
+      #gtk3
+      #gjs
+      #libpulseaudio
+      #pam
+      #typescript
+      #ninja
+      #axel
+      #tinyxml-2
+    ])
+    ++ [
+      python-packages
     ];
-    })
-  gsmartcontrol
-
-  #System tools
-  gparted
-  monitor
-  putty
-  htop
-  remmina
-  ethtool
-  hwinfo
-  wireshark
-  ddclient
-  #cinnamon.nemo-with-extensions
-  vlc
-  mpv
-  xdotool
-  pciutils
-  kdePackages.kate
-  #libsForQt5.sddm-kcm
-  #libsForQt5.kwin
-  neofetch
-  fastfetch
-  ghfetch
-  screenfetch
-  cpufetch
-  ramfetch
-  disfetch
-  xrdp
-  xorg.xinit
-  x11vnc
-  nix-index
-  fetchutils
-  #Antivirus GUI
-  #clamtk
-  #Password things
-  pass
-  #keepassxc
-  #Manage Files as admin
-  kdePackages.kio-admin
-  lm_sensors
-  netdata
-  #fanctl
-  #Printing #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
-  #cups-filters
-  #cups-printers
-  #canon-cups-ufr2
-  #cups-bjnp
-  
-  #Torrenting
-  #qbittorrent
-  miru
-
-  #Vulkan
-  vulkan-loader
-  vulkan-validation-layers
-  vulkan-tools
-
-  #Windows VM or Filesystem compatiblity
-  qemu
-  exfatprogs
-    #Related to Virtualisation in settings
-    dive # look into docker image layers
-    podman-tui # status of containers in the terminal
-    #docker-compose # start group of containers for dev
-    podman-compose # start group of containers for dev
-
-
-  #Productivity / Video things
-  (wrapOBS {
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
-      obs-vkcapture
-      obs-multi-rtmp
-      obs-source-clone
-      obs-source-record
-      obs-source-switcher
-      obs-websocket
-      waveform
-      obs-vaapi
-      obs-teleport
-      obs-scale-to-sound
-      obs-nvfbc
-      #obs-ndi
-      obs-move-transition
-      obs-command-source
-      input-overlay
-      #advanced-scene-switcher
-      droidcam-obs
-    ];
-  })
-  
-  #davinci-resolve-studio
-
-  #Coding
-  gitFull
-    gittyup
-    gh
-  vscode-fhs
-    #alejandra
-  #quickemu
-  #quickgui
-  direnv
-  python3Full
-	python312Packages.pip
-	virtualenv
-  docker
-  nodejs_22
-  obsidian
-  #synergy
-
-  #Twitch
-  chatterino2
-
-  #Misc
-  spotify
-  parsec-bin
-  unrar
-  zenith-nvidia
-  clinfo
-  gwe
-  nvtopPackages.nvidia
-  virtualglLib
-  tailscale
-  parsec-bin
-  jq
-  qdirstat
-  service-wrapper
-  autokey
-  ntfs3g
-  nvd
-  p7zip
-  rpi-imager
-  xclicker
-  #Calculators
-  kdePackages.kcalc
-  #qalculate-qt
-  lastpass-cli
-  dconf2nix
-  coppwr
-  pwvucontrol
-  dmidecode
-
-  libsForQt5.kde-gtk-config
-  libsForQt5.breeze-qt5
-  libsForQt5.breeze-gtk
-  libsForQt5.qt5ct
-  libsForQt5.breeze-icons
-  libsForQt5.oxygen
-
-  furmark
-
-  #School
-  libreoffice-qt
-    hunspell
-    hunspellDicts.en_US
-    hunspellDicts.en-us
-  beekeeper-studio 
-  onedrivegui
-
-  #Makes other distros available to me
-  #distrobox
-  
-  # Hyprland Stuff
-    (ags.overrideAttrs (oldAttrs: {
-      inherit (oldAttrs) pname;
-      version = "1.8.2";
-    }))
-    #ags
-    btop
-    brightnessctl # for brightness control
-    #cava
-    #cliphist
-    #eog
-    eog
-    gnome-system-monitor
-    #file-roller
-    gtk-engine-murrine #for gtk themes
-    hypridle # requires unstable channel
-    imagemagick 
-    inxi
-    libsForQt5.qtstyleplugin-kvantum #kvantum
-    nwg-look # requires unstable channel
-    nvtopPackages.full
-    pamixer
-    pavucontrol
-    playerctl
-    pyprland
-    qt6ct
-    qt6.qtwayland
-    qt6Packages.qtstyleplugin-kvantum #kvantum
-    swappy
-    unzip
-    wallust
-    wlogout
-    yad
-    yt-dlp
-
-(pkgs.hyprland.override { # or inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
-  #enableXWayland = true;  # whether to enable XWayland
-  #legacyRenderer = false; # whether to use the legacy renderer (for old GPUs)
-  withSystemd = true;     # whether to build with systemd support
-})
-
-  
-  #Hyperland  #https://www.youtube.com/watch?v=61wGzIv12Ds
-  #Terminals
-  kitty
-  #Alternatives
-  #alacritty
-  #wezterm
-
-  #Screenshots
-  hyprshot
-    grim
-    slurp
-    wl-clipboard
-
-  meson
-  waybar
-  (pkgs.waybar.overrideAttrs (oldAttrs: {
-    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-  })
-  )
-  #eww
-  dunst
-  #mako
-  libnotify
-  swaynotificationcenter
-  networkmanagerapplet
-  #Wallpaper Daemons
-  #hyprpaper
-  #swaybg
-  #wpaperd
-  #mpvpaper
-  swww
-  #App Launcher
-  #most popular
-  rofi-wayland
-  #gtk rofi
-  wofi
-  #Wiki also suggests
-  bemenu
-  fuzzel
-  tofi
-  
-  #Polkit agent
-  polkit
-  #libsForQt5.polkit-qt
-  #kdePackages.polkit-qt-1
-  #libsForQt5.polkit-kde-agent
-  #kdePackages.polkit-kde-agent-1
-  polkit_gnome
-
-  hyprcursor # requires unstable channel
-  
-  #check if running via xwayland or wayland
-  xorg.xwininfo
-
-  #Bluetooth
-  #blueman
-  overskride
-
-  #Compilers
-  #gcc
-  #clang
-  #nvc
-
-  #glib
-  #cmake
-  #pkg-config
-
-  #Libraries
-  libsecret
-  egl-wayland
-
-  #gobject-introspection
-  #dbus-glib
-  #gtk4
-  #gtk3
-  #gjs
-  #libpulseaudio
-  #pam
-  #typescript
-  #ninja
-  #axel
-  #tinyxml-2
-
-  ]) ++ [
-	  python-packages
-  ];
 
   hardware = {
-    pulseaudio ={
-    
-    enable = false;
-    package = pkgs.pulseaudioFull;
-
+    pulseaudio = {
+      enable = false;
+      package = pkgs.pulseaudioFull;
     };
-    
+
     bluetooth = {
-	    enable = true;
-	    powerOnBoot = true;
-	    settings = {
-		    General = {
-		      Enable = "Source,Sink,Media,Socket";
-		      #Experimental = true;
-		    };
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+          #Experimental = true;
+        };
       };
     };
   };
@@ -531,35 +529,35 @@ let
     networkmanager.enable = true;
     enableIPv6 = false;
     interfaces.enp6s0.wakeOnLan.enable = true;
-    timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
+    timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     #firewall.enable = true;
     #Allow VNC and Synergy through firewall
-    firewall.allowedTCPPorts = [ 5900 24800 ];
+    firewall.allowedTCPPorts = [5900 24800];
     #firewall.allowedUDPPorts = [ ... ];
     firewall = {
-    enable = true;
-    trustedInterfaces = ["tailscale0"];
-    # required to connect to Tailscale exit nodes
-    checkReversePath = "loose";
-  };
+      enable = true;
+      trustedInterfaces = ["tailscale0"];
+      # required to connect to Tailscale exit nodes
+      checkReversePath = "loose";
+    };
   };
 
-    # Set your time zone.
+  # Set your time zone.
   time.timeZone = "America/Chicago";
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
   };
 
   #ANCHOR Services
@@ -610,7 +608,7 @@ let
         user = "ajhyperbit";
       };
     };
-      
+
     xserver = {
       enable = true;
       #Keyboard
@@ -619,8 +617,7 @@ let
         variant = "";
       };
 
-
-      #desktopManager.plasma5.enable = true; 
+      #desktopManager.plasma5.enable = true;
 
       displayManager = {
         #x11VNC / VNC
@@ -630,68 +627,68 @@ let
       };
     };
 
-      pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-        wireplumber = {
-            configPackages = [
-              (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/11-bluetooth-policy.conf" ''
-                wireplumber.settings = {
-                  bluetooth.autoswitch-to-headset-profile = false
-                }'')
-                ];
-            extraConfig = {
-              "log-level-debug" = {
-                "context.properties" = {
-                  # Output Debug log messages as opposed to only the default level (Notice)
-                  "log.level" = "D";
-                };
-              };
-              "wh-1000xm3-ldac-hq" = {
-                "monitor.bluez.rules" = [
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      wireplumber = {
+        configPackages = [
+          (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/11-bluetooth-policy.conf" ''
+            wireplumber.settings = {
+              bluetooth.autoswitch-to-headset-profile = false
+            }'')
+        ];
+        extraConfig = {
+          "log-level-debug" = {
+            "context.properties" = {
+              # Output Debug log messages as opposed to only the default level (Notice)
+              "log.level" = "D";
+            };
+          };
+          "wh-1000xm3-ldac-hq" = {
+            "monitor.bluez.rules" = [
+              {
+                matches = [
                   {
-                    matches = [
-                      {
-                        # Match any bluetooth device with ids equal to that of a WH-1000XM3
-                        "device.name" = "~bluez_card.*";
-                        "device.product.id" = "0x0cd3";
-                        "device.vendor.id" = "usb:054c";
-                      }
-                    ];
-                    actions = {
-                      update-props = {
-                        # Set quality to high quality instead of the default of auto
-                        "bluez5.a2dp.ldac.quality" = "hq";
-                      };
-                    };
+                    # Match any bluetooth device with ids equal to that of a WH-1000XM3
+                    "device.name" = "~bluez_card.*";
+                    "device.product.id" = "0x0cd3";
+                    "device.vendor.id" = "usb:054c";
                   }
                 ];
-              };
-              #"wh-1000xm3-sbc-xq" = {
-              #  "monitor.bluez.properties" = [
-              #    {
-              #      matches = [
-              #        {
-              #          # Match any bluetooth device with ids equal to that of a WH-1000XM3
-              #          "device.name" = "~bluez_card.*";
-              #          "device.product.id" = "0x0cd3";
-              #          "device.vendor.id" = "usb:054c";
-              #        }
-              #      ];
-              #      actions = {
-              #        update-props = {
-              #          # Set codec to SBC-XQ
-              #          "bluez5.auto-connect" = "sbc-xq";
-              #        };
-              #      };
-              #    }
-              #  ];
-              #};
-            };
+                actions = {
+                  update-props = {
+                    # Set quality to high quality instead of the default of auto
+                    "bluez5.a2dp.ldac.quality" = "hq";
+                  };
+                };
+              }
+            ];
+          };
+          #"wh-1000xm3-sbc-xq" = {
+          #  "monitor.bluez.properties" = [
+          #    {
+          #      matches = [
+          #        {
+          #          # Match any bluetooth device with ids equal to that of a WH-1000XM3
+          #          "device.name" = "~bluez_card.*";
+          #          "device.product.id" = "0x0cd3";
+          #          "device.vendor.id" = "usb:054c";
+          #        }
+          #      ];
+          #      actions = {
+          #        update-props = {
+          #          # Set codec to SBC-XQ
+          #          "bluez5.auto-connect" = "sbc-xq";
+          #        };
+          #      };
+          #    }
+          #  ];
+          #};
         };
       };
+    };
 
     #Auto CPU Freq
     #auto-cpufreq.enable = true;
@@ -699,21 +696,21 @@ let
     #fwupd = {
     #  enable = true;
     #};
-        #Printing 
-        #TODO: look into gutenprint and brlaser and/or pkgs.brgenml1lpr and pkgs.brgenml1cupswrapper for brother printers)
-        #TODO: add this link into a future compiled file https://askubuntu.com/questions/1090410/16-04-how-do-i-install-canon-pixma-mg3620-driver
-        #TODO: break up printing into it's own printing.nix?
-        #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
-        #printing.enable = true;
-        #avahi = {
-        #  enable = true;
-        #  nssmdns4 = true;
-        #  openFirewall = true;
-        #};
+    #Printing
+    #TODO: look into gutenprint and brlaser and/or pkgs.brgenml1lpr and pkgs.brgenml1cupswrapper for brother printers)
+    #TODO: add this link into a future compiled file https://askubuntu.com/questions/1090410/16-04-how-do-i-install-canon-pixma-mg3620-driver
+    #TODO: break up printing into it's own printing.nix?
+    #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
+    #printing.enable = true;
+    #avahi = {
+    #  enable = true;
+    #  nssmdns4 = true;
+    #  openFirewall = true;
+    #};
 
     #Hyprland
     hypridle.enable = true;
-        
+
     greetd = {
       enable = true;
       vt = 3;
@@ -729,9 +726,9 @@ let
       enable = false;
       autodetect = true;
     };
-    
-	  gvfs.enable = true;
-	  tumbler.enable = true;
+
+    gvfs.enable = true;
+    tumbler.enable = true;
 
     udev.enable = true;
 
@@ -740,7 +737,7 @@ let
     rpcbind.enable = false;
     nfs.server.enable = false;
 
-	  upower.enable = true;
+    upower.enable = true;
 
     mysql = {
       enable = true;
@@ -752,13 +749,12 @@ let
     #asusd = {
     #  enable = true;
     #};
-
   };
 
   users.users.ajhyperbit = {
     isNormalUser = true;
     description = "AJHyperBit";
-    extraGroups = [ 
+    extraGroups = [
       "flatpak"
       "disk"
       "qemu"
@@ -777,28 +773,27 @@ let
 
   #ANCHOR Programs
 
-  programs ={
-    
+  programs = {
     #Hyprland
-	  hyprland = {
+    hyprland = {
       enable = true;
-		  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
-		  portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdphls
-  	  xwayland.enable = true;
-      };
-	  waybar.enable = true;
-	  hyprlock.enable = true;
-	  firefox.enable = true;
-	  git.enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdphls
+      xwayland.enable = true;
+    };
+    waybar.enable = true;
+    hyprlock.enable = true;
+    firefox.enable = true;
+    git.enable = true;
 
     thunar.enable = true;
-	  thunar.plugins = with pkgs.xfce; [
-		  exo
-		  mousepad
-		  thunar-archive-plugin
-		  thunar-volman
-		  tumbler
-  	  ];
+    thunar.plugins = with pkgs.xfce; [
+      exo
+      mousepad
+      thunar-archive-plugin
+      thunar-volman
+      tumbler
+    ];
 
     nh = {
       enable = true;
@@ -821,8 +816,8 @@ let
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       extraCompatPackages = with pkgs; [
-      proton-ge-bin
-      steamtinkerlaunch
+        proton-ge-bin
+        steamtinkerlaunch
       ];
       gamescopeSession.enable = true;
     };
@@ -834,7 +829,7 @@ let
         "--expose-wayland"
       ];
     };
-    
+
     #coolercontrol.enable = true;
 
     #rog-control-center.enable = true;
@@ -845,16 +840,15 @@ let
     #seahorse.enable = true;
     #Workaround for error: "The option `programs.ssh.askPassword' has conflicting definition values:"
     ssh = {
-    #KDE
-    #askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
-    #Gnome / Seahorse
-    #askPassword = lib.mkForce "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+      #KDE
+      #askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
+      #Gnome / Seahorse
+      #askPassword = lib.mkForce "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
     };
-
 
     #TODO: (Research) Something coding related (VS code talks about it)
     direnv.enable = true;
-  
+
     nix-ld = {
       enable = true;
       #libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
@@ -862,7 +856,7 @@ let
   };
 
   fonts = {
-    #Fonts support 
+    #Fonts support
     enableDefaultPackages = true;
 
     packages = with pkgs; [
@@ -951,8 +945,8 @@ let
         serif = ["Noto Serif" "Source Han Serif"];
         sansSerif = ["Noto Sans" "Source Han Sans"];
       };
-     };
     };
+  };
 
   #Virtualisation
   virtualisation = {
@@ -960,7 +954,7 @@ let
     # Enable common container config files in /etc/containers
     containers = {
       enable = true;
-      };
+    };
     #Podman https://nixos.wiki/wiki/Podman
     podman = {
       enable = true;
@@ -968,7 +962,7 @@ let
       dockerCompat = true;
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
-      };
+    };
   };
 
   #XDG Portals
@@ -977,7 +971,7 @@ let
   #  portal = {
   #    enable = true;
   #    wlr.enable = true;
-  #    extraPortals = with pkgs; [ 
+  #    extraPortals = with pkgs; [
   #      #xdg-desktop-portals
   #      #xdg-desktop-portal-kde
   #      #xdg-desktop-portal-gtk
@@ -1000,7 +994,7 @@ let
   #  };
   #  };
   #};
-  
+
   #TODO: I dunno (research later?) (still don't know, keeping it anyway)
   qt = {
     enable = true;
@@ -1029,23 +1023,23 @@ let
     rtkit.enable = true;
 
     polkit = {
-    enable = true;
-    extraConfig = ''
-      polkit.addRule(function(action, subject) {
-        if (
-          subject.isInGroup("users")
-            && (
-              action.id == "org.freedesktop.login1.reboot" ||
-              action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
-              action.id == "org.freedesktop.login1.power-off" ||
-              action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+      enable = true;
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          if (
+            subject.isInGroup("users")
+              && (
+                action.id == "org.freedesktop.login1.reboot" ||
+                action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+                action.id == "org.freedesktop.login1.power-off" ||
+                action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+              )
             )
-          )
-        {
-          return polkit.Result.YES;
-        }
-      })
-    '';
+          {
+            return polkit.Result.YES;
+          }
+        })
+      '';
     };
   };
 
@@ -1060,51 +1054,49 @@ let
   '';
 
   documentation.nixos.enable = false;
-  
+
   #home-manager.useGlobalPkgs = true;
   #home-manager.useUserPackages = true;
   #home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
   #home-manager.extraSpecialArgs = {inherit inputs self username;};
   #home-manager.backupFileExtension = "hm-bak";
 
-
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
     };
     services.flatpak-repo = {
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
+      path = [pkgs.flatpak];
+      script = ''
+        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      '';
+    };
 
-  services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
-  
+    services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
   };
 
   # zram
   zramSwap = {
-	  enable = true;
-	  priority = 100;
-	  memoryPercent = 30;
-	  swapDevices = 1;
+    enable = true;
+    priority = 100;
+    memoryPercent = 30;
+    swapDevices = 1;
     algorithm = "zstd";
-    };
+  };
 
   #powerManagement = {
   #	enable = true;
-	#  cpuFreqGovernor = "schedutil";
+  #  cpuFreqGovernor = "schedutil";
   #};
 
   hardware = {

@@ -1,21 +1,26 @@
 # Main default config
-
-{ config, pkgs, host, username, options, lib, inputs, system, ...}: 
-
-let
-  
+{
+  config,
+  pkgs,
+  host,
+  username,
+  options,
+  lib,
+  inputs,
+  system,
+  ...
+}: let
   inherit (import ./variables.nix) keyboardLayout;
   python-packages = pkgs.python3.withPackages (
     ps:
       with ps; [
         requests
         pyquery # needed for hyprland-dots Weather script
-        ]
+      ]
   );
-  
-  in {
+in {
   imports = [
-  ../../modules/local-hardware-clock.nix
+    ../../modules/local-hardware-clock.nix
   ];
 
   # BOOT related stuff
@@ -23,10 +28,10 @@ let
     #kernelPackages = pkgs.linuxPackages_latest; # Kernel
 
     kernelParams = [
-    "systemd.mask=systemd-vconsole-setup.service"
-    "systemd.mask=dev-tpmrm0.device" #this is to mask that stupid 1.5 mins systemd bug
-    "nowatchdog" 
-    "nohibernate"
+      "systemd.mask=systemd-vconsole-setup.service"
+      "systemd.mask=dev-tpmrm0.device" #this is to mask that stupid 1.5 mins systemd bug
+      "nowatchdog"
+      "nohibernate"
     ];
     tmp.cleanOnBoot = true;
     #supportedFilesystems = ["ntfs"];
@@ -43,9 +48,9 @@ let
       #timeout = 300;
     };
 
-    initrd = { 
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-      kernelModules = [ ];
+    initrd = {
+      availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
+      kernelModules = [];
     };
 
     # Make /tmp a tmpfs
@@ -53,7 +58,7 @@ let
       useTmpfs = false;
       tmpfsSize = "30%";
     };
-    
+
     # Appimage Support
     binfmt.registrations.appimage = {
       wrapInterpreterInShell = false;
@@ -65,7 +70,6 @@ let
     };
 
     plymouth.enable = false;
-
   };
 
   local.hardware-clock.enable = true;
@@ -73,23 +77,22 @@ let
   nix = {
     settings = {
       #warn-dirty = false;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       auto-optimise-store = true;
       substituters = [
-      "https://cache.nixos.org?priority=10"
-      "https://nix-community.cachix.org"
-    ];
+        "https://cache.nixos.org?priority=10"
+        "https://nix-community.cachix.org"
+      ];
 
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 60d";
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 60d";
     };
   };
 
@@ -102,7 +105,6 @@ let
   #ANCHOR Packages
 
   environment.systemPackages = with pkgs; [
-
   ];
 
   hardware = {
@@ -112,7 +114,7 @@ let
     networkmanager.enable = true;
     enableIPv6 = false;
     #interfaces.enp6s0.wakeOnLan.enable = true;
-    timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
+    timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     #firewall.enable = true;
     #Allow VNC and Synergy through firewall
     firewall.allowedTCPPorts = [];
@@ -125,7 +127,7 @@ let
     };
   };
 
-    # Set your time zone.
+  # Set your time zone.
   time.timeZone = "America/Chicago";
 
   i18n = {
@@ -179,14 +181,13 @@ let
     rpcbind.enable = false;
     nfs.server.enable = false;
 
-	  upower.enable = true;
-
+    upower.enable = true;
   };
 
   users.users.ajhyperbit = {
     isNormalUser = true;
     description = "AJHyperBit";
-    extraGroups = [ 
+    extraGroups = [
       "flatpak"
       "disk"
       "qemu"
@@ -206,9 +207,8 @@ let
   #ANCHOR Programs
 
   programs = {
-    
     #Hyprland
-	  git.enable = true;
+    git.enable = true;
 
     nh = {
       enable = true;
@@ -234,7 +234,7 @@ let
 
     #TODO: (Research) Something coding related (VS code talks about it)
     direnv.enable = true;
-  
+
     nix-ld = {
       enable = true;
     };
@@ -246,7 +246,7 @@ let
     # Enable common container config files in /etc/containers
     containers = {
       enable = true;
-      };
+    };
     #Podman https://nixos.wiki/wiki/Podman
     podman = {
       enable = true;
@@ -254,7 +254,7 @@ let
       dockerCompat = true;
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
-      };
+    };
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
@@ -265,10 +265,10 @@ let
 
   # zram
   zramSwap = {
-	  enable = true;
-	  priority = 100;
-	  memoryPercent = 30;
-	  swapDevices = 1;
+    enable = true;
+    priority = 100;
+    memoryPercent = 30;
+    swapDevices = 1;
     algorithm = "zstd";
   };
 }

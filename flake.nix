@@ -1,5 +1,4 @@
 {
-
   description = "NixOS configuration";
 
   inputs = {
@@ -17,7 +16,7 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
-    
+
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -26,7 +25,7 @@
 
     alejandra = {
       url = "github:kamadorueda/alejandra/3.1.0";
-      inputs.nixpkgs.follows = "nixpkgs"; 
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -42,16 +41,15 @@
     #};
   };
 
-outputs = inputs@{
-  self,
-  nixpkgs,
-  home-manager,
-  stylix,
-  nixos-hardware,
-  alejandra,
-  ...
-  }:
-    let
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    stylix,
+    nixos-hardware,
+    alejandra,
+    ...
+  }: let
     system = "x86_64-linux";
     host = "nixos";
     lap-host = "nixtop";
@@ -59,125 +57,128 @@ outputs = inputs@{
     username = "ajhyperbit";
 
     pkgs = import nixpkgs {
-       	inherit system;
-       	config = {
-       	allowUnfree = true;
-       	};
+      inherit system;
+      config = {
+        allowUnfree = true;
       };
-    in
-      {
+    };
+  in {
     nixosConfigurations = {
       "${host}" = nixpkgs.lib.nixosSystem rec {
-      system = "x86_64-linux";
-      specialArgs = {
-			  inherit system;
-			  inherit inputs;
-			  inherit username;
-			  inherit host;
-        inherit self;
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+          inherit username;
+          inherit host;
+          inherit self;
         };
-      modules = [
-				./hosts/${host}/config.nix
-        ./hosts/common/common.nix
-        #nixos-hardware.nixosModules.framework-11th-gen-intel
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
-          home-manager.extraSpecialArgs = {inherit inputs self username;};
-          home-manager.backupFileExtension = "backup";
-        }
-        
-        stylix.nixosModules.stylix
-        
-        {
-          environment.systemPackages = [alejandra.defaultPackage.${system}];
-        }
-      
-      (
-        { pkgs, ... }: {
-        
-          environment.systemPackages = [
-          
-          ];
-        }
-      )
-        
-        #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
-        #fufexan-dotfiles.nixosModules.theme
+        modules = [
+          ./hosts/${host}/config.nix
+          ./hosts/common/common.nix
+          ./hosts/common/users.nix
+          ./modules/nvidia-drivers.nix
+          ./modules/vm-guest-services.nix
+          #nixos-hardware.nixosModules.framework-11th-gen-intel
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ajhyperbit = {imports = [./config/home.nix];};
+            home-manager.extraSpecialArgs = {inherit inputs self username;};
+            home-manager.backupFileExtension = "backup";
+          }
 
-        #nixos-vfio.nixosModules.vfio
-        #wayland.windowManager.hyprland {
-        #  enable = true;
-        #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-        #}
-      ];
+          stylix.nixosModules.stylix
+
+          {
+            environment.systemPackages = [alejandra.defaultPackage.${system}];
+          }
+
+          (
+            {pkgs, ...}: {
+              environment.systemPackages = [
+              ];
+            }
+          )
+
+          #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
+          #fufexan-dotfiles.nixosModules.theme
+
+          #nixos-vfio.nixosModules.vfio
+          #wayland.windowManager.hyprland {
+          #  enable = true;
+          #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+          #}
+        ];
       };
       "${lap-host}" = nixpkgs.lib.nixosSystem rec {
-      system = "x86_64-linux";
-      specialArgs = {
-			  inherit system;
-			  inherit inputs;
-			  inherit username;
-			  inherit lap-host;
-        inherit self;
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+          inherit username;
+          inherit lap-host;
+          inherit self;
         };
-      modules = [
-				./hosts/${lap-host}/config.nix
-        ./hosts/common/common.nix
-        nixos-hardware.nixosModules.framework-11th-gen-intel
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
-          home-manager.extraSpecialArgs = {inherit inputs self username;};
-          home-manager.backupFileExtension = "backup";
-        }
-        stylix.nixosModules.stylix
-      ({ pkgs, ... }: {
-        environment.systemPackages = [
-        ];})
-        #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
-        #fufexan-dotfiles.nixosModules.theme
+        modules = [
+          ./hosts/${lap-host}/config.nix
+          ./hosts/common/common.nix
+          ./hosts/common/users.nix
+          ./modules/intel-drivers.nix
+          nixos-hardware.nixosModules.framework-11th-gen-intel
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ajhyperbit = {imports = [./config/home.nix];};
+            home-manager.extraSpecialArgs = {inherit inputs self username;};
+            home-manager.backupFileExtension = "backup";
+          }
+          stylix.nixosModules.stylix
+          ({pkgs, ...}: {
+            environment.systemPackages = [
+            ];
+          })
+          #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
+          #fufexan-dotfiles.nixosModules.theme
 
-        #nixos-vfio.nixosModules.vfio
-        #wayland.windowManager.hyprland {
-        #  enable = true;
-        #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-        #}
-      ];
+          #nixos-vfio.nixosModules.vfio
+          #wayland.windowManager.hyprland {
+          #  enable = true;
+          #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+          #}
+        ];
       };
 
       "${nixserver}" = nixpkgs.lib.nixosSystem rec {
-      system = "x86_64-linux";
-      specialArgs = {
-			  inherit system;
-			  inherit inputs;
-			  inherit username;
-			  inherit nixserver;
-        inherit self;
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+          inherit username;
+          inherit nixserver;
+          inherit self;
         };
-      modules = [
-				./hosts/${nixserver}/config.nix
-        ./hosts/server/server.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
-          home-manager.extraSpecialArgs = {inherit inputs self username;};
-          home-manager.backupFileExtension = "backup";
-        }
-        stylix.nixosModules.stylix
-      ({ pkgs, ... }: {
-        environment.systemPackages = [
-        ];})
-      ];
+        modules = [
+          ./hosts/${nixserver}/config.nix
+          ./hosts/server/server.nix
+          ./hosts/common/users.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ajhyperbit = {imports = [./config/home.nix];};
+            home-manager.extraSpecialArgs = {inherit inputs self username;};
+            home-manager.backupFileExtension = "backup";
+          }
+          stylix.nixosModules.stylix
+          ({pkgs, ...}: {
+            environment.systemPackages = [
+            ];
+          })
+        ];
       };
-
-
     };
   };
 }

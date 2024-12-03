@@ -1,27 +1,26 @@
 # Main default config
-
-{ config, pkgs, lap-host, username, options, lib, inputs, system, ...}: 
-
-let
-  
+{
+  config,
+  pkgs,
+  lap-host,
+  username,
+  options,
+  lib,
+  inputs,
+  system,
+  ...
+}: let
   inherit (import ./variables.nix) keyboardLayout;
   python-packages = pkgs.python3.withPackages (
     ps:
       with ps; [
         requests
         pyquery # needed for hyprland-dots Weather script
-        ]
+      ]
   );
-  
-  in {
+in {
   imports = [
     ./hardware.nix
-    ./users.nix
-    #../../modules/amd-drivers.nix
-    #../../modules/nvidia-drivers.nix
-    #../../modules/nvidia-prime-drivers.nix
-    ../../modules/intel-drivers.nix
-    #../../modules/vm-guest-services.nix
   ];
 
   # BOOT related stuff
@@ -29,13 +28,13 @@ let
     #kernelPackages = pkgs.linuxPackages_latest; # Kernel
 
     kernelParams = [
-    "i915.force_probe=9a49"
+      "i915.force_probe=9a49"
     ];
-    initrd = { 
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "uas" "thunderbolt"];
-      kernelModules = [ ];
+    initrd = {
+      availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "uas" "thunderbolt"];
+      kernelModules = [];
     };
-      kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
   };
 
   drivers.intel.enable = true;
@@ -45,7 +44,7 @@ let
   services = {
   };
 
-  environment= {
+  environment = {
     #shellAliases = {
     #  google-chrome = "google-chrome-stable"
     #};
@@ -55,18 +54,18 @@ let
     };
 
     sessionVariables = {
-    no_hardware_cursors = "true";
-    #WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
-    #KDE_FULL_SESSION = "true";
-    #GBM_BACKEND = "nvidia-drm";
-    #LIBVA_DRIVER_NAME = "nvidia";
-    #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    #QT_QPA_PLATFORM = "wayland;xcb";
-    #QT_QPA_PLATFORMTHEME= "qt5ct";
-    #GDK_BACKEND = "wayland,x11,*";
-    #NVD_BACKEND = "direct";
-  };
+      no_hardware_cursors = "true";
+      #WLR_NO_HARDWARE_CURSORS = "1";
+      NIXOS_OZONE_WL = "1";
+      #KDE_FULL_SESSION = "true";
+      #GBM_BACKEND = "nvidia-drm";
+      #LIBVA_DRIVER_NAME = "nvidia";
+      #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      #QT_QPA_PLATFORM = "wayland;xcb";
+      #QT_QPA_PLATFORMTHEME= "qt5ct";
+      #GDK_BACKEND = "wayland,x11,*";
+      #NVD_BACKEND = "direct";
+    };
   };
 
   # This value determines the NixOS release from which the default

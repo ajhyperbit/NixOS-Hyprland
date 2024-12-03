@@ -1,8 +1,15 @@
 # Main default config
-
-{ config, pkgs, host, username, options, lib, inputs, system, ...}: 
-
-let
+{
+  config,
+  pkgs,
+  host,
+  username,
+  options,
+  lib,
+  inputs,
+  system,
+  ...
+}: let
   host = "nixos";
 
   inherit (import ./variables.nix) keyboardLayout;
@@ -11,18 +18,11 @@ let
       with ps; [
         requests
         pyquery # needed for hyprland-dots Weather script
-        ]
+      ]
   );
-  
-  in {
+in {
   imports = [
     ./hardware.nix
-    ./users.nix
-    #../../modules/amd-drivers.nix
-    ../../modules/nvidia-drivers.nix
-    #../../modules/nvidia-prime-drivers.nix
-    #../../modules/intel-drivers.nix
-    ../../modules/vm-guest-services.nix
   ];
 
   # BOOT related stuff
@@ -30,15 +30,15 @@ let
     #kernelPackages = pkgs.linuxPackages_latest; # Kernel
 
     kernelParams = [
-    "amd_iommu=on"
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+      "amd_iommu=on"
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
 
-    kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+    kernelModules = ["vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
 
-    initrd = { 
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-      kernelModules = [ ];
+    initrd = {
+      availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
+      kernelModules = [];
     };
   };
 
@@ -54,7 +54,7 @@ let
     device = "/dev/disk/by-uuid/c879995c-386a-42c2-bc3b-8d02a03c61de";
     fsType = "ext4";
     options = [
-      # If you don't have this options attribute, it'll default to "defaults" 
+      # If you don't have this options attribute, it'll default to "defaults"
       # boot options for fstab. Search up fstab mount options you can use
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
@@ -66,7 +66,7 @@ let
     device = "/dev/disk/by-uuid/F7F7-F2D7";
     fsType = "exfat";
     options = [
-      # If you don't have this options attribute, it'll default to "defaults" 
+      # If you don't have this options attribute, it'll default to "defaults"
       # boot options for fstab. Search up fstab mount options you can use
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
@@ -82,7 +82,7 @@ let
   networking.hostName = "${host}";
 
   environment.systemPackages = with pkgs; [
-      davinci-resolve-studio
+    davinci-resolve-studio
   ];
 
   #ANCHOR - Services
@@ -105,18 +105,18 @@ let
     };
 
     sessionVariables = {
-    no_hardware_cursors = "true";
-    #WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
-    #KDE_FULL_SESSION = "true";
-    GBM_BACKEND = "nvidia-drm";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    #QT_QPA_PLATFORM = "wayland;xcb";
-    #QT_QPA_PLATFORMTHEME= "qt5ct";
-    #GDK_BACKEND = "wayland,x11,*";
-    #NVD_BACKEND = "direct";
-  };
+      no_hardware_cursors = "true";
+      #WLR_NO_HARDWARE_CURSORS = "1";
+      NIXOS_OZONE_WL = "1";
+      #KDE_FULL_SESSION = "true";
+      GBM_BACKEND = "nvidia-drm";
+      LIBVA_DRIVER_NAME = "nvidia";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      #QT_QPA_PLATFORM = "wayland;xcb";
+      #QT_QPA_PLATFORMTHEME= "qt5ct";
+      #GDK_BACKEND = "wayland,x11,*";
+      #NVD_BACKEND = "direct";
+    };
   };
 
   #XDG Portals
@@ -125,28 +125,28 @@ let
     portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = with pkgs; [ 
+      extraPortals = with pkgs; [
         #xdg-desktop-portal
         #xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
         #xdg-desktop-portal-hyprland
       ];
       xdgOpenUsePortal = true;
-    configPackages = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal
-    ];
+      configPackages = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal
+      ];
 
-    config = {
-    #  common = {
-    #    default = [
-    #      "kde"
-    #      ];
-    #  };
-      #"org.freedesktop.impl.portal.FileChooser"= [
-      #  "kde"
-      #    ];
-    };
+      config = {
+        #  common = {
+        #    default = [
+        #      "kde"
+        #      ];
+        #  };
+        #"org.freedesktop.impl.portal.FileChooser"= [
+        #  "kde"
+        #    ];
+      };
     };
   };
 
