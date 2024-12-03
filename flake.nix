@@ -52,7 +52,7 @@
   }: let
     system = "x86_64-linux";
     host = "nixos";
-    lap-host = "nixtop";
+    laptop-host = "nixtop";
     nixserver = "nixserver";
     username = "ajhyperbit";
 
@@ -112,17 +112,17 @@
           #}
         ];
       };
-      "${lap-host}" = nixpkgs.lib.nixosSystem rec {
+      "${laptop-host}" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
           inherit system;
           inherit inputs;
           inherit username;
-          inherit lap-host;
+          inherit laptop-host;
           inherit self;
         };
         modules = [
-          ./hosts/${lap-host}/config.nix
+          ./hosts/${laptop-host}/config.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
