@@ -140,14 +140,6 @@
             environment.systemPackages = [
             ];
           })
-          #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
-          #fufexan-dotfiles.nixosModules.theme
-
-          #nixos-vfio.nixosModules.vfio
-          #wayland.windowManager.hyprland {
-          #  enable = true;
-          #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-          #}
         ];
       };
 
