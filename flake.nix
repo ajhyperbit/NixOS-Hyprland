@@ -49,6 +49,7 @@ outputs = inputs@{
     system = "x86_64-linux";
     host = "nixos";
     lap-host = "nixtop";
+    nixserver = "nixserver";
     username = "ajhyperbit";
 
     pkgs = import nixpkgs {
@@ -130,7 +131,35 @@ outputs = inputs@{
         #}
       ];
       };
-    
+
+      "${nixserver}" = nixpkgs.lib.nixosSystem rec {
+      system = "x86_64-linux";
+      specialArgs = {
+			  inherit system;
+			  inherit inputs;
+			  inherit username;
+			  inherit nixserver;
+        inherit self;
+        };
+      modules = [
+				./hosts/${nixserver}/config.nix
+        ./hosts/server/server.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.ajhyperbit = { imports = [ ./config/home.nix ];};
+          home-manager.extraSpecialArgs = {inherit inputs self username;};
+          home-manager.backupFileExtension = "backup";
+        }
+        stylix.nixosModules.stylix
+      ({ pkgs, ... }: {
+        environment.systemPackages = [
+        ];})
+      ];
+      };
+
+
     };
   };
 }
