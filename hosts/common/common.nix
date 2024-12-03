@@ -314,6 +314,7 @@ let
     gittyup
     gh
   vscode-fhs
+    alejandra
   #quickemu
   #quickgui
   direnv
