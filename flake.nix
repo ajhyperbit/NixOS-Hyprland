@@ -136,10 +136,17 @@
             home-manager.backupFileExtension = "backup";
           }
           stylix.nixosModules.stylix
-          ({pkgs, ...}: {
-            environment.systemPackages = [
-            ];
-          })
+
+          {
+            environment.systemPackages = [alejandra.defaultPackage.${system}];
+          }
+
+          (
+            {pkgs, ...}: {
+              environment.systemPackages = [
+              ];
+            }
+          )
         ];
       };
 
