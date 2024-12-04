@@ -2,6 +2,10 @@
 Feel free to use issues or pull requests if you have feedback or anything else. No promises anything will come of it due to my inexperience, but it is appreciated nonetheless.
 
 <div align="center">
+
+## Regular readme follows below
+
+<div align="center">
 <br> 
   <a href="#-announcement-"><kbd> <br> Read this First <br> </kbd></a>&ensp;&ensp;
   <a href="#-1-using-auto-install-script"><kbd> <br> Auto Install <br> </kbd></a>&ensp;&ensp;
