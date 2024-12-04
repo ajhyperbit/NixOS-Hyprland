@@ -75,6 +75,8 @@
         };
         modules = [
           ./hosts/${host}/config.nix
+          ./hosts/${host}/hardware.nix
+          ./hosts/${host}/drives.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/nvidia-drivers.nix
@@ -123,6 +125,7 @@
         };
         modules = [
           ./hosts/${laptop-host}/config.nix
+          ./hosts/${laptop-host}/hardware.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
@@ -161,6 +164,7 @@
         };
         modules = [
           ./hosts/${nixserver}/config.nix
+          ./hosts/${nixserver}/hardware.nix
           ./hosts/server/server.nix
           ./hosts/common/users.nix
           home-manager.nixosModules.home-manager
