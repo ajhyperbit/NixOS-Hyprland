@@ -2,25 +2,15 @@
 {
   config,
   pkgs,
-  lap-host,
+  laptop-host,
   username,
   options,
   lib,
   inputs,
   system,
   ...
-}: let
-  inherit (import ./variables.nix) keyboardLayout;
-  python-packages = pkgs.python3.withPackages (
-    ps:
-      with ps; [
-        requests
-        pyquery # needed for hyprland-dots Weather script
-      ]
-  );
-in {
+}: {
   imports = [
-    ./hardware.nix
   ];
 
   # BOOT related stuff
@@ -39,7 +29,7 @@ in {
 
   drivers.intel.enable = true;
 
-  networking.hostName = "${lap-host}";
+  networking.hostName = "${laptop-host}";
 
   services = {
   };
