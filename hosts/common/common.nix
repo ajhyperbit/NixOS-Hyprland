@@ -158,10 +158,10 @@ in {
       #TODO Refactor
 
       neovim
-      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       wget
       google-chrome
-      chromium
+      #chromium
       (chromium.override {enableWideVine = true;})
       floorp
       # System Packages
@@ -175,7 +175,7 @@ in {
       ffmpeg
       glib #for gsettings to work
       gsettings-qt
-      killall
+      #killall
       libappindicator
       openssl #required by Rainbow borders
       xdg-user-dirs
@@ -187,9 +187,9 @@ in {
       #Games
       steam
       gamescope
-      steamtinkerlaunch
+      #steamtinkerlaunch
       rare
-      protonup-qt
+      #protonup-qt
       #For Need for Speed Most Wanted
       glibc
       discord
@@ -204,16 +204,16 @@ in {
       wine-staging
       wine-wayland
       winetricks
-      playonlinux
+      #playonlinux
       protontricks
       bottles
-      (lutris.override {
-        extraPkgs = pkgs: [
-          # List package dependencies here
-          wineWowPackages.stable
-          winetricks
-        ];
-      })
+      #(lutris.override {
+      #  extraPkgs = pkgs: [
+      #    # List package dependencies here
+      #    wineWowPackages.stable
+      #    winetricks
+      #  ];
+      #})
       gsmartcontrol
 
       #System tools
@@ -241,15 +241,12 @@ in {
       cpufetch
       ramfetch
       disfetch
-      xrdp
-      xorg.xinit
-      x11vnc
       nix-index
       fetchutils
       #Antivirus GUI
       #clamtk
       #Password things
-      pass
+      #pass
       #keepassxc
       #Manage Files as admin
       kdePackages.kio-admin
@@ -321,7 +318,7 @@ in {
       python312Packages.pip
       virtualenv
       docker
-      nodejs_22
+      #nodejs_22
       obsidian
       #synergy
 
@@ -336,7 +333,6 @@ in {
       clinfo
       gwe
       nvtopPackages.nvidia
-      virtualglLib
       tailscale
       parsec-bin
       jq
@@ -345,13 +341,13 @@ in {
       autokey
       ntfs3g
       nvd
-      p7zip
+      #p7zip
       rpi-imager
       xclicker
       #Calculators
       kdePackages.kcalc
       #qalculate-qt
-      lastpass-cli
+      #lastpass-cli
       dconf2nix
       coppwr
       pwvucontrol
@@ -367,12 +363,13 @@ in {
       furmark
 
       #School
+      beekeeper-studio
+      onedrivegui
+      #Libreoffice
       libreoffice-qt
       hunspell
       hunspellDicts.en_US
       hunspellDicts.en-us
-      beekeeper-studio
-      onedrivegui
 
       #Makes other distros available to me
       #distrobox
@@ -387,7 +384,6 @@ in {
       brightnessctl # for brightness control
       #cava
       #cliphist
-      #eog
       eog
       gnome-system-monitor
       #file-roller
@@ -455,11 +451,11 @@ in {
       #most popular
       rofi-wayland
       #gtk rofi
-      wofi
+      #wofi
       #Wiki also suggests
       bemenu
-      fuzzel
-      tofi
+      #fuzzel
+      #tofi
 
       #Polkit agent
       polkit
@@ -472,7 +468,7 @@ in {
       hyprcursor # requires unstable channel
 
       #check if running via xwayland or wayland
-      xorg.xwininfo
+      #xorg.xwininfo
 
       #Bluetooth
       #blueman
@@ -502,6 +498,8 @@ in {
       #ninja
       #axel
       #tinyxml-2
+
+      dialog #makes certain things work within terminal
     ])
     ++ [
       python-packages
@@ -816,8 +814,8 @@ in {
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       extraCompatPackages = with pkgs; [
-        proton-ge-bin
-        steamtinkerlaunch
+        #proton-ge-bin
+        #steamtinkerlaunch
       ];
       gamescopeSession.enable = true;
     };
