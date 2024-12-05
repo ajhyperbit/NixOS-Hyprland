@@ -9,10 +9,6 @@
 			"path": "."
 		},
 		{
-			"name": "NixOS-Hyprland-F'dUp",
-			"path": "../NixOS-Hyprland-F'dUp"
-		},
-		{
 			"name": "hypr",
 			"path": "../.config/hypr"
 		},
