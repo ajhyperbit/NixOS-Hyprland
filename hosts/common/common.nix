@@ -526,7 +526,6 @@ in {
   networking = {
     networkmanager.enable = true;
     enableIPv6 = false;
-    interfaces.enp6s0.wakeOnLan.enable = true;
     timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     #firewall.enable = true;
     #Allow VNC and Synergy through firewall

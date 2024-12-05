@@ -33,8 +33,10 @@
   drivers.nvidia.enable = true;
   #vm.guest-services.enable = false;
 
-  networking.hostName = "${host}";
-
+  networking = {
+    hostName = "${host}";
+    interfaces.enp6s0.wakeOnLan.enable = true;
+  };
   environment.systemPackages = with pkgs; [
     davinci-resolve-studio
   ];
