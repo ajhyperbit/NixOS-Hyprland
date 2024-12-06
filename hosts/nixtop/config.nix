@@ -32,6 +32,63 @@
   networking.hostName = "${laptop-host}";
 
   services = {
+    #False Power Profiles Daemon so auto-cpufeq works
+    power-profiles-daemon.enable = false;
+    thermald.enable = true;
+    auto-cpufreq.enable = true;
+    auto-cpufreq.settings = {
+      battery = {
+        #3GHz
+        scaling_max_freq = "3000000";
+        #2.5GHz
+        #scaling_max_freq = "2500000";
+        governor = "powersave";
+        turbo = "auto";
+      };
+      charger = {
+        scaling_max_freq = "3000000";
+        governor = "powersave";
+        turbo = "auto";
+      };
+    };
+  };
+
+  programs = {
+    fw-fanctrl.config = {
+      defaultStrategy = "lazy";
+      strategies = {
+        "lazy" = {
+          fanSpeedUpdateFrequency = 5;
+          movingAverageInterval = 30;
+          speedCurve = [
+            {
+              temp = 0;
+              speed = 15;
+            }
+            {
+              temp = 50;
+              speed = 15;
+            }
+            {
+              temp = 65;
+              speed = 25;
+            }
+            {
+              temp = 70;
+              speed = 35;
+            }
+            {
+              temp = 75;
+              speed = 50;
+            }
+            {
+              temp = 85;
+              speed = 100;
+            }
+          ];
+        };
+      };
+    };
   };
 
   environment = {

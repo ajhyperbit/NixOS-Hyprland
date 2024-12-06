@@ -28,6 +28,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    fw-fanctrl = {
+      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
     #master.url = "github:nixos/nixpkgs/master";
@@ -46,8 +51,9 @@
     nixpkgs,
     home-manager,
     stylix,
-    nixos-hardware,
     alejandra,
+    nixos-hardware,
+    fw-fanctrl,
     ...
   }: let
     system = "x86_64-linux";
@@ -64,6 +70,7 @@
     };
   in {
     nixosConfigurations = {
+      #Main Desktop
       "${host}" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
@@ -114,6 +121,7 @@
           #}
         ];
       };
+      #Framework13
       "${laptop-host}" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
@@ -131,6 +139,7 @@
           ./modules/intel-drivers.nix
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
+          fw-fanctrl.nixosModules.default
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -152,7 +161,7 @@
           )
         ];
       };
-
+      #Yet to be built server (someday)
       "${nixserver}" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
