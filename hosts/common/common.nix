@@ -500,6 +500,8 @@ in {
       #tinyxml-2
 
       dialog #makes certain things work within terminal
+
+      busybox
     ])
     ++ [
       python-packages
