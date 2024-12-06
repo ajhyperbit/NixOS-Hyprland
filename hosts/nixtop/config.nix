@@ -41,14 +41,21 @@
         #3GHz
         #scaling_max_freq = "3000000";
         #2.8GHz
-        #scaling_max_freq = "2800000";
+        scaling_max_freq = "2800000";
         #2.5GHz
         #scaling_max_freq = "2500000";
         governor = "powersave";
         turbo = "auto";
       };
       charger = {
-        scaling_max_freq = "3000000";
+        #3GHz
+        #scaling_max_freq = "3000000";
+        #2.8GHz
+        #scaling_max_freq = "2800000";
+        #2.5GHz
+        #scaling_max_freq = "2500000";
+        #2GHz
+        scaling_max_freq = "2000000";
         governor = "powersave";
         turbo = "auto";
       };
