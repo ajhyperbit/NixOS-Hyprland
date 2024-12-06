@@ -39,7 +39,9 @@
     auto-cpufreq.settings = {
       battery = {
         #3GHz
-        scaling_max_freq = "3000000";
+        #scaling_max_freq = "3000000";
+        #2.8GHz
+        #scaling_max_freq = "2800000";
         #2.5GHz
         #scaling_max_freq = "2500000";
         governor = "powersave";
