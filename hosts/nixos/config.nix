@@ -39,7 +39,6 @@
   };
   environment.systemPackages = with pkgs; [
     davinci-resolve-studio
-    sunshine
   ];
 
   #ANCHOR - Services
@@ -49,6 +48,13 @@
     ddclient = {
       enable = true;
       configFile = "/etc/ddclient/ddclient.conf";
+    };
+    
+  sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true; 
     };
   };
 
