@@ -359,6 +359,7 @@ in {
       libsForQt5.qt5ct
       libsForQt5.breeze-icons
       libsForQt5.oxygen
+      #kdePackages.neochat (Insecure Dependancy warning?)
 
       furmark
 
@@ -851,6 +852,11 @@ in {
     nix-ld = {
       enable = true;
       #libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+    };
+
+    thunderbird = {
+      enable = true;
+      preferencesStatus = "user";
     };
   };
 
