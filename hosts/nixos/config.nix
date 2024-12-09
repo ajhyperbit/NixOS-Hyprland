@@ -8,6 +8,7 @@
   lib,
   inputs,
   system,
+  stateVersion-host,
   ...
 }: {
   imports = [
@@ -36,14 +37,20 @@
   networking = {
     hostName = "${host}";
     interfaces.enp6s0.wakeOnLan.enable = true;
-  firewall = {
-  enable = true;
-    allowedTCPPorts = [ 47984 47989 47990 48010 ];
-    allowedUDPPortRanges = [
-      { from = 47998; to = 48000; }
-      { from = 8000; to = 8010; }
-    ];
-};
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [47984 47989 47990 48010];
+      allowedUDPPortRanges = [
+        {
+          from = 47998;
+          to = 48000;
+        }
+        {
+          from = 8000;
+          to = 8010;
+        }
+      ];
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -58,12 +65,12 @@
       enable = true;
       configFile = "/etc/ddclient/ddclient.conf";
     };
-    
-  sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true; 
+
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
     };
   };
 
@@ -131,5 +138,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = stateVersion-host; # Did you read the comment?
 }

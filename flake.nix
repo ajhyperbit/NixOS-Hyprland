@@ -61,6 +61,14 @@
     laptop-host = "nixtop";
     nixserver = "nixserver";
     username = "ajhyperbit";
+    home = "/home/ajhyperbit";
+    stateVersion-host = "23.11";
+    stateVersion-laptop-host = "23.11";
+    #This is due to the fact home manager got installed on 24.05 and NOT 23.11.
+    #I am prioritizing keeping stateVersion accurate across files and preventing breakage,
+    #but upon a reinstall or a requirement of bumping stateVersion I will try to change this
+    #so stateVersion-host and stateVersion-hm can be the same so stateVersion-hm can be removed
+    stateVersion-hm = "24.05";
 
     pkgs = import nixpkgs {
       inherit system;
@@ -78,7 +86,10 @@
           inherit inputs;
           inherit username;
           inherit host;
+          inherit home;
           inherit self;
+          inherit stateVersion-host;
+          inherit stateVersion-hm;
         };
         modules = [
           ./hosts/${host}/config.nix
@@ -93,8 +104,13 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.ajhyperbit = {imports = [./config/home.nix];};
-            home-manager.extraSpecialArgs = {inherit inputs self username;};
+            home-manager.users.ajhyperbit = {
+              imports = [
+                ./hosts/common/home.nix
+                ./hosts/${host}/home.nix
+              ];
+            };
+            home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-hm;};
             home-manager.backupFileExtension = "backup";
           }
 
@@ -130,6 +146,8 @@
           inherit username;
           inherit laptop-host;
           inherit self;
+          inherit stateVersion-laptop-host;
+          inherit stateVersion-hm;
         };
         modules = [
           ./hosts/${laptop-host}/config.nix
@@ -143,8 +161,13 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.ajhyperbit = {imports = [./config/home.nix];};
-            home-manager.extraSpecialArgs = {inherit inputs self username;};
+            home-manager.users.ajhyperbit = {
+              imports = [
+                ./hosts/common/home.nix
+                ./hosts/${laptop-host}/home.nix
+              ];
+            };
+            home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-hm;};
             home-manager.backupFileExtension = "backup";
           }
           stylix.nixosModules.stylix
@@ -162,35 +185,35 @@
         ];
       };
       #Yet to be built server (someday)
-      "${nixserver}" = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-          inherit username;
-          inherit nixserver;
-          inherit self;
-        };
-        modules = [
-          ./hosts/${nixserver}/config.nix
-          ./hosts/${nixserver}/hardware.nix
-          ./hosts/server/server.nix
-          ./hosts/common/users.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ajhyperbit = {imports = [./config/home.nix];};
-            home-manager.extraSpecialArgs = {inherit inputs self username;};
-            home-manager.backupFileExtension = "backup";
-          }
-          stylix.nixosModules.stylix
-          ({pkgs, ...}: {
-            environment.systemPackages = [
-            ];
-          })
-        ];
-      };
+      #"${nixserver}" = nixpkgs.lib.nixosSystem rec {
+      #  system = "x86_64-linux";
+      #  specialArgs = {
+      #    inherit system;
+      #    inherit inputs;
+      #    inherit username;
+      #    inherit nixserver;
+      #    inherit self;
+      #  };
+      #  modules = [
+      #    ./hosts/${nixserver}/config.nix
+      #    ./hosts/${nixserver}/hardware.nix
+      #    ./hosts/server/server.nix
+      #    ./hosts/common/users.nix
+      #    home-manager.nixosModules.home-manager
+      #    {
+      #      home-manager.useGlobalPkgs = true;
+      #      home-manager.useUserPackages = true;
+      #      home-manager.users.ajhyperbit = {imports = [./config/home.nix];};
+      #      home-manager.extraSpecialArgs = {inherit inputs self username;};
+      #      home-manager.backupFileExtension = "backup";
+      #    }
+      #    stylix.nixosModules.stylix
+      #    ({pkgs, ...}: {
+      #      environment.systemPackages = [
+      #      ];
+      #    })
+      #  ];
+      #};
     };
   };
 }

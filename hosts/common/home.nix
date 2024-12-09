@@ -6,7 +6,7 @@
 #}:
 #let
 #  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-#  state = system.stateVersion  
+#  state = system.stateVersion
 #in
 #{
 #  imports = [
@@ -19,24 +19,55 @@
 #    /* Here goes the rest of your home-manager config, e.g. home.packages = [ pkgs.foo ]; */
 #  };
 #}
-
-
-  #Enable Git
-  #programs.git = {
-  #  package = pkgs.gitFull;
-  #  enable = true;
-  #  userName = "ajhyperbit";
-  #  userEmail = "ajhyperbit@gmail.com"
-  #};
-
-
-{config, pkgs, options, username, ...}: {
-  
+#Enable Git
+#programs.git = {
+#  package = pkgs.gitFull;
+#  enable = true;
+#  userName = "ajhyperbit";
+#  userEmail = "ajhyperbit@gmail.com"
+#};
+{
+  config,
+  pkgs,
+  options,
+  username,
+  ...
+}: {
   imports = [
-    ./packages
   ];
 
   fonts.fontconfig.enable = true;
+
+  home = {
+    username = "${username}";
+    homeDirectory = "/home/${username}";
+    packages = with pkgs; [
+    ];
+  };
+
+  stylix = {
+    #enable = true;
+    autoEnable = true; #default is true
+    polarity = "dark";
+    cursor = {
+      name = "Oxygen-Zion";
+      package = pkgs.oxygen;
+      size = 24;
+    };
+  };
+
+  xdg = {
+    #  enable = true;
+    #  userDirs = {
+    #    enable = true;
+    #    createDirectories = true;
+    #  };
+    #configFile = {
+    #  "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+    #  "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+    #  "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+    #};
+  };
 
   #gtk = {
   #  enable = true;
@@ -61,28 +92,16 @@
   #  gtk2 = {
   #    configLocation = "${config.home.homeDirectory}/.gtkrc-2.0";
   #  };
-  #  
+  #
   #  gtk3.extraConfig = {
   #    gtk-application-prefer-dark-theme=1;
   #  };
-  #  
+  #
   #  gtk4.extraConfig = {
   #    gtk-application-prefer-dark-theme=1;
   #  };
   #
   #};
-  
-  stylix = {
-    #enable = true;
-    autoEnable = true; #default is true
-    polarity = "dark";
-    cursor = {
-      name = "Oxygen-Zion";
-      package = pkgs.oxygen;
-      size = 24;
-    };
-  };
-
 
   #dconf = {
   #  settings = {
@@ -96,29 +115,4 @@
   #    };
   #  };
   #};
-
-  xdg = {
-  #  enable = true;
-  #  userDirs = {
-  #    enable = true;
-  #    createDirectories = true;
-  #  };
-    #configFile = {
-    #  "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-    #  "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
-    #  "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
-    #};
-
-  };
-
-
-  home = {
-    username = "${username}";
-    homeDirectory = "/home/${username}";
-    stateVersion = "24.05";
-
-    packages = with pkgs; [
-
-    ];
-  };
 }
