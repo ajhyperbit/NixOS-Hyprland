@@ -4,7 +4,7 @@
 #TODO: look into if I can make this automatically symlink into ~/ or /home/ajhyperbit/
 
 # cd to config dir
-#pushd ~/dotfiles/nixos/
+#pushd ~/dotfiles/nixos/common/
 
 #fetch = $(git fetch)
 #
@@ -14,22 +14,29 @@
 #    else 
 #        git pull || echo "git pull failed, please see log." ; exit 1 
 
+reswitch=${1:-}
+
+if [ -z $reswitch ]; then
+    echo "Script requires an agrument. Either switch, boot, test, build, dry-activate."
+    exit 1
+fi
+
 echo "NixOS Rebuilding..."
 
 # Rebuild, output simplified errors, log trackebacks
-sudo nixos-rebuild switch --upgrade --show-trace --flake &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1) || grep -P -n "dotfiles\/nixos\/([a-zA-Z]+).nix:[0-9]+:[0-9]+|\/home\/ajhyperbit\/dotfiles\/nixos\/([a-zA-Z]+).nix" nixos-switch.log | sed 's/:[[:blank:]]*/: /'
+sudo nixos-rebuild $reswitch --upgrade --show-trace --flake .#nixos &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1) || grep -P -n "dotfiles\/nixos\/([a-zA-Z]+).nix:[0-9]+:[0-9]+|\/home\/ajhyperbit\/dotfiles\/nixos\/([a-zA-Z]+).nix" nixos-switch.log | sed 's/:[[:blank:]]*/: /'
 
 #grab current generation number
-current_tag=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+' | head -1)
+#current_tag=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+' | head -1)
 
 #increment current gen
 #current=$(($current+1))
 
 #tag the current generation
-git tag Gen-$current_tag
+#git tag Gen-$current_tag
 
 #push current gen tag to github
-git push origin tag Gen-$current_tag
+#git push origin tag Gen-$current_tag
 
 # Back to where you were
 #popd
