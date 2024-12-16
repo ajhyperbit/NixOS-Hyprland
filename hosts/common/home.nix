@@ -43,6 +43,7 @@
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
     ];
+    stateVersion = mkDefault "${stateVersion-hm}";
   };
 
   stylix = {
