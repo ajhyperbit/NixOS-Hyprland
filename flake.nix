@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     home-manager = {
       #url = "github:nix-community/home-manager/release-24.05";
@@ -10,8 +11,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:hyprwm/Hyprland";
+      #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -70,11 +72,18 @@
     #so stateVersion-host and stateVersion-hm can be the same so stateVersion-hm can be removed
     stateVersion-hm = "24.05";
 
+    unstable-small-pkgs = import inputs.nixos-unstable-small {inherit system;};
+
+    xdphOverlay = final: prev: {
+      inherit (unstable-small-pkgs) xdg-desktop-portal-hyprland;
+    };
+
     pkgs = import nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
       };
+      overlays = [xdphOverlay];
     };
   in {
     nixosConfigurations = {
