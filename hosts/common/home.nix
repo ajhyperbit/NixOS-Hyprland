@@ -31,6 +31,8 @@
   pkgs,
   options,
   username,
+  lib,
+  stateVersion-hm,
   ...
 }: {
   imports = [
@@ -43,7 +45,7 @@
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
     ];
-    stateVersion = mkDefault "${stateVersion-hm}";
+    stateVersion = lib.mkDefault "${stateVersion-hm}";
   };
 
   stylix = {
