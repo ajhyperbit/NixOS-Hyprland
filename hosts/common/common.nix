@@ -525,6 +525,10 @@ in {
         };
       };
     };
+    logitech.wireless = {
+      enable = true;
+      enableGraphical = true;
+    };
   };
 
   networking = {
@@ -1051,14 +1055,6 @@ in {
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  #Sleep settings
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
-
   documentation.nixos.enable = false;
 
   #home-manager.useGlobalPkgs = true;
@@ -1089,6 +1085,14 @@ in {
     };
 
     services.NetworkManager-wait-online.enable = pkgs.lib.mkForce false;
+
+    #Sleep settings
+    sleep.extraConfig = ''
+      AllowSuspend=no
+      AllowHibernation=no
+      AllowHybridSleep=no
+      AllowSuspendThenHibernate=no
+    '';
   };
 
   # zram
@@ -1104,11 +1108,4 @@ in {
   #	enable = true;
   #  cpuFreqGovernor = "schedutil";
   #};
-
-  hardware = {
-    logitech.wireless = {
-      enable = true;
-      enableGraphical = true;
-    };
-  };
 }
