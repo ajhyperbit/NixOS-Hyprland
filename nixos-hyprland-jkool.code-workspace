@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "../Hyprland-Dots"
+		},
+		{
+			"path": "../fufexan-dotfiles"
 		}
 	],
 	"settings": {}
