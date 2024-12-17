@@ -19,7 +19,7 @@
 			"path": "../Hyprland-Dots"
 		},
 		{
-			"path": "../fufexan-dotfiles"
+			"path": "fufexan-dotfiles"
 		}
 	],
 	"settings": {}
