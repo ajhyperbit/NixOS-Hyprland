@@ -3,18 +3,29 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+
     home-manager = {
       #url = "github:nix-community/home-manager/release-24.05";
       url = "github:nix-community/home-manager"; #unstable / master(?)
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hyprland = {
       url = "github:hyprwm/Hyprland";
+      #url = "github:hyprwm/Hyprland/cd0d0491261728260de3d1aff150e1b6c05f9e86";
       #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    #hyprland-xdg = {
+    #  url = "github:hyprwm/Hyprland/c106f454c136ecca47f84c659c58e19670050412";
+    #  #url = "github:hyprwm/xdg-desktop-portal-hyprland/fd85ef39369f95eed67fdf3f025e86916edeea2f";
+    #  #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
@@ -72,18 +83,22 @@
     #so stateVersion-host and stateVersion-hm can be the same so stateVersion-hm can be removed
     stateVersion-hm = "24.05";
 
-    unstable-small-pkgs = import inputs.nixos-unstable-small {inherit system;};
+    #unstable-small-pkgs = import inputs.nixos-unstable-small {inherit system;};
+    #xdphOverlay = final: prev: {
+    #  inherit (unstable-small-pkgs) xdg-desktop-portal-hyprland;
+    #};
 
-    xdphOverlay = final: prev: {
-      inherit (unstable-small-pkgs) xdg-desktop-portal-hyprland;
-    };
+    #hyprland-xdg = import inputs.hyprland-xdg {inherit system;};
+    #xdphOverlay = final: prev: {
+    #  inherit (hyprland-xdg) xdg-desktop-portal-hyprland;
+    #};
 
     pkgs = import nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
       };
-      overlays = [xdphOverlay];
+      #overlays = [xdphOverlay];
     };
   in {
     nixosConfigurations = {
@@ -97,6 +112,7 @@
           inherit host;
           inherit home;
           inherit self;
+          inherit pkgs;
           inherit stateVersion-host;
           inherit stateVersion-hm;
         };
