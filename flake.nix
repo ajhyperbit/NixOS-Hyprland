@@ -114,6 +114,7 @@
           ./hosts/${host}/drives.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
+          ./hosts/common/security/security.nix
           ./modules/nvidia-drivers.nix
           ./modules/vm-guest-services.nix
           #nixos-hardware.nixosModules.framework-11th-gen-intel
