@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration";
+  description = "AJ's NixOS configuration";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -18,15 +18,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #hyprland-xdg = {
-    #  url = "github:hyprwm/Hyprland/c106f454c136ecca47f84c659c58e19670050412";
-    #  #url = "github:hyprwm/xdg-desktop-portal-hyprland/fd85ef39369f95eed67fdf3f025e86916edeea2f";
-    #  #url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    #Secureboot
+    lanzaboote.url = "github:nix-community/lanzaboote";
+
+    flake-compat.url = "github:edolstra/flake-compat";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
@@ -45,17 +48,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
-    #master.url = "github:nixos/nixpkgs/master";
-
-    #github:JaKooLit/NixOS-Hyprland
-
     #nixos-vfio.url = "github:j-brn/nixos-vfio";
-    #inputs.flake-compat = {
-    #  url = "github:edolstra/flake-compat";
-    #  flake = false;
-    #};
   };
 
   outputs = inputs @ {
@@ -169,6 +162,7 @@
           inherit inputs;
           inherit username;
           inherit laptop-host;
+          inherit home;
           inherit self;
           inherit stateVersion-laptop-host;
           inherit stateVersion-hm;
