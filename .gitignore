@@ -1,3 +1,4 @@
 nix-flake-check.log
 *.log
 error.*
+private/
