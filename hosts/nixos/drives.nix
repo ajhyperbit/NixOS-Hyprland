@@ -61,12 +61,12 @@
   #  ];
   #};
 
-  fileSystems."/home/ajhyperbit/NixOS-Hyprland/hosts/nixos" = {
-    device = "/home/ajhyperbit/private/nix-access";
-    fsType = "none";
-    options = [
-      "bind"
-      #"ro" # The filesystem hierarchy will be read-only
-    ];
-  };
+  #fileSystems."/home/ajhyperbit/NixOS-Hyprland/hosts/nixos" = {
+  #  device = "/home/ajhyperbit/private/nix-access";
+  #  fsType = "none";
+  #  options = [
+  #    "bind"
+  #    #"ro" # The filesystem hierarchy will be read-only
+  #  ];
+  #};
 }
