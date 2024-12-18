@@ -19,18 +19,18 @@
     };
 
     #Secureboot
-    lanzaboote.url = "github:nix-community/lanzaboote";
+    #lanzaboote.url = "github:nix-community/lanzaboote";
 
-    flake-compat.url = "github:edolstra/flake-compat";
+    #flake-compat.url = "github:edolstra/flake-compat";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
+    #flake-parts = {
+    #  url = "github:hercules-ci/flake-parts";
+    #  inputs.nixpkgs-lib.follows = "nixpkgs";
+    #};
 
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
