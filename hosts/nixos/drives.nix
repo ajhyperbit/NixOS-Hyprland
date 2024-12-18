@@ -70,12 +70,12 @@
   #  ];
   #};
 
-  fileSystems."/home/ajhyperbit/NixOS-Hyprland/hosts/private" = {
-    device = "/home/ajhyperbit/private";
-    fsType = "none";
-    options = [
-      "bind"
-      #"ro" # The filesystem hierarchy will be read-only
-    ];
-  };
+  #fileSystems."/home/ajhyperbit/NixOS-Hyprland/hosts/private" = {
+  #  device = "/home/ajhyperbit/private";
+  #  fsType = "none";
+  #  options = [
+  #    "bind"
+  #    #"ro" # The filesystem hierarchy will be read-only
+  #  ];
+  #};
 }
