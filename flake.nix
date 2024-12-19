@@ -19,18 +19,18 @@
     };
 
     #Secureboot
-    #lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote.url = "github:nix-community/lanzaboote";
 
-    #flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.url = "github:edolstra/flake-compat";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
 
-    #flake-parts = {
-    #  url = "github:hercules-ci/flake-parts";
-    #  inputs.nixpkgs-lib.follows = "nixpkgs";
-    #};
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
@@ -48,6 +48,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix.url = "github:ryantm/agenix";
+
     #nixos-vfio.url = "github:j-brn/nixos-vfio";
   };
 
@@ -59,6 +61,7 @@
     alejandra,
     nixos-hardware,
     fw-fanctrl,
+    agenix,
     ...
   }: let
     system = "x86_64-linux";
@@ -114,7 +117,6 @@
           ./hosts/${host}/drives.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
-          ./hosts/common/security/security.nix
           ./modules/nvidia-drivers.nix
           ./modules/vm-guest-services.nix
           #nixos-hardware.nixosModules.framework-11th-gen-intel
@@ -133,6 +135,8 @@
           }
 
           stylix.nixosModules.stylix
+
+          agenix.nixosModules.default
 
           {
             environment.systemPackages = [alejandra.defaultPackage.${system}];

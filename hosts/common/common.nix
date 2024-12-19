@@ -8,6 +8,8 @@
   lib,
   inputs,
   system,
+  self,
+  home,
   ...
 }: let
   inherit (import ./variables.nix) keyboardLayout;
@@ -77,6 +79,9 @@ in {
 
   local.hardware-clock.enable = true;
 
+  #age.secrets.nix-access-tokens-github.file = "${self}/secrets/root.nix-access-tokens-github.age";
+  #age.secrets.nix-access-tokens-github.file = "${home}/secrets/root.nix-access-tokens-github.age";
+
   nix = {
     settings = {
       #warn-dirty = false;
@@ -111,6 +116,10 @@ in {
       dates = "weekly";
       options = "--delete-older-than 60d";
     };
+
+    #extraOptions = ''
+    #  !include ${config.age.secrets.nix-access-tokens-github.path}
+    #'';
   };
 
   nixpkgs = {
@@ -147,6 +156,7 @@ in {
 
   environment.systemPackages =
     (with pkgs; [
+      #inputs.agenix.packages."${system}".default
       #(catppuccin-sddm.override {
       #  flavor = "mocha";
       #  font  = "Noto Sans";
