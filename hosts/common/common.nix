@@ -196,6 +196,8 @@ in {
 
       #Games
       steam
+      #Epic Games
+      heroic
       gamescope
       #steamtinkerlaunch
       rare
