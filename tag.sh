@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-host=${1:-}
+host=${uname -n}
 
 if [ -z $host ]; then
     echo "Script requires a agrument for a host name. Current host names are "nixos" or "nixtop.""
