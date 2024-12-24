@@ -11,31 +11,6 @@ usage () {
     printf "More details on rebuild methods here: https://nixos.wiki/wiki/Nixos-rebuild\n"
 }
 
-#Code block for choices
-choose () {
-    local default="$1"
-    local prompt="$2"
-    local answer
-    local command="$3"
-    #local commandnumber="$4"
-
-    read -p "$prompt" answer
-    [ -z "$answer" ] && answer="$default"
-
-    case "$answer" in
-        [yY1] ) #printf "answered yes!\n"
-            "$command"
-            exit 0
-            ;;
-        [nN0] ) printf "Ok doing nothing exiting..\n"
-            exit 6;
-            ;;
-        *     ) printf "%b" "Unexpected answer '$answer'!\n" >&2
-            exit 7;
-            ;;
-    esac
-}
-
 if [ $# -eq 1 ]; then      # if help requested
     if [ $1 = "-h" ]; then
          usage
@@ -60,6 +35,32 @@ if [ -z "$host" ] || [ -z "$reswitch" ]; then
     exit 4
 fi
 
+#Code block for choices
+choose () {
+    local default="$1"
+    local prompt="$2"
+    local answer
+    local command="$3"
+
+    read -p "$prompt" answer
+    [ -z "$answer" ] && answer="$default"
+
+    case "$answer" in
+        [yY1] ) #printf "answered yes!\n"
+            eval "$command"
+            ;;
+        [nN0] ) printf "Ok.\n"
+            ;;
+        [qQ]  ) printf "Exiting....\n"
+            exit 5
+            ;;
+        *     ) printf "%b" "Unexpected answer '$answer'!\n" >&2
+            exit 3;
+            ;;
+    esac
+}
+
+
 echo "NixOS Rebuilding..."
 
 # Rebuild, output simplified errors, log trackebacks
@@ -67,10 +68,14 @@ sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" &>nixos-
 
 #source ~/NixOS-Hyprland/tag.sh
 
-printf "Choose prompt:\n"
+#printf "Choose prompt:\n"
 
-choose "y" "Do you want to tag this generation? [Y/n]: " "source ~/NixOS-Hyprland/tag.sh"
+current_tag1=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+' | head -1)
 
-choose "y" "Do you want to run the nix garbage collector?" "nix-collect-garbage -d"
+choose "y" "Do you want to tag Gen-"${current_tag1}"? [(Y)es/(N)o/(Q)uit] (Default: Yes): " "source ~/NixOS-Hyprland/tag.sh"
 
-choose "n" "Do you want to trim generations?" "source ~/NixOS-Hyprland/trim-generations.sh"
+choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No)" "sudo nix-collect-garbage -d"
+
+choose "n" "Do you want to trim generations? [(Y)es/(N)o/(Q)uit] (Default: No)" "source ~/NixOS-Hyprland/trim-generations.sh"
+
+exit 0;
