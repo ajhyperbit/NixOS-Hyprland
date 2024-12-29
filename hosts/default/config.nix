@@ -1,23 +1,20 @@
+# 💫 https://github.com/JaKooLit 💫 #
 # Main default config
 
-{ config, pkgs, host, username, options, lib, inputs, system, ...}: 
 
-let
+# NOTE!!! : Packages and Fonts are configured in packages-&-fonts.nix
+
+
+{ config, pkgs, host, username, options, lib, inputs, system, ...}: let
   
   inherit (import ./variables.nix) keyboardLayout;
-  python-packages = pkgs.python3.withPackages (
-    ps:
-      with ps; [
-        requests
-        pyquery # needed for hyprland-dots Weather script
-        ]
-    );
-  
+    
   in {
   imports = [
     ./hardware.nix
     ./users.nix
-    #../../modules/amd-drivers.nix
+    ./packages-fonts.nix
+    ../../modules/amd-drivers.nix
     ../../modules/nvidia-drivers.nix
     #../../modules/nvidia-prime-drivers.nix
     #../../modules/intel-drivers.nix
@@ -100,525 +97,70 @@ let
     };
   };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-  #    allowUnfreePredicate = pkg: builtins.elem (builtins.parseDrvName pkg.name).name ["steam"];
-  #    packageOverrides = pkgs: {
-  #      
-  #      #Make unstable packages available
-  #      unstable = import (fetchTarball {
-  #        url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-  #        sha256 = "17pikpqk1icgy4anadd9yg3plwfrsmfwv1frwm78jg2rf84jcmq2";
-  #      }) {config = { allowUnfree = true; };};
-  #      
-  #      #old_chrome = import (fetchTarball {
-  #      #  url = "https://github.com/nixos/nixpkgs/archive/f02fa2f654c7bcc45f0e815c29d093da7f1245b4.tar.gz";
-  #      #  sha256 = "";
-  #      #}) {config = { allowUnfree = true; };};
-  #
-  #  };
-    
-    
-    #overlays = [
-    #  (self: super: {
-    #    google-chrome = super.google-chrome.override {
-    #      commandLineArgs =
-    #        "--password-store=basic";
-    #    };
-    #  })
-    #];
-
-    };
-  };
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
-    fsType = "ext4";
-  };
-
-  #fileSystems."/boot" = {
-  #device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
-  #fsType = "ext4";
-  #};
-
-  #fileSystems."/home" = {
-  #device = "/dev/disk/by-uuid/7435c3ee-ec8c-4653-943d-f00a3f50e5a5";
-  #fsType = "ext4";
-  #};
-
-  fileSystems."/run/media/ajhyperbit/SATA SSD" = {
-    device = "/dev/disk/by-uuid/c879995c-386a-42c2-bc3b-8d02a03c61de";
-    fsType = "ext4";
-    options = [ 
-      # If you don't have this options attribute, it'll default to "defaults" 
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-    
-    ];
-  };
-
-  fileSystems."/run/media/ajhyperbit/Transfer" = {
-    device = "/dev/disk/by-uuid/F7F7-F2D7";
-    fsType = "exfat";
-    options = [ 
-      # If you don't have this options attribute, it'll default to "defaults" 
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-      #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
-      "uid=1000" 
-      "gid=100" 
-      "dmask=007" 
-      "fmask=117"
-    ];
-  };
-
-  lib.mkMerge = [{
-    environment.systemPackages = 
-    
-    let
-      winapps =
-        (import (builtins.fetchTarball "https://github.com/winapps-org/winapps/archive/main.tar.gz"))
-        .packages."x86_64-linux";
-    in
-    [
-      winapps.winapps
-      winapps.winapps-launcher # optional
-    ];
-    }];
-
-  environment.systemPackages = (with pkgs; [
-
-  #(catppuccin-sddm.override {
-  #  flavor = "mocha";
-  #  font  = "Noto Sans";
-  #  fontSize = "9";
-  #  #background = "${./wallpaper.png}";
-  #  loginBackground = true;
-  #  })
-
-  neovim  
-  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  wget
-  google-chrome
-  chromium
-    # System Packages
-    baobab
-    btrfs-progs
-    clang
-    curl
-    cpufrequtils
-    duf
-    eza
-    ffmpeg   
-    glib #for gsettings to work
-    gsettings-qt
-    killall
-    libappindicator
-    openssl #required by Rainbow borders
-    xdg-user-dirs
-    xdg-utils
-    fastfetch
-    (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
-    #ranger
-
-
-
-  #Games
-  steam
-    gamescope
-  steamtinkerlaunch
-  rare
-  protonup-qt
-    #For Need for Speed Most Wanted
-    glibc
-  discord
-      (discord.override {
-      # remove any overrides that you don't want
-      withOpenASAR = true;
-      withVencord = true;
-      })
-    vesktop #for sharing audio on discord, since normal discord has
-  wine
-  wine64
-  wine-staging
-  winetricks
-  playonlinux
-  protontricks
-  bottles
-  (lutris.override {
-    extraPkgs = pkgs: [
-      # List package dependencies here
-      wineWowPackages.stable
-      winetricks
-    ];
-    })
-  gsmartcontrol
-
-  #System tools
-  gparted
-  monitor
-  putty
-  htop
-  remmina
-  ethtool
-  hwinfo
-  wireshark
-  ddclient
-  #cinnamon.nemo-with-extensions
-  vlc
-  xdotool
-  pciutils
-  kdePackages.kate
-  #libsForQt5.sddm-kcm
-  #libsForQt5.kwin
-  neofetch
-  fastfetch
-  ghfetch
-  screenfetch
-  xrdp
-  xorg.xinit
-  x11vnc
-  nix-index
-  fetchutils
-  #Antivirus GUI
-  #clamtk
-  #Password things
-  pass
-  #keepassxc
-  #Manage Files as admin
-  kdePackages.kio-admin
-  #Printing #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
-  #cups-filters
-  #cups-printers
-  #canon-cups-ufr2
-  #cups-bjnp
+  nixpkgs.config.allowUnfree = true;
   
-  #Vulkan
-  vulkan-loader
-  vulkan-validation-layers
-  vulkan-tools
-
-  #Windows VM or Filesystem compatiblity
-  qemu
-  exfatprogs
-    #Related to Virtualisation in settings
-    dive # look into docker image layers
-    podman-tui # status of containers in the terminal
-    #docker-compose # start group of containers for dev
-    podman-compose # start group of containers for dev
-
-
-  #Productivity / Video things
-  (wrapOBS {
-    plugins = with pkgs.obs-studio-plugins; [
-      wlrobs
-      obs-backgroundremoval
-      obs-pipewire-audio-capture
-      obs-vkcapture
-      obs-multi-rtmp
-      obs-source-clone
-      obs-source-record
-      obs-source-switcher
-      obs-websocket
-      waveform
-      obs-vaapi
-      obs-teleport
-      obs-scale-to-sound
-      obs-nvfbc
-      #obs-ndi
-      obs-move-transition
-      obs-command-source
-      input-overlay
-      #advanced-scene-switcher
-      droidcam-obs
-    ];
-  })
-  
-  davinci-resolve-studio
-
-  #Coding
-  gitFull
-    gittyup
-    gh
-  vscode-fhs
-  #quickemu
-  #quickgui
-  direnv
-  python3Full
-	python312Packages.pip
-	virtualenv
-  docker
-  nodejs_22
-  obsidian
-  #synergy
-
-  #Twitch
-  chatterino2
-
-  #Misc
-  spotify
-  parsec-bin
-  unrar
-  zenith-nvidia
-  clinfo
-  gwe
-  nvtopPackages.nvidia
-  virtualglLib
-  tailscale
-  parsec-bin
-  jq
-  qdirstat
-  service-wrapper
-  autokey
-  ntfs3g
-  nvd
-  p7zip
-  rpi-imager
-  xclicker
-  #Calculators
-  kdePackages.kcalc
-  #qalculate-qt
-  lastpass-cli
-  dconf2nix
-
-  libsForQt5.kde-gtk-config
-  libsForQt5.breeze-qt5
-  libsForQt5.breeze-gtk
-  libsForQt5.qt5ct
-  libsForQt5.breeze-icons
-
-  #Makes other distros available to me
-  #distrobox
-  
-  # Hyprland Stuff
-    ags        
-    btop
-    brightnessctl # for brightness control
-    cava
-    #cliphist
-    eog
-    gnome-system-monitor
-    file-roller
-    gtk-engine-murrine #for gtk themes
-    hypridle # requires unstable channel
-    imagemagick 
-    inxi
-    libsForQt5.qtstyleplugin-kvantum #kvantum
-    nwg-look # requires unstable channel
-    nvtopPackages.full
-    pamixer
-    pavucontrol
-    playerctl
-    pyprland
-    qt6ct
-    qt6.qtwayland
-    qt6Packages.qtstyleplugin-kvantum #kvantum
-    swappy
-    unzip
-    wallust
-    wlogout
-    yad
-    yt-dlp
-
-  
-  #Hyperland  #https://www.youtube.com/watch?v=61wGzIv12Ds
-  #Terminals
-  kitty
-  #Alternatives
-  #alacritty
-  #wezterm
-
-  #Screenshots
-  hyprshot
-    grim
-    slurp
-    wl-clipboard
-
-  meson
-  waybar
-  (pkgs.waybar.overrideAttrs (oldAttrs: {
-    mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-  })
-  )
-  #eww
-  dunst
-  #mako
-  libnotify
-  swaynotificationcenter
-  networkmanagerapplet
-  #Wallpaper Daemons
-  #hyprpaper
-  #swaybg
-  #wpaperd
-  #mpvpaper
-  swww
-  #App Launcher
-  #most popular
-  rofi-wayland
-  #gtk rofi
-  wofi
-  #Wiki also suggests
-  bemenu
-  fuzzel
-  tofi
-  
-  #Polkit agent
-  polkit
-  #libsForQt5.polkit-qt
-  #kdePackages.polkit-qt-1
-  #libsForQt5.polkit-kde-agent
-  #kdePackages.polkit-kde-agent-1
-  polkit_gnome
-
-  hyprcursor # requires unstable channel
-  
-
-  #Bluetooth
-  #blueman
-  overskride
-
-  #Compilers
-  #gcc
-  #clang
-  #nvc
-
-  #glib
-  #cmake
-  #pkg-config
-
-  #Libraries
-  libsecret
-  egl-wayland
-
-  #gobject-introspection
-  #dbus-glib
-  #gtk4
-  #gtk3
-  #gjs
-  #libpulseaudio
-  #pam
-  #typescript
-  #ninja
-  #axel
-  #tinyxml-2
-
-  ]) ++ [
-	  python-packages
-  ];
-
-  hardware = {
-    pulseaudio.enable = false;
-    
-    bluetooth = {
-	    enable = true;
-	    powerOnBoot = true;
-	    settings = {
-		    General = {
-		      Enable = "Source,Sink,Media,Socket";
-		      Experimental = true;
-		    };
-      };
-    };
-    #opengl = {
-    #  enable = true;
-    #  driSupport32Bit = lib.mkDefault true;
-    #  
-    #  #---------------------------------------------------------------------
-    #  # Install additional packages that improve graphics performance and compatibility.
-    #  #---------------------------------------------------------------------
-    #  extraPackages = with pkgs; [
-    #    intel-media-driver # LIBVA_DRIVER_NAME=iHD
-    #    libvdpau-va-gl
-    #    nvidia-vaapi-driver
-    #    vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-    #    vaapiVdpau
-    #    vulkan-validation-layers
-    #  ];
-    graphics = {
+  programs = {
+	  hyprland = {
       enable = true;
-      enable32Bit = lib.mkDefault true;
-      #---------------------------------------------------------------------
-      # Install additional packages that improve graphics performance and compatibility.
-      #---------------------------------------------------------------------
-      extraPackages = with pkgs; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        libvdpau-va-gl
-        nvidia-vaapi-driver
-        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-        vaapiVdpau
-        vulkan-validation-layers
-      ];
+		  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
+		  portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdphls
+  	  xwayland.enable = true;
+      };
+
+	
+	  waybar.enable = true;
+	  hyprlock.enable = true;
+	  firefox.enable = true;
+	  git.enable = true;
+    nm-applet.indicator = true;
+    #neovim.enable = true;
+
+	  thunar.enable = true;
+	  thunar.plugins = with pkgs.xfce; [
+		  exo
+		  mousepad
+		  thunar-archive-plugin
+		  thunar-volman
+		  tumbler
+  	  ];
+	
+    virt-manager.enable = false;
     
+    #steam = {
+    #  enable = true;
+    #  gamescopeSession.enable = true;
+    #  remotePlay.openFirewall = true;
+    #  dedicatedServer.openFirewall = true;
+    #};
+    
+    xwayland.enable = true;
+
+    dconf.enable = true;
+    seahorse.enable = true;
+    fuse.userAllowOther = true;
+    mtr.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
     };
-
-    nvidia = {
-
-    # Modesetting is required.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
-
-    # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+	
   };
 
-  nvidia-container-toolkit.enable = true;
+  users = {
+    mutableUsers = true;
   };
 
-  #NOTE: From Chris Titus' configuration.nix
-  #    kernelModules = ["tcp_bbr"];
-  #    kernel.sysctl = {
-  #      "net.ipv4.tcp_congestion_control" = "bbr";
-  #      "net.core.default_qdisc" = "fq";
-  #      "net.core.wmem_max" = 1073741824;
-  #      "net.core.rmem_max" = 1073741824;
-  #      "net.ipv4.tcp_rmem" = "4096 87380 1073741824";
-  #      "net.ipv4.tcp_wmem" = "4096 87380 1073741824";
-  #    };
-  #  };
-
-  #  networking = {
-  #    hostName = "nixos-studio";
-  #    networkmanager.enable = true;
-  #    enableIPv6 = false;
-  #    firewall.enable = false;
-  #  };
-
-  networking = {
-    hostName = "nixos";
-    networkmanager.enable = true;
-    enableIPv6 = false;
-    interfaces.enp6s0.wakeOnLan.enable = true;
-    firewall.enable = true;
-    #Allow VNC and Synergy through firewall
-    firewall.allowedTCPPorts = [ 5900 24800 ];
-    #firewall.allowedUDPPorts = [ ... ];
+  # Extra Portal Configuration
+  xdg.portal = {
+    enable = true;
+    wlr.enable = false;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal
+    ];
   };
 
   # Set your time zone.
@@ -1134,5 +676,5 @@ let
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 }

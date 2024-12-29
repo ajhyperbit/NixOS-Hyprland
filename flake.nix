@@ -1,49 +1,18 @@
+# 💫 https://github.com/JaKooLit 💫 #
+
 {
 
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    home-manager = {
-      #url = "github:nix-community/home-manager/release-24.05";
-      url = "github:nix-community/home-manager"; #unstable / master(?)
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      #inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-    };
-    distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
+  	nixpkgs.url = "nixpkgs/nixos-unstable";
+	#wallust.url = "git+https://codeberg.org/explosion-mental/wallust?ref=dev";
+	hyprland.url = "github:hyprwm/Hyprland"; # hyprland development
+	distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes"; 
+  	};
 
-    #fufexan-dotfiles.url = "github:fufexan/dotfiles";
-
-    #nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    stylix.url = "github:danth/stylix";
-
-    #github:JaKooLit/NixOS-Hyprland
-
-    #nixos-vfio.url = "github:j-brn/nixos-vfio";
-    #inputs.flake-compat = {
-    #  url = "github:edolstra/flake-compat";
-    #  flake = false;
-    #};
-  };
-
-outputs = inputs@{
-  self,
-  nixpkgs,
-  home-manager,
-  stylix,
-  #fufexan-dotfiles,
-  #nixos-vfio,
-  #nixos-hardware,
-  ...
-  }:
+  outputs = 
+	inputs@{ self,nixpkgs, ... }:
     	let
       system = "x86_64-linux";
       host = "nixos";
