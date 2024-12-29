@@ -55,8 +55,10 @@
         #scaling_max_freq = "2800000";
         #2.5GHz
         #scaling_max_freq = "2500000";
+        #2.2GHz
+        #scaling_max_freq = "2200000";
         #2GHz
-        scaling_max_freq = "2000000";
+        #scaling_max_freq = "2000000";
         governor = "powersave";
         turbo = "auto";
       };
