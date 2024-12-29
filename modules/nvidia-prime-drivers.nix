@@ -1,3 +1,5 @@
+# 💫 https://github.com/JaKooLit 💫 #
+
 {
   lib,
   pkgs,

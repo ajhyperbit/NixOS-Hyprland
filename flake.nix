@@ -1,3 +1,5 @@
+# 💫 https://github.com/JaKooLit 💫 #
+
 {
   description = "AJ's NixOS configuration";
 

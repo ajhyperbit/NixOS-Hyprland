@@ -1,3 +1,5 @@
+# 💫 https://github.com/JaKooLit 💫 #
+
 #!/usr/bin/env bash
 set -e
 
@@ -149,10 +151,12 @@ printf "\n%.0s" {1..2}
 
 echo "$NOTE Rebuilding NixOS..... so pls be patient.."
 echo "-----"
-echo "$CAT In the meantime, go grab a coffee or stretch or something..."
+echo "$CAT In the meantime, go grab a coffee and stretch your legs or atleast do something!!..."
 echo "-----"
-echo "$ERROR YES!!! YOU read it right.. you staring too much at your monitor ha ha... joke :)......"
+echo "$ERROR YES!!! YOU read it right!!.. you staring too much at your monitor ha ha... joke :)......"
 printf "\n%.0s" {1..2}
+echo "-----"
+printf "\n%.0s" {1..1}
 
 # Set the Nix configuration for experimental features
 NIX_CONFIG="experimental-features = nix-command flakes"
@@ -189,8 +193,6 @@ if git clone --depth 1 https://github.com/JaKooLit/GTK-themes-icons.git ; then
 else
     echo "$ERROR Download failed for GTK themes and Icons.." 
 fi
-
-echo "$OK Extracted Bibata-Modern-Ice.tar.xz to ~/.icons folder." 
 
 echo "-----"
 printf "\n%.0s" {1..2}
