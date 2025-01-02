@@ -72,7 +72,9 @@ sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" &>nixos-
 
 current_tag1=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+' | head -1)
 
-choose "y" "Do you want to tag Gen-"${current_tag1}"? [(Y)es/(N)o/(Q)uit] (Default: Yes): " "source ~/NixOS-Hyprland/tag.sh"
+hostname=$(uname -n)
+
+choose "y" "Do you want to tag Gen-"${hostname}"-"${current_tag1}"? [(Y)es/(N)o/(Q)uit] (Default: Yes): " "source ~/NixOS-Hyprland/tag.sh"
 
 choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No)" "sudo nix-collect-garbage -d"
 
