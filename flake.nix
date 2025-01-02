@@ -1,5 +1,4 @@
 # 💫 https://github.com/JaKooLit 💫 #
-
 {
   description = "AJ's NixOS configuration";
 
@@ -80,23 +79,33 @@
     #so stateVersion-host and stateVersion-hm can be the same so stateVersion-hm can be removed
     stateVersion-hm = "24.05";
 
-    #unstable-small-pkgs = import inputs.nixos-unstable-small {inherit system;};
-    #xdphOverlay = final: prev: {
-    #  inherit (unstable-small-pkgs) xdg-desktop-portal-hyprland;
-    #};
+    #Learned patching from here
+    #https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
 
-    #hyprland-xdg = import inputs.hyprland-xdg {inherit system;};
-    #xdphOverlay = final: prev: {
-    #  inherit (hyprland-xdg) xdg-desktop-portal-hyprland;
-    #};
+    pkgs-init = import inputs.nixpkgs {inherit system;};
 
-    pkgs = import nixpkgs {
+    patches = [
+      (pkgs-init.fetchpatch {
+        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/368882.patch";
+        hash = "sha256-u8eqXLYijsgQJ1Nk0w05eCdA/yYzOvyP93dFxEuHo30=";
+      })
+    ];
+
+    nixpkgs-patched = pkgs-init.applyPatches {
+      name = "nixpkgs-patched";
+      src = inputs.nixpkgs;
+      inherit patches;
+    };
+
+    pkgs = import nixpkgs-patched {
       inherit system;
       config = {
         allowUnfree = true;
       };
       #overlays = [xdphOverlay];
     };
+
+    nixpkgs = (import "${nixpkgs-patched}/flake.nix").outputs {self = inputs.self;};
   in {
     nixosConfigurations = {
       #Main Desktop
