@@ -6,10 +6,11 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs-staging.url = "nixpkgs/staging";
 
     home-manager = {
       #url = "github:nix-community/home-manager/release-24.05";
-      url = "github:nix-community/home-manager"; #unstable / master(?)
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -35,7 +36,7 @@
 
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/staging";
 
     stylix.url = "github:danth/stylix";
 
@@ -63,6 +64,7 @@
     nixos-hardware,
     fw-fanctrl,
     agenix,
+    nixpkgs-staging,
     ...
   }: let
     system = "x86_64-linux";
@@ -81,6 +83,13 @@
 
     #Learned patching from here
     #https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
+
+    overlay-staging = final: prev: {
+      staging = import nixpkgs-staging {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    };
 
     pkgs-init = import inputs.nixpkgs {inherit system;};
 
@@ -159,6 +168,12 @@
               ];
             }
           )
+
+          ({
+            config,
+            pkgs,
+            ...
+          }: {nixpkgs.overlays = [overlay-staging];})
 
           #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
           #fufexan-dotfiles.nixosModules.theme
