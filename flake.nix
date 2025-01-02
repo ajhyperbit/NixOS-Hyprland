@@ -36,7 +36,7 @@
 
     distro-grub-themes.url = "github:AdisonCavani/distro-grub-themes";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/staging";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
 
@@ -139,7 +139,6 @@
           ./hosts/common/users.nix
           ./modules/nvidia-drivers.nix
           ./modules/vm-guest-services.nix
-          #nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
