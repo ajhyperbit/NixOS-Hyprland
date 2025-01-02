@@ -141,14 +141,14 @@ in {
       #
       #  };
 
-      #overlays = [
-      #  (self: super: {
-      #    google-chrome = super.google-chrome.override {
-      #      commandLineArgs =
-      #        "--password-store=basic";
-      #    };
-      #  })
-      #];
+      overlays = [
+        #  (self: super: {
+        #    google-chrome = super.google-chrome.override {
+        #      commandLineArgs =
+        #        "--password-store=basic";
+        #    };
+        #  })
+      ];
     };
   };
 
@@ -320,7 +320,7 @@ in {
 
       #Coding
       gitFull
-      gittyup
+      #gittyup
       gh
       vscode-fhs
       #alejandra
