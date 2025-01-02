@@ -199,6 +199,7 @@ in {
       #Epic Games
       #heroic
       gamescope
+      mangohud
       #steamtinkerlaunch
       rare
       #protonup-qt
