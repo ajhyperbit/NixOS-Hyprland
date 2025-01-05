@@ -81,7 +81,7 @@
     stateVersion-hm = "24.05";
 
     #Learned patching from here
-    #https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
+    #LINK: https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
 
     overlay-staging = final: prev: {
       staging = import nixpkgs-staging {
@@ -117,6 +117,19 @@
     #  #overlays = [xdphOverlay];
     #};
     #nixpkgs = (import "${nixpkgs-patched}/flake.nix").outputs {self = inputs.self;};
+
+    #LINK: https://github.com/NixOS/nix/issues/3920#issuecomment-806154862
+    #NOTE: Trying to make an if-else clause if there are patches I want to apply to fix an issue would be nice
+    #patchChannel = channel: patches:
+    #  if patches == []
+    #  then channel
+    #  else
+    #    (import channel {inherit system;}).pkgs.applyPatches
+    #    {
+    #      name = "nixpkgs-patched-${channel.shortRev}";
+    #      src = channel;
+    #      patches = patches;
+    #    };
 
     #NOTE: If patches are not required
     pkgs = import nixpkgs {
