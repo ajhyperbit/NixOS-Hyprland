@@ -734,7 +734,7 @@ in {
     #};
     #Printing
     #TODO: look into gutenprint and brlaser and/or pkgs.brgenml1lpr and pkgs.brgenml1cupswrapper for brother printers)
-    #TODO: add this link into a future compiled file https://askubuntu.com/questions/1090410/16-04-how-do-i-install-canon-pixma-mg3620-driver
+    #LINK: https://askubuntu.com/questions/1090410/16-04-how-do-i-install-canon-pixma-mg3620-driver
     #TODO: break up printing into it's own printing.nix?
     #TODO: revert once updated so not vulnerable to lots of 2024 CVEs at least one of which is a 9.9
     #printing.enable = true;

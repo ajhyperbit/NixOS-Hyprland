@@ -35,7 +35,7 @@
       "users" # Allows any user to mount and unmount
       "nofail" # Prevent system from failing if this drive doesn't mount
       "exec" # Permit execution of binaries and other executable files
-      #TODO: add to links https://github.com/NixOS/nixpkgs/issues/55807 ?
+      #LINK: https://github.com/NixOS/nixpkgs/issues/55807 ?
       "uid=1000"
       "gid=100"
       "dmask=007"
