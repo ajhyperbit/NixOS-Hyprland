@@ -541,11 +541,6 @@ in {
     ];
 
   hardware = {
-    pulseaudio = {
-      enable = false;
-      package = pkgs.pulseaudioFull;
-    };
-
     bluetooth = {
       enable = true;
       powerOnBoot = true;
@@ -605,6 +600,11 @@ in {
       enable = true;
       #Allow X11vnc through SSH. (probably unneccesary with tailscale)
       settings.X11Forwarding = true;
+    };
+
+    pulseaudio = {
+      enable = false;
+      package = pkgs.pulseaudioFull;
     };
 
     flatpak.enable = true;
