@@ -74,7 +74,6 @@
     username = "ajhyperbit";
     home = "/home/ajhyperbit";
     stateVersion-host = "23.11";
-    stateVersion-laptop-host = "23.11";
     #This is due to the fact home manager got installed on 24.05 and NOT 23.11.
     #I am prioritizing keeping stateVersion accurate across files and preventing breakage,
     #but upon a reinstall or a requirement of bumping stateVersion I will try to change this
@@ -194,7 +193,7 @@
           inherit laptop-host;
           inherit home;
           inherit self;
-          inherit stateVersion-laptop-host;
+          inherit stateVersion-host;
           inherit stateVersion-hm;
         };
         modules = [
