@@ -90,30 +90,41 @@
       };
     };
 
-    pkgs-init = import inputs.nixpkgs {inherit system;};
+    #NOTE: If patches are required
 
-    patches = [
-      (pkgs-init.fetchpatch {
-        #url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/368882.patch";
-        #hash = "sha256-u8eqXLYijsgQJ1Nk0w05eCdA/yYzOvyP93dFxEuHo30=";
-      })
-    ];
+    #pkgs-init = import inputs.nixpkgs {inherit system;};
 
-    nixpkgs-patched = pkgs-init.applyPatches {
-      name = "nixpkgs-patched";
-      src = inputs.nixpkgs;
-      inherit patches;
-    };
+    #patches = [
+    #  (pkgs-init.fetchpatch {
+    #    #url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/.patch";
+    #    #hash = "sha256-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=";
+    #    #url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/368882.patch";
+    #    #hash = "sha256-u8eqXLYijsgQJ1Nk0w05eCdA/yYzOvyP93dFxEuHo30=";
+    #  })
+    #];
 
-    pkgs = import nixpkgs-patched {
+    #nixpkgs-patched = pkgs-init.applyPatches {
+    #  name = "nixpkgs-patched";
+    #  src = inputs.nixpkgs;
+    #  inherit patches;
+    #};
+
+    #pkgs = import nixpkgs-patched {
+    #  inherit system;
+    #  config = {
+    #    allowUnfree = true;
+    #  };
+    #  #overlays = [xdphOverlay];
+    #};
+    #nixpkgs = (import "${nixpkgs-patched}/flake.nix").outputs {self = inputs.self;};
+
+    #NOTE: If patches are not required
+    pkgs = import nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
       };
-      #overlays = [xdphOverlay];
     };
-
-    nixpkgs = (import "${nixpkgs-patched}/flake.nix").outputs {self = inputs.self;};
   in {
     nixosConfigurations = {
       #Main Desktop
