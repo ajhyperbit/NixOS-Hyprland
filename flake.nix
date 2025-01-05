@@ -94,8 +94,8 @@
 
     patches = [
       (pkgs-init.fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/368882.patch";
-        hash = "sha256-u8eqXLYijsgQJ1Nk0w05eCdA/yYzOvyP93dFxEuHo30=";
+        #url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/368882.patch";
+        #hash = "sha256-u8eqXLYijsgQJ1Nk0w05eCdA/yYzOvyP93dFxEuHo30=";
       })
     ];
 
