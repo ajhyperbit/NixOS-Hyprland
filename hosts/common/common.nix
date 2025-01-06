@@ -164,6 +164,8 @@ in {
               stdenv.cc.cc.lib
               libkrb5
               keyutils
+              gamescope
+              mangohud
             ];
         };
       };
