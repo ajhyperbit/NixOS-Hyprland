@@ -1099,10 +1099,10 @@ in {
         })
       '';
 
-      adminIdentities = [
-        "unix-group:wheel"
-        "unix-group:gamemode"
-      ];
+      #adminIdentities = [
+      #  "unix-group:wheel"
+      #  "unix-group:gamemode"
+      #];
     };
   };
 
