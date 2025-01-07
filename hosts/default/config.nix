@@ -333,6 +333,7 @@
 	  gvfs.enable = true;
 	  tumbler.enable = true;
 
+    pulseaudio.enable = false;
     udev.enable = true;
 
     libinput.enable = true;
@@ -648,6 +649,86 @@
   };
 
   hardware.logitech.wireless = {
+  #hardware.sane = {
+  #  enable = true;
+  #  extraBackends = [ pkgs.sane-airscan ];
+  #  disabledDefaultBackends = [ "escl" ];
+  #};
+
+  # Extra Logitech Support
+  hardware.logitech.wireless.enable = false;
+  hardware.logitech.wireless.enableGraphical = false;
+
+  # Bluetooth
+  hardware = {
+  	bluetooth = {
+	    enable = true;
+	    powerOnBoot = true;
+	    settings = {
+		    General = {
+		      Enable = "Source,Sink,Media,Socket";
+		      Experimental = true;
+		    };
+      };
+    };
+  };
+
+  # Enable sound with pipewire.
+  # hardware.pulseaudio.enable = false; # replaced with services.pulseaudio 04-Jan-2025
+
+  # Security / Polkit
+  security.rtkit.enable = true;
+  security.polkit.enable = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (
+        subject.isInGroup("users")
+          && (
+            action.id == "org.freedesktop.login1.reboot" ||
+            action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+            action.id == "org.freedesktop.login1.power-off" ||
+            action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+          )
+        )
+      {
+        return polkit.Result.YES;
+      }
+    })
+  '';
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
+  };
+
+  # Cachix, Optimization settings and garbage collection automation
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
+  # Virtualization / Containers
+  virtualisation.libvirtd.enable = false;
+  virtualisation.podman = {
+    enable = false;
+    dockerCompat = false;
+    defaultNetwork.settings.dns_enabled = false;
+  };
+
+  # OpenGL
+  hardware.graphics = {
     enable = true;
     enableGraphical = true;
   };
