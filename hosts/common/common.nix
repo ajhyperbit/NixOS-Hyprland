@@ -634,6 +634,10 @@ in {
     tailscale = {
       enable = true;
       openFirewall = true;
+      extraSetFlags = [
+        "--advertise-exit-node"
+      ];
+      useRoutingFeatures = "both";
     };
 
     envfs.enable = true;
