@@ -824,6 +824,7 @@ in {
       "root"
       "greeter"
       "gamemode"
+      "seat"
     ];
   };
 
