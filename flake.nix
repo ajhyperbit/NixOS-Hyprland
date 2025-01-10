@@ -6,7 +6,7 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    nixpkgs-staging.url = "nixpkgs/staging";
+    #nixpkgs-staging.url = "nixpkgs/staging";
 
     home-manager = {
       #url = "github:nix-community/home-manager/release-24.05";
@@ -64,7 +64,7 @@
     nixos-hardware,
     fw-fanctrl,
     agenix,
-    nixpkgs-staging,
+    #nixpkgs-staging,
     ...
   }: let
     system = "x86_64-linux";
@@ -83,12 +83,12 @@
     #Learned patching from here
     #LINK: https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
 
-    overlay-staging = final: prev: {
-      staging = import nixpkgs-staging {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    };
+    #overlay-staging = final: prev: {
+    #  staging = import nixpkgs-staging {
+    #    inherit system;
+    #    config.allowUnfree = true;
+    #  };
+    #};
 
     #NOTE: If patches are required
 
