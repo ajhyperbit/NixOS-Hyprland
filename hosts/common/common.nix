@@ -837,6 +837,7 @@ in {
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland; #hyprland-git
       portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland; # xdphls
       xwayland.enable = true;
+      withUWSM  = true;
     };
     waybar.enable = true;
     hyprlock.enable = true;
