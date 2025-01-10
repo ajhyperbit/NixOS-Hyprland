@@ -150,7 +150,7 @@
           inherit host;
           inherit home;
           inherit self;
-          inherit pkgs;
+          #inherit pkgs;
           inherit stateVersion-host;
           inherit stateVersion-hm;
         };
