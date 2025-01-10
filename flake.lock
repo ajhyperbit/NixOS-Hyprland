@@ -937,21 +937,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-staging": {
-      "locked": {
-        "lastModified": 1736468112,
-        "narHash": "sha256-IR3Fp2JH0aCe9FmmYhTs/8KoXF92pmQvKSqh8u3YCQE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8f15376424cb915aadd747060ec7bb1dcb45e7e8",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "staging",
-        "type": "indirect"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1731676054,
@@ -1079,7 +1064,6 @@
         "lanzaboote": "lanzaboote",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-staging": "nixpkgs-staging",
         "stylix": "stylix"
       }
     },
