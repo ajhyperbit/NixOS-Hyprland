@@ -191,12 +191,12 @@
             }
           )
 
-          ({
-            config,
-            pkgs,
-            ...
-          }: #{nixpkgs.overlays = [overlay-staging];}
-          )
+          #({
+          #  config,
+          #  pkgs,
+          #  ...
+          #}: {nixpkgs.overlays = [overlay-staging];}
+          #)
 
           #fufexan-dotfiles.packages.${system}.bibata-hyprcursor
           #fufexan-dotfiles.nixosModules.theme
