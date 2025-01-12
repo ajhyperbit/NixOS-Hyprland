@@ -844,13 +844,27 @@ in {
     firefox.enable = true;
     git.enable = true;
 
+    zsh = {
+      enable = true;
+      enableBashCompletion = true;
+    };
+
     thunar.enable = true;
-    thunar.plugins = with pkgs.xfce; [
-      exo
-      mousepad
-      thunar-archive-plugin
-      thunar-volman
-      tumbler
+    thunar.plugins = with pkgs; [
+      xfce.exo
+      xfce.mousepad
+      xfce.thunar-archive-plugin
+      xfce.thunar-volman
+      xfce.thunar-media-tags-plugin
+      xfce.tumbler
+      ffmpegthumbnailer
+      webp-pixbuf-loader
+      poppler
+      libgsf
+      totem
+      gnome-epub-thumbnailer
+      mcomix
+      f3d
     ];
 
     nh = {
