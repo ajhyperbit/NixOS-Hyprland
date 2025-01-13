@@ -56,6 +56,8 @@
     agenix.url = "github:ryantm/agenix";
 
     #nixos-vfio.url = "github:j-brn/nixos-vfio";
+
+    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
   outputs = inputs @ {
@@ -69,6 +71,7 @@
     agenix,
     #nixpkgs-staging,
     lanzaboote,
+    nix-alien,
     ...
   }: let
     system = "x86_64-linux";

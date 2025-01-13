@@ -542,6 +542,10 @@ in {
       dialog #makes certain things work within terminal
 
       busybox
+
+      nix-alien
+
+      ventoy-full
     ])
     ++ [
       python-packages
