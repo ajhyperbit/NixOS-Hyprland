@@ -43,14 +43,6 @@ in {
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-      #grub = {
-      #  device = "nodev";
-      #  efiSupport = true;
-      #  enable = true;
-      #  useOSProber = true;
-      #  timeoutStyle = "menu";
-      #};
-      #timeout = 300;
     };
 
     initrd = {
@@ -721,26 +713,6 @@ in {
               }
             ];
           };
-          #"wh-1000xm3-sbc-xq" = {
-          #  "monitor.bluez.properties" = [
-          #    {
-          #      matches = [
-          #        {
-          #          # Match any bluetooth device with ids equal to that of a WH-1000XM3
-          #          "device.name" = "~bluez_card.*";
-          #          "device.product.id" = "0x0cd3";
-          #          "device.vendor.id" = "usb:054c";
-          #        }
-          #      ];
-          #      actions = {
-          #        update-props = {
-          #          # Set codec to SBC-XQ
-          #          "bluez5.auto-connect" = "sbc-xq";
-          #        };
-          #      };
-          #    }
-          #  ];
-          #};
         };
       };
     };
@@ -824,7 +796,7 @@ in {
       "root"
       "greeter"
       "gamemode"
-      "seat"
+      "seat" #do I need this?
     ];
   };
 
