@@ -107,6 +107,15 @@
     #shellAliases = {
     #  google-chrome = "google-chrome-stable"
     #};
+
+    ########### SECURE BOOT PACKAGE ###########
+
+    systemPackages = with pkgs; [
+      sbctl
+    ];
+
+    ########### SECURE BOOT PACKAGE END ###########
+
     variables = {
       #QT_STYLE_OVERRIDE = "breeze";
       #QT_QPA_PLATFORMTHEME= "qt5ct";

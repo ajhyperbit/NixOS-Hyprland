@@ -21,7 +21,10 @@
     };
 
     #Secureboot
-    lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-compat.url = "github:edolstra/flake-compat";
 
@@ -65,6 +68,7 @@
     fw-fanctrl,
     agenix,
     #nixpkgs-staging,
+    lanzaboote,
     ...
   }: let
     system = "x86_64-linux";
@@ -230,6 +234,7 @@
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
+          lanzaboote.nixosModules.lanzaboote #Secureboot
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -249,9 +254,20 @@
           }
 
           (
-            {pkgs, ...}: {
+            {
+              pkgs,
+              lib,
+              ...
+            }: {
               environment.systemPackages = [
               ];
+
+              boot.loader.systemd-boot.enable = lib.mkForce false;
+
+              boot.lanzaboote = {
+                enable = true;
+                pkiBundle = "var/lib/sbctl";
+              };
             }
           )
         ];
