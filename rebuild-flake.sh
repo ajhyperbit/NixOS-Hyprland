@@ -64,10 +64,6 @@ echo "NixOS Rebuilding..."
 # Rebuild, output simplified errors, log trackebacks
 sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1) || grep -P -n "(?|(\/home\/ajhyperbit\/NixOS-Hyprland\/([a-zA-Z]+)\.nix)|(hosts\/([a-zA-Z]+)\/([a-zA-Z]+).nix))" nixos-switch.log | sed 's/:[[:blank:]]*/: /'
 
-#source ~/NixOS-Hyprland/tag.sh
-
-#printf "Choose prompt:\n"
-
 current_tag1=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+' | head -1)
 
 hostname=$(uname -n)
@@ -76,7 +72,7 @@ hostname=$(uname -n)
 
 choose "y" "Do you want to tag Gen-"${hostname}"-"${current_tag1}"? [(Y)es/(N)o/(Q)uit] (Default: Yes): " "source ~/NixOS-Hyprland/tag.sh"
 
-choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No): " "sudo nix-collect-garbage -d"
+choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No): " "sudo nix-collect-garbage -d &> nix-collect-garbage.log"
 
 choose "n" "Do you want to trim generations? [(Y)es/(N)o/(Q)uit] (Default: No): " "source ~/NixOS-Hyprland/trim-generations.sh"
 
