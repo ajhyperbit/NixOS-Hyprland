@@ -659,19 +659,19 @@ in {
     xserver = {
       enable = false;
       #Keyboard
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
+      #xkb = {
+      #  layout = "us";
+      #  variant = "";
+      #};
 
       #desktopManager.plasma5.enable = true;
 
-      displayManager = {
-        #x11VNC / VNC
-        sessionCommands = ''
-          ${pkgs.x11vnc}/bin/x11vnc -bg -reopen -forever -rfbauth $HOME/.vnc/passwd -display :0 &
-        '';
-      };
+      #displayManager = {
+      #  #x11VNC / VNC
+      #  sessionCommands = ''
+      #    ${pkgs.x11vnc}/bin/x11vnc -bg -reopen -forever -rfbauth $HOME/.vnc/passwd -display :0 &
+      #  '';
+      #};
     };
 
     pipewire = {
