@@ -2,6 +2,19 @@
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Keyhints. Idea got from Garuda Hyprland
 
+$mainMod = "SUPER" # Sets "Windows" key as main modifier
+$LCTRL = "CONTROL_L"
+$LCTRL_mainMod = "SUPER&CONTROL_L"
+$CTRL_mainMod = "SUPER&CONTROL"
+$LSHIFT_mainMod = "SUPER&SHIFT_L"
+$SHIFT_mainMod = "SUPER&SHIFT"
+$LALT = "ALT_L"
+$ALT_mainMod = "SUPER&ALT"
+$CTRL_ALT = "Control&ALT"
+$mainMod_CA = "SUPER&CONTROL&ALT"
+$mainMod_CS = "SUPER&CONTROL&SHIFT"
+$DEL = "Delete"
+
 # GDK BACKEND. Change to either wayland or x11 if having issues
 BACKEND=wayland
 
