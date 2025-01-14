@@ -546,6 +546,8 @@ in {
       ventoy-full
 
       nixos-generators
+
+      filezilla
     ])
     ++ [
       python-packages
