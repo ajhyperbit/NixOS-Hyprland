@@ -436,6 +436,21 @@
         };
         system = "x86_64-linux";
         modules = [
+          nixos-hardware.nixosModules.framework-11th-gen-intel
+          home-manager.nixosModules.home-manager
+          fw-fanctrl.nixosModules.default
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ajhyperbit = {
+              imports = [
+                ./hosts/common/home.nix
+                ./hosts/${laptop-host}/home.nix
+              ];
+            };
+            home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-hm;};
+            home-manager.backupFileExtension = "backup";
+          }
           self.nixosModules.myFormats
           ({
             pkgs,
