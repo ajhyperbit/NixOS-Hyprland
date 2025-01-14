@@ -93,6 +93,7 @@
     #but upon a reinstall or a requirement of bumping stateVersion I will try to change this
     #so stateVersion-host and stateVersion-hm can be the same so stateVersion-hm can be removed
     stateVersion-hm = "24.05";
+    stateVersion-host-iso = "25.05";
 
     #Learned patching from here
     #LINK: https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
@@ -431,8 +432,7 @@
           inherit laptop-host;
           inherit home;
           inherit self;
-          inherit stateVersion-host;
-          inherit stateVersion-hm;
+          inherit stateVersion-host-iso;
         };
         system = "x86_64-linux";
         modules = [
