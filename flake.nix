@@ -447,7 +447,7 @@
                 ./hosts/iso/home.nix
               ];
             };
-            home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-hm;};
+            home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-host-iso;};
             home-manager.backupFileExtension = "backup";
           }
           self.nixosModules.myFormats
