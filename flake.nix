@@ -451,18 +451,26 @@
             home-manager.backupFileExtension = "backup";
           }
           self.nixosModules.myFormats
+          (
+            {
+              pkgs,
+              lib,
+              modulesPath,
+              ...
+            }: {
+              imports = [(modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix")];
+            }
+          )
+
           ({
-            pkgs,
-            modulesPath,
+            self,
+            system,
             ...
           }: {
+            environment.systemPackages = with self.inputs.nix-alien.packages.${system}; [
+              nix-alien
+            ];
           })
-          ./hosts/iso/default.nix
-          ./hosts/common/users.nix
-          ./modules/intel-drivers.nix
-          ./modules/iso.nix
-
-          stylix.nixosModules.stylix
         ];
       };
     };
