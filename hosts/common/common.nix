@@ -544,6 +544,8 @@ in {
       busybox
 
       ventoy-full
+
+      nixos-generators
     ])
     ++ [
       python-packages
