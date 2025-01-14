@@ -450,6 +450,7 @@
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
+          ./modules/iso.nix
         ];
       };
     };
