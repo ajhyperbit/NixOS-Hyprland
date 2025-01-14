@@ -451,6 +451,7 @@
             home-manager.backupFileExtension = "backup";
           }
           self.nixosModules.myFormats
+          stylix.nixosModules.stylix
           (
             {
               pkgs,
