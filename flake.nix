@@ -446,8 +446,7 @@
           })
           nixos-hardware.nixosModules.framework-11th-gen-intel
           fw-fanctrl.nixosModules.default
-          ./hosts/${laptop-host}/config.nix
-          ./hosts/common/common.nix
+          ./hosts/iso/default.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
           ./modules/iso.nix
