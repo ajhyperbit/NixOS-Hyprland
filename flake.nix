@@ -440,7 +440,7 @@
             modulesPath,
             ...
           }: {
-            imports = [(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")];
+            #imports = [(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")];
           })
           nixos-hardware.nixosModules.framework-11th-gen-intel
           fw-fanctrl.nixosModules.default
