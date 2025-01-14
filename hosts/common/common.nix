@@ -543,8 +543,6 @@ in {
 
       busybox
 
-      nix-alien
-
       ventoy-full
     ])
     ++ [
