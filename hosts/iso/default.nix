@@ -337,11 +337,6 @@
   };
 
   users.users.root = {
-    description = "root";
-    extraGroups = [
-      "wheel"
-      "root"
-    ];
     password = "";
   };
 
