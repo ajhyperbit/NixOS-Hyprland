@@ -439,19 +439,6 @@
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ajhyperbit = {
-              imports = [
-                ./hosts/iso/home.nix
-              ];
-            };
-            home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-host-iso;};
-            home-manager.backupFileExtension = "backup";
-          }
-          self.nixosModules.myFormats
-          stylix.nixosModules.stylix
           (
             {
               pkgs,
@@ -462,16 +449,6 @@
               imports = [(modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix")];
             }
           )
-
-          ({
-            self,
-            system,
-            ...
-          }: {
-            environment.systemPackages = with self.inputs.nix-alien.packages.${system}; [
-              nix-alien
-            ];
-          })
         ];
       };
     };
