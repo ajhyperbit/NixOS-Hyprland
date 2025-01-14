@@ -422,6 +422,16 @@
       #};
 
       laptopiso = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+          inherit username;
+          inherit laptop-host;
+          inherit home;
+          inherit self;
+          inherit stateVersion-host;
+          inherit stateVersion-hm;
+        };
         system = "x86_64-linux";
         modules = [
           self.nixosModules.myFormats
@@ -434,6 +444,10 @@
           })
           nixos-hardware.nixosModules.framework-11th-gen-intel
           fw-fanctrl.nixosModules.default
+          ./hosts/${laptop-host}/config.nix
+          ./hosts/common/common.nix
+          ./hosts/common/users.nix
+          ./modules/intel-drivers.nix
         ];
       };
     };
