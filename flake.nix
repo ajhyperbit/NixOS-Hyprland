@@ -421,6 +421,8 @@
       #  ];
       #};
 
+      #NOTE - build with "nixos-generate --flake ~/NixOS-Hyprland#laptopiso -f iso"
+
       laptopiso = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit system;
