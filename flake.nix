@@ -444,8 +444,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.ajhyperbit = {
               imports = [
-                ./hosts/common/home.nix
-                ./hosts/${laptop-host}/home.nix
+                ./hosts/iso/home.nix
               ];
             };
             home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-hm;};
@@ -458,8 +457,6 @@
             ...
           }: {
           })
-          nixos-hardware.nixosModules.framework-11th-gen-intel
-          fw-fanctrl.nixosModules.default
           ./hosts/iso/default.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
