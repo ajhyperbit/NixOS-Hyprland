@@ -461,6 +461,8 @@
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
           ./modules/iso.nix
+
+          stylix.nixosModules.stylix
         ];
       };
     };
