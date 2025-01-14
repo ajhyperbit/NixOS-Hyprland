@@ -13,8 +13,6 @@
   ...
 }: {
   imports = [
-    ./users.nix
-    ../../modules/local-hardware-clock.nix
   ];
 
   boot = {

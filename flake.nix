@@ -439,7 +439,7 @@
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
-          ./host/iso/default.nix
+
           (
             {
               pkgs,
@@ -447,7 +447,10 @@
               modulesPath,
               ...
             }: {
-              imports = [(modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix")];
+              imports = [
+                ./hosts/iso/default.nix
+                (modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix")
+              ];
             }
           )
         ];
