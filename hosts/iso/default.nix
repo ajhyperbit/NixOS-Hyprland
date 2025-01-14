@@ -332,6 +332,17 @@
       "gamemode"
       "seat" #do I need this?
     ];
+
+    password = "";
+  };
+
+  users.users.root = {
+    description = "root";
+    extraGroups = [
+      "wheel"
+      "root"
+    ];
+    password = "";
   };
 
   #ANCHOR Programs
