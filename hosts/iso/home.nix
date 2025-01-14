@@ -15,7 +15,7 @@
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
-    stateVersion = lib.mkDefault "${stateVersion-host-iso}";
+    stateVersion = "${stateVersion-host-iso}";
   };
 
   stylix = {
