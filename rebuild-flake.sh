@@ -44,6 +44,8 @@ choose () {
     local answer
     local command="$3"
 
+    #REVIEW - Test timeout addtion 
+    #timeout 30s read -p "$prompt" answer
     read -p "$prompt" answer
     [ -z "$answer" ] && answer="$default"
 
