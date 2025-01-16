@@ -96,7 +96,7 @@ in {
 
         nvidiaSettings = true;
 
-        package = config.boot.kernelPackages.nvidiaPackages.latest
+        package = config.boot.kernelPackages.nvidiaPackages.latest;
 
         # Optionally, you may need to select the appropriate driver version for your specific GPU.
         #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
