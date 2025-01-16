@@ -28,13 +28,13 @@ reswitch=${2:-}
 # Capture all arguments into a variable for use with nixos-rebuild
 args=${@:3}  # Capture arguments starting from the 3rd argument
 user=$(logname)
-
+storage=$(df --output=pcent,target $(mount -t ext4 | grep rw | cut -d" " -f1) | head -n -1)
 
 if [ -z "$host" ] || [ -z "$reswitch" ]; then
     echo "Usage: $0 <host> <rebuild method>"
     echo "  <host>: 'nixos' or 'nixtop'"
     echo "  <rebuild method>: 'switch', 'boot', 'test', 'build', or 'dry-activate'"
-    exit 4
+    exit 4;
 fi
 
 #Code block for choices
@@ -54,7 +54,7 @@ choose () {
         [nN0] ) printf "Ok.\n"
             ;;
         [qQ]  ) printf "Exiting....\n"
-            exit 5
+            exit 5;
             ;;
         *     ) printf "%b" "Unexpected answer '$answer'!\n" >&2
             exit 3;
@@ -84,6 +84,14 @@ hostname=$(uname -n)
 #TODO: Figure out how to add a timer to choose{} so it won't just infintely wait for a prompt
 
 choose "y" "Do you want to tag Gen-"${hostname}"-"${current_tag1}"? [(Y)es/(N)o/(Q)uit] (Default: Yes): " "source ~/NixOS-Hyprland/tag.sh"
+
+#REVIEW - Testing required
+#if ["$hostname" == "nixos"]; then
+#printf "\n"%s"\n" "$storage"
+#else
+#:
+#fi
+#REVIEW - Testing required
 
 choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No): " "sudo nix-collect-garbage -d &> nix-collect-garbage.log"
 
