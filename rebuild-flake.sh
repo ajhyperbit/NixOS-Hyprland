@@ -4,7 +4,8 @@
 usage () {
     printf "Usage:\t $0 <host> <rebuild method>\n\n"
     printf "host:\t Current valid host names are \"nixos\" or \"nixtop.\"\n"
-    printf "rebuild method:\t Rebuild methods are either switch, boot, test, build, or dry-activate.\n\n"
+    printf "rebuild method:\t Rebuild methods are either switch, boot, test, build, or dry-activate.\n"
+    printf "Arguments put after the ones listed above will be used as arguments for nixos-rebuild command.\n\n"
     printf "More details on rebuild methods here: https://nixos.wiki/wiki/Nixos-rebuild\n"
 }
 
@@ -24,6 +25,10 @@ fi
 
 host=${1:-}
 reswitch=${2:-}
+# Capture all arguments into a variable for use with nixos-rebuild
+args=${@:3}  # Capture arguments starting from the 3rd argument
+user=$(logname)
+
 
 if [ -z "$host" ] || [ -z "$reswitch" ]; then
     echo "Usage: $0 <host> <rebuild method>"
@@ -62,7 +67,15 @@ choose "n" "Do you want to update flake.lock? [(Y)es/(N)o] (Default: No): " "sou
 echo "NixOS Rebuilding..."
 
 # Rebuild, output simplified errors, log trackebacks
-sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1) || grep -P -n "(?|(\/home\/ajhyperbit\/NixOS-Hyprland\/([a-zA-Z]+)\.nix)|(hosts\/([a-zA-Z]+)\/([a-zA-Z]+).nix))" nixos-switch.log | sed 's/:[[:blank:]]*/: /'
+sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" "$args" &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1) || grep -P -n "(?|(\/home\/"$user"\/NixOS-Hyprland\/([a-zA-Z]+)\.nix)|(hosts\/([a-zA-Z]+)\/([a-zA-Z]+).nix))" nixos-switch.log | sed 's/:[[:blank:]]*/: /'
+#REVIEW - Testing required
+#NOTE - If the above command doesn't function correctly, then the if statement below can replaces it.
+#if [ -z "args" ]; then
+#sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1) || grep -P -n "(?|(\/home\/"$user"\/NixOS-Hyprland\/([a-zA-Z]+)\.nix)|(hosts\/([a-zA-Z]+)\/([a-zA-Z]+).nix))" nixos-switch.log | sed 's/:[[:blank:]]*/: /'
+#else
+#sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" "$args" &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1) || grep -P -n "(?|(\/home\/"$user"\/NixOS-Hyprland\/([a-zA-Z]+)\.nix)|(hosts\/([a-zA-Z]+)\/([a-zA-Z]+).nix))" nixos-switch.log | sed 's/:[[:blank:]]*/: /'
+#fi
+#REVIEW - Testing required
 
 current_tag1=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+' | head -1)
 
