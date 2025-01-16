@@ -380,7 +380,7 @@ in {
       autokey
       ntfs3g
       nvd
-      #p7zip
+      p7zip
       rpi-imager
       xclicker
       #Calculators
