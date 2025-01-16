@@ -1,9 +1,20 @@
 #### If you've happened upon this repository, this is a fork for personal use. I would say I am still learning to code in general and have started with NixOS as my Linux distro. Anything I do may not follow the best practices of Nix or any language that may be used in this repository. If you use anything in this repository as inspiration, please research what it is doing (much like you should anything you use.)
 Feel free to use issues or pull requests if you have feedback or anything else. No promises anything will come of it due to my inexperience, but it is appreciated nonetheless.
 
+## Regular readme follows below
 <div align="center">
 
-## Regular readme follows below
+# 💌 ** KooL's ❄️ NixOS-Hyprland Install Script ** 💌
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/JaKooLit/Hyprland-Dots/main/assets/latte.png" width="400" />
+</p>
+
+![GitHub Repo stars](https://img.shields.io/github/stars/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=cba6f7) ![GitHub last commit](https://img.shields.io/github/last-commit/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=b4befe) ![GitHub repo size](https://img.shields.io/github/repo-size/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=cba6f7) <a href="https://discord.gg/9JEgZsfhex"> <img src="https://img.shields.io/discord/1151869464405606400?style=for-the-badge&logo=discord&color=cba6f7&link=https%3A%2F%2Fdiscord.gg%9JEgZsfhex"> </a>
+
+
+<br/>
+</div>
 
 <div align="center">
 <br> 
@@ -13,16 +24,9 @@ Feel free to use issues or pull requests if you have feedback or anything else. 
   <a href="#-reverting-back-to-your-default-configs"><kbd> <br> Reverting to your previous config <br> </kbd></a>&ensp;&ensp;
  </div><br>
 
-<div align="center">
-
-## 💌 ** JaKooLit's ❄️ NixOS-Hyprland Install Script ** 💌
-
-![GitHub Repo stars](https://img.shields.io/github/stars/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=cba6f7) ![GitHub last commit](https://img.shields.io/github/last-commit/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=b4befe) ![GitHub repo size](https://img.shields.io/github/repo-size/JaKooLit/NixOS-Hyprland?style=for-the-badge&color=cba6f7) <a href="https://discord.gg/9JEgZsfhex"> <img src="https://img.shields.io/discord/1151869464405606400?style=for-the-badge&logo=discord&color=cba6f7&link=https%3A%2F%2Fdiscord.gg%9JEgZsfhex"> </a>
-
-
-<br/>
-</div>
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/JaKooLit/Hyprland-Dots/main/assets/latte.png" width="200" />
+</p>
 
 <div align="center">
 👇 KOOL's Hyprland-Dots related Links 👇
@@ -37,6 +41,10 @@ Feel free to use issues or pull requests if you have feedback or anything else. 
   <a href="https://github.com/JaKooLit/Hyprland-Dots/wiki/FAQ"><kbd> <br> FAQ <br> </kbd></a>&ensp;&ensp;
   <a href="https://discord.gg/9JEgZsfhex"><kbd> <br> Discord <br> </kbd></a>
 </div><br>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/JaKooLit/Hyprland-Dots/main/assets/latte.png" width="200" />
+</p>
 
 <h3 align="center">
 	<img src="https://github.com/JaKooLit/Telegram-Animated-Emojis/blob/main/Activity/Sparkles.webp" alt="Sparkles" width="38" height="38" />
@@ -55,7 +63,8 @@ https://github.com/JaKooLit/Hyprland-Dots/assets/85185940/50d53755-0f11-45d6-991
 
 
 > [!NOTE]
-> The Hyprland that is installed will be from the development branch, otherwise known as -git version
+> By default, all packages set to install are from NixOS unstable channel
+
 
 #### 🪧🪧🪧 ANNOUNCEMENT 🪧🪧🪧
 - This Repo does not contain Hyprland Dots or configs! Configs are NOT written in Nix. Hyprland Dotfiles will be downloaded from [`KooL's Hyprland-Dots`](https://github.com/JaKooLit/Hyprland-Dots). 
