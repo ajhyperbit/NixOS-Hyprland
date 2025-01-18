@@ -30,7 +30,6 @@ args=${@:3}  # Capture arguments starting from the 3rd argument
 user=$(logname)
 #LINK - https://unix.stackexchange.com/questions/479102/how-can-i-filter-read-only-file-systems-out-of-df-output#:~:text=df%20%2D%2Doutput%3Dpcent%2Ctarget%20%24(mount%20%2Dt%20ext4%20%7C%20grep%20rw%20%7C%20cut%20%2Dd%22%20%22%20%2Df1)
 storage=$(df --output=pcent,target $(mount -t ext4 | grep rw | cut -d" " -f1) | head -n -1)
-hash=$(git rev-parse --short HEAD)
 
 
 #printf "$host\t $reswitch \t $args \t $user\n\n"
@@ -85,6 +84,8 @@ sudo nixos-rebuild "$reswitch" --upgrade --show-trace --flake .#"$host" &>nixos-
 current_tag1=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+' | head -1)
 
 hostname=$(uname -n)
+
+hash=$(git rev-parse --short HEAD)
 
 #TODO: Figure out how to add a timer to choose{} so it won't just infintely wait for a prompt
 
