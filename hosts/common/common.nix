@@ -320,7 +320,7 @@ in {
       (wrapOBS {
         plugins = with pkgs.obs-studio-plugins; [
           wlrobs
-          obs-backgroundremoval
+          #obs-backgroundremoval
           obs-pipewire-audio-capture
           obs-vkcapture
           obs-multi-rtmp
@@ -456,6 +456,7 @@ in {
       })
 
       #Hyperland  #https://www.youtube.com/watch?v=61wGzIv12Ds
+      xorg.xlsclients #Check if running with xwayland
       #Terminals
       kitty
       #Alternatives
