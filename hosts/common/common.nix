@@ -28,7 +28,7 @@ in {
 
   # BOOT related stuff
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_6; # Kernel
+    kernelPackages = pkgs.linuxPackages_6_6; # LTS Kernel 6.6
 
     kernelParams = [
       "systemd.mask=systemd-vconsole-setup.service"
