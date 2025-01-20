@@ -339,6 +339,7 @@ in {
           input-overlay
           #advanced-scene-switcher
           droidcam-obs
+          obs-composite-blur
         ];
       })
 
