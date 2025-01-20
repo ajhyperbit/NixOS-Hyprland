@@ -85,11 +85,14 @@ current_tag1=$(nixos-rebuild list-generations | grep current | grep -Eo '[0-9]+'
 
 hostname=$(uname -n)
 
-hash=$(git rev-parse --short HEAD)
+#hash=$(git rev-parse --short HEAD) #Works to get the hash, but doesn't indicate if it is dirty
+
+#Pulled from https://github.com/NixOS/nixpkgs/blob/66aa98b29099c636622a9d9c18370f13701716f6/pkgs/os-specific/linux/nixos-rebuild/nixos-rebuild.sh#L596
+hash1=$(git describe --always --dirty)
 
 #TODO: Figure out how to add a timer to choose{} so it won't just infintely wait for a prompt
 
-choose "y" "Do you want to tag Gen-"${hostname}"-"${current_tag1}"-"${hash}"? [(Y)es/(N)o/(Q)uit] (Default: Yes): " "source ~/NixOS-Hyprland/tag.sh"
+choose "y" "Do you want to tag Gen-"${hostname}"-"${current_tag1}"-"${hash1}"? [(Y)es/(N)o/(Q)uit] (Default: Yes): " "source ~/NixOS-Hyprland/tag.sh"
 
 #REVIEW - Testing required
 #if ["$hostname" == "nixos"]; then
