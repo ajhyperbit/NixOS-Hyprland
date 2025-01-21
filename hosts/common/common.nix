@@ -343,6 +343,8 @@ in {
         ];
       })
 
+      handbrake
+
       #davinci-resolve-studio
 
       #Coding
