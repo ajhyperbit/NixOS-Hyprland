@@ -1,4 +1,5 @@
 {...}: {
+  # zram
   zramSwap = {
     enable = true;
     priority = 100;

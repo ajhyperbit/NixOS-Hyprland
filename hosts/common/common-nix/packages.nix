@@ -1,6 +1,9 @@
 {...}: {
+  #ANCHOR Packages
+
   environment.systemPackages =
     (with pkgs; [
+      #inputs.agenix.packages."${system}".default
       #(catppuccin-sddm.override {
       #  flavor = "mocha";
       #  font  = "Noto Sans";
@@ -40,7 +43,10 @@
 
       #Games
       steam
+      #Epic Games
+      #heroic
       gamescope
+      mangohud
       #steamtinkerlaunch
       rare
       #protonup-qt
@@ -136,7 +142,7 @@
       (wrapOBS {
         plugins = with pkgs.obs-studio-plugins; [
           wlrobs
-          obs-backgroundremoval
+          #obs-backgroundremoval
           obs-pipewire-audio-capture
           obs-vkcapture
           obs-multi-rtmp
@@ -155,14 +161,17 @@
           input-overlay
           #advanced-scene-switcher
           droidcam-obs
+          obs-composite-blur
         ];
       })
+
+      handbrake
 
       #davinci-resolve-studio
 
       #Coding
       gitFull
-      gittyup
+      #gittyup
       gh
       vscode-fhs
       #alejandra
@@ -196,7 +205,7 @@
       autokey
       ntfs3g
       nvd
-      #p7zip
+      p7zip
       rpi-imager
       xclicker
       #Calculators
@@ -272,6 +281,7 @@
       })
 
       #Hyperland  #https://www.youtube.com/watch?v=61wGzIv12Ds
+      xorg.xlsclients #Check if running with xwayland
       #Terminals
       kitty
       #Alternatives
@@ -358,8 +368,15 @@
       dialog #makes certain things work within terminal
 
       busybox
+
+      ventoy-full
+
+      nixos-generators
+
+      filezilla
     ])
     ++ [
       python-packages
     ];
+
 }

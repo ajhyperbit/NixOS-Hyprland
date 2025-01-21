@@ -37,6 +37,10 @@
           }
         })
       '';
+
+      #adminIdentities = [
+      #  "unix-group:wheel"
+      #  "unix-group:gamemode"
+      #];
     };
-  };
-}
+  };}

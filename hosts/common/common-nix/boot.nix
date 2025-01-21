@@ -1,6 +1,7 @@
 {...}: {
+  # BOOT related stuff
   boot = {
-    #kernelPackages = pkgs.linuxPackages_latest; # Kernel
+    kernelPackages = pkgs.linuxPackages_6_6; # LTS Kernel 6.6
 
     kernelParams = [
       "systemd.mask=systemd-vconsole-setup.service"
@@ -15,14 +16,6 @@
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-      #grub = {
-      #  device = "nodev";
-      #  efiSupport = true;
-      #  enable = true;
-      #  useOSProber = true;
-      #  timeoutStyle = "menu";
-      #};
-      #timeout = 300;
     };
 
     initrd = {

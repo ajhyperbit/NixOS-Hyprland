@@ -11,6 +11,11 @@
       settings.X11Forwarding = true;
     };
 
+    pulseaudio = {
+      enable = false;
+      package = pkgs.pulseaudioFull;
+    };
+
     flatpak.enable = true;
 
     dbus.enable = true;
@@ -23,6 +28,10 @@
     tailscale = {
       enable = true;
       openFirewall = true;
+      extraSetFlags = [
+        "--advertise-exit-node"
+      ];
+      useRoutingFeatures = "both";
     };
 
     envfs.enable = true;
@@ -50,21 +59,21 @@
     };
 
     xserver = {
-      enable = true;
+      enable = false;
       #Keyboard
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
+      #xkb = {
+      #  layout = "us";
+      #  variant = "";
+      #};
 
       #desktopManager.plasma5.enable = true;
 
-      displayManager = {
-        #x11VNC / VNC
-        sessionCommands = ''
-          ${pkgs.x11vnc}/bin/x11vnc -bg -reopen -forever -rfbauth $HOME/.vnc/passwd -display :0 &
-        '';
-      };
+      #displayManager = {
+      #  #x11VNC / VNC
+      #  sessionCommands = ''
+      #    ${pkgs.x11vnc}/bin/x11vnc -bg -reopen -forever -rfbauth $HOME/.vnc/passwd -display :0 &
+      #  '';
+      #};
     };
 
     pipewire = {
@@ -106,26 +115,6 @@
               }
             ];
           };
-          #"wh-1000xm3-sbc-xq" = {
-          #  "monitor.bluez.properties" = [
-          #    {
-          #      matches = [
-          #        {
-          #          # Match any bluetooth device with ids equal to that of a WH-1000XM3
-          #          "device.name" = "~bluez_card.*";
-          #          "device.product.id" = "0x0cd3";
-          #          "device.vendor.id" = "usb:054c";
-          #        }
-          #      ];
-          #      actions = {
-          #        update-props = {
-          #          # Set codec to SBC-XQ
-          #          "bluez5.auto-connect" = "sbc-xq";
-          #        };
-          #      };
-          #    }
-          #  ];
-          #};
         };
       };
     };

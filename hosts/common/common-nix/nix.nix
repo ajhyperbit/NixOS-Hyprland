@@ -33,7 +33,12 @@
       dates = "weekly";
       options = "--delete-older-than 60d";
     };
+
+    #extraOptions = ''
+    #  !include ${config.age.secrets.nix-access-tokens-github.path}
+    #'';
   };
+
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -53,15 +58,34 @@
       #
       #  };
 
-      #overlays = [
-      #  (self: super: {
-      #    google-chrome = super.google-chrome.override {
-      #      commandLineArgs =
-      #        "--password-store=basic";
-      #    };
-      #  })
-      #];
+      overlays = [
+        #  (self: super: {
+        #    google-chrome = super.google-chrome.override {
+        #      commandLineArgs =
+        #        "--password-store=basic";
+        #    };
+        #  })
+      ];
+
+      packageOverrides = pkgs: {
+        steam = pkgs.steam.override {
+          extraPkgs = pkgs:
+            with pkgs; [
+              xorg.libXcursor
+              xorg.libXi
+              xorg.libXinerama
+              xorg.libXScrnSaver
+              libpng
+              libpulseaudio
+              libvorbis
+              stdenv.cc.cc.lib
+              libkrb5
+              keyutils
+              gamescope
+              mangohud
+            ];
+        };
+      };
     };
-    hostPlatform = lib.mkDefault "x86_64-linux";
   };
 }

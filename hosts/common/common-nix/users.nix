@@ -16,6 +16,8 @@
       "libvirtd"
       "root"
       "greeter"
+      "gamemode"
+      "seat" #do I need this?
     ];
   };
 }
