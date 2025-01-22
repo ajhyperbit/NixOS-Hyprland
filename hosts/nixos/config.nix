@@ -63,6 +63,7 @@
     #DDNS config
     ddclient = {
       enable = true;
+      interval = "10min";
       configFile = "/etc/ddclient/ddclient.conf";
     };
 
