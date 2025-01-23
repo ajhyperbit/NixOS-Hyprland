@@ -102,7 +102,9 @@ choose "y" "Do you want to tag Gen-"${hostname}"-"${current_tag}"-"${hash}"? [(Y
 #fi
 #REVIEW - Testing required
 
-choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No): " "sudo nix-collect-garbage -d &> nix-collect-garbage.log"
+#TODO: add a way to run nix-collect garbage with sudo?
+
+choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No): " "nix-collect-garbage -d &> nix-collect-garbage.log"
 
 choose "n" "Do you want to trim generations? [(Y)es/(N)o/(Q)uit] (Default: No): " "source ~/NixOS-Hyprland/trim-generations.sh"
 
