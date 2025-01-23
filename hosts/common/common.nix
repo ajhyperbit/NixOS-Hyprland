@@ -31,20 +31,20 @@ in {
     #LINK - list of nix aliases https://github.com/NixOS/nixpkgs/blob/108230cebc6c328aa44f834d0aad647e26fcddc5/pkgs/top-level/aliases.nix
     #LINK - https://github.com/NixOS/nixpkgs/blob/108230cebc6c328aa44f834d0aad647e26fcddc5/pkgs/top-level/linux-kernels.nix
     #LINK - https://en.wikipedia.org/wiki/Linux_kernel_version_history
-    #kernelPackages = pkgs.linuxPackages_latest; #Generic latest kernel
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_latest; #Generic latest kernel
 
     #Zen Kernel
     #LINK - https://wiki.archlinux.org/index.php?title=Kernels&oldid=407966#Official_packages
-    kernelPackages = pkgs.linuxPackages_zen; # Zen Kernel EOL: ???
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen; # Zen Kernel EOL: ???
 
-    #kernelPackages = pkgs.linuxPackages_6_12; # LTS Kernel 6.12 EOL: ???
-    #kernelPackages = pkgs.linuxPackages_6_6; # LTS Kernel 6.6 EOL: 12/2026
-    #kernelPackages = pkgs.linuxPackages_6_1; # SLTS Kernel 6.1 EOL: 8/2033
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12; # LTS Kernel 6.12 EOL: ???
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_6_6; # LTS Kernel 6.6 EOL: 12/2026
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_6_1; # SLTS Kernel 6.1 EOL: 8/2033
 
     #LINK - https://github.com/NixOS/nixpkgs/blob/108230cebc6c328aa44f834d0aad647e26fcddc5/pkgs/os-specific/linux/kernel/xanmod-kernels.nix
-    #kernelPackages = pkgs.linuxPackages_xanmod; # Main xanmod Kernel EOL: ???
-    #kernelPackages = pkgs.linuxPackages_xanmod_stable; # Stable 6.6 xanmod Kernel EOL: ???
-    #kernelPackages = pkgs.linuxPackages_xanmod_latest; # Latest xanmod Kernel EOL: ???
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod; # Main xanmod Kernel EOL: ???
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_stable; # Stable 6.6 xanmod Kernel EOL: ???
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_xanmod_latest; # Latest xanmod Kernel EOL: ???
 
     kernelParams = [
       "systemd.mask=systemd-vconsole-setup.service"
