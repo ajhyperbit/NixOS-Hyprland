@@ -60,6 +60,10 @@ choose () {
         [qQ]  ) printf "Exiting....\n"
             exit 5;
             ;;
+        #REVIEW - Requires Testing
+        #[sS]  ) printf "Running as sudo...\n"
+        #    eval "sudo $command"
+        #    ;;    
         *     ) printf "%b" "Unexpected answer '$answer'!\n" >&2
             exit 3;
             ;;
@@ -103,6 +107,8 @@ choose "y" "Do you want to tag Gen-"${hostname}"-"${current_tag}"-"${hash}"? [(Y
 #REVIEW - Testing required
 
 #TODO: add a way to run nix-collect garbage with sudo?
+
+#choose "n" "Do you want to run the nix garbage collector? [(Y)es/(S)udo/(N)o/(Q)uit] (Default: No): " "nix-collect-garbage -d &> nix-collect-garbage.log"
 
 choose "n" "Do you want to run the nix garbage collector? [(Y)es/(N)o/(Q)uit] (Default: No): " "nix-collect-garbage -d &> nix-collect-garbage.log"
 
