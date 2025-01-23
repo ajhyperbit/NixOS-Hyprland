@@ -28,7 +28,15 @@ in {
 
   # BOOT related stuff
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_6; # LTS Kernel 6.6
+    #LINK - https://en.wikipedia.org/wiki/Linux_kernel_version_history
+    #kernelPackages = pkgs.linuxPackages_latest; #Generic latest kernel
+    #Zen Kernel
+    #LINK - https://wiki.archlinux.org/index.php?title=Kernels&oldid=407966#Official_packages
+    #kernelPackages = pkgs.linuxPackages_zen; # Zen Kernel 6.12 EOL: ???
+
+    #kernelPackages = pkgs.linuxPackages_6_12; # LTS Kernel 6.12 EOL: ???
+    kernelPackages = pkgs.linuxPackages_6_6; # LTS Kernel 6.6 EOL: 12/2026
+    #kernelPackages = pkgs.linuxPackages_6_1; # SLTS Kernel 6.1 EOL: 8/2033
 
     kernelParams = [
       "systemd.mask=systemd-vconsole-setup.service"
