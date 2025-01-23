@@ -18,7 +18,7 @@ if [ $# -eq 1 ]; then      # if help requested
          usage
          exit 2;
     fi
-    printf "Don't recognise your option exiting...\n\n"
+    printf "Don't recognize your option exiting...\n\n"
     usage
     exit 3;
 fi
