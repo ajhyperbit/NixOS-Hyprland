@@ -568,6 +568,8 @@ in {
       nixos-generators
 
       filezilla
+
+      zoom-us
     ])
     ++ [
       python-packages
