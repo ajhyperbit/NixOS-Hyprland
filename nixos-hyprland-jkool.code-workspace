@@ -26,6 +26,9 @@
 		},
 		{
 			"path": "../.config"
+		},
+		{
+			"path": "../NixOS-Hyprland-dev"
 		}
 	],
 	"settings": {}
