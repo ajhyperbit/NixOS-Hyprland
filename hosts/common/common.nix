@@ -964,6 +964,7 @@ in {
         source-han-sans-japanese
         source-han-serif-japanese
         vistafonts
+        corefonts
         carlito
       ]
       ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
