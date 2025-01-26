@@ -379,7 +379,8 @@ in {
       #nodejs_22
       obsidian
       #synergy
-
+      libei
+      libportal
       #Twitch
       chatterino2
 
@@ -820,7 +821,6 @@ in {
       "wheel"
       "audio"
       "video"
-      "libvirtd"
       "root"
       "greeter"
       "gamemode"
