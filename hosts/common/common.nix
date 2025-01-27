@@ -571,6 +571,15 @@ in {
       filezilla
 
       zoom-us
+
+      virt-manager
+      virt-viewer
+      spice
+      spice-gtk
+      spice-protocol
+      win-virtio
+      win-spice
+      gnome.adwaita-icon-theme
     ])
     ++ [
       python-packages
@@ -978,9 +987,18 @@ in {
     };
   };
 
-  #Virtualisation
   virtualisation = {
-    libvirtd.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [pkgs.OVMFFull.fd];
+      };
+      #https://www.reddit.com/r/NixOS/comments/177wcyi/comment/k4vok4n
+    };
+    spiceUSBRedirection.enable = true;
+
     # Enable common container config files in /etc/containers
     containers = {
       enable = true;
@@ -994,6 +1012,8 @@ in {
       defaultNetwork.settings.dns_enabled = true;
     };
   };
+
+  services.spice-vdagentd.enable = true;
 
   #XDG Portals
   #xdg = {
