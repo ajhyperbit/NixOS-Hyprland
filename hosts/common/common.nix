@@ -580,6 +580,8 @@ in {
       win-virtio
       win-spice
       adwaita-icon-theme
+
+      mitmproxy #man in the middle proxy
     ])
     ++ [
       python-packages
