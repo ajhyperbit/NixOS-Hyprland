@@ -1,31 +1,3 @@
-#{
-#  config,
-#  pkgs,
-#  options,
-#  ...
-#}:
-#let
-#  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-#  state = system.stateVersion
-#in
-#{
-#  imports = [
-#    (import "${home-manager}/nixos")
-#  ];
-#
-#  home-manager.users.ajhyperbit = {
-#    /* The home.stateVersion option does not have a default and must be set */
-#    home.stateVersion = "${state}";
-#    /* Here goes the rest of your home-manager config, e.g. home.packages = [ pkgs.foo ]; */
-#  };
-#}
-#Enable Git
-#programs.git = {
-#  package = pkgs.gitFull;
-#  enable = true;
-#  userName = "ajhyperbit";
-#  userEmail = "ajhyperbit@gmail.com"
-#};
 {
   config,
   pkgs,
@@ -47,6 +19,46 @@
     ];
     stateVersion = lib.mkDefault "${stateVersion-hm}";
   };
+
+  home.file = {
+    #LINK - https://github.com/nix-community/home-manager/commit/91551c09d48583230b36cf759ad703b5f1d83d9a
+    "/.config/ags".source = config.lib.file.mkOutOfStoreSymlink ../../config/ags;
+    #"/.config/btop".source = config.lib.file.mkOutOfStoreSymlink ../../config/btop; #Changes made to this on the fly is an issue
+    "/.config/cava".source = config.lib.file.mkOutOfStoreSymlink ../../config/cava;
+    "/.config/fastfetch".source = config.lib.file.mkOutOfStoreSymlink ../../config/fastfetch;
+    #"/.config/hypr".source = config.lib.file.mkOutOfStoreSymlink ../../config/hypr;
+    "/.config/kitty".source = config.lib.file.mkOutOfStoreSymlink ../../config/kitty;
+    "/.config/Kvantum".source = config.lib.file.mkOutOfStoreSymlink ../../config/Kvantum;
+    "/.config/nvim".source = config.lib.file.mkOutOfStoreSymlink ../../config/nvim;
+    "/.config/qt5ct".source = config.lib.file.mkOutOfStoreSymlink ../../config/qt5ct;
+    "/.config/qt6ct".source = config.lib.file.mkOutOfStoreSymlink ../../config/qt6ct;
+    "/.config/rofi".source = config.lib.file.mkOutOfStoreSymlink ../../config/rofi;
+    "/.config/swappy".source = config.lib.file.mkOutOfStoreSymlink ../../config/swappy;
+    "/.config/swaync".source = config.lib.file.mkOutOfStoreSymlink ../../config/swaync;
+    "/.config/Thunar".source = config.lib.file.mkOutOfStoreSymlink ../../config/Thunar;
+    "/.config/wallust".source = config.lib.file.mkOutOfStoreSymlink ../../config/wallust;
+    "/.config/waybar".source = config.lib.file.mkOutOfStoreSymlink ../../config/waybar;
+    "/.config/wlogout".source = config.lib.file.mkOutOfStoreSymlink ../../config/wlogout;
+
+    #"/.config/xfce4".source = config.lib.file.mkOutOfStoreSymlink ../../assets/xfce4;
+  };
+
+  #LINK - https://discourse.nixos.org/t/how-to-manage-dotfiles-with-home-manager/30576
+  #LINK - https://home-manager-options.extranix.com/?query=xdg&release=release-24.05
+
+  #LINK - https://github.com/nix-community/home-manager/issues/2085#issuecomment-2022239332
+
+  #options = {
+  #  dotfiles = lib.mkOption {
+  #    type = lib.types.path;
+  #    apply = toString;
+  #    default = "${config.home.homeDirectory}/NixOS-Hyprland";
+  #    #example = "${config.home.homeDirectory}/NixOS-Hyprland";
+  #    description = "Location of the dotfiles working copy";
+  #  };
+  #};
+
+  #xdg.configFile."ags".source = config.lib.file.mkOutOfStoreSymlink "${options.dotfiles}/config/ags";
 
   stylix = {
     #enable = true;
@@ -71,51 +83,4 @@
     #  "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
     #};
   };
-
-  #gtk = {
-  #  enable = true;
-  #  theme = {
-  #    #name = "Nordic";
-  #    name = "Breeze-Dark";
-  #    #name = "kvantum-dark";
-  #    #package = pkgs.nordic;
-  #    package = pkgs.libsForQt5.breeze-gtk;
-  #    #package = pkgs.kvantum;
-  #  };
-  #  iconTheme = {
-  #    name = "breeze-dark";
-  #    package = pkgs.libsForQt5.breeze-icons;
-  #  };
-  #  cursorTheme = {
-  #    name = "Oxygen-Zion";
-  #    package = pkgs.oxygen;
-  #    size = 24;
-  #  };
-  #
-  #  gtk2 = {
-  #    configLocation = "${config.home.homeDirectory}/.gtkrc-2.0";
-  #  };
-  #
-  #  gtk3.extraConfig = {
-  #    gtk-application-prefer-dark-theme=1;
-  #  };
-  #
-  #  gtk4.extraConfig = {
-  #    gtk-application-prefer-dark-theme=1;
-  #  };
-  #
-  #};
-
-  #dconf = {
-  #  settings = {
-  #    "org/gnome/desktop/interface" = {
-  #      gtk-theme = "${config.gtk.theme.name}";
-  #      #cursor-theme = "${config.gtk.cursorTheme.name}";
-  #      color-scheme = "prefer-dark";
-  #    };
-  #    "org/gnome/desktop/wm/preferences" = {
-  #      theme = "${config.gtk.theme.name}";
-  #    };
-  #  };
-  #};
 }
