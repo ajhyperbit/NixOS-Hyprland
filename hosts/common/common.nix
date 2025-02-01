@@ -524,7 +524,7 @@ in {
       #kdePackages.polkit-qt-1
       #libsForQt5.polkit-kde-agent
       #kdePackages.polkit-kde-agent-1
-      polkit_gnome
+      #polkit_gnome #Do I need this?
 
       hyprcursor # requires unstable channel
 
