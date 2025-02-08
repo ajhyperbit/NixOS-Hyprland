@@ -439,7 +439,7 @@ in {
       #  inherit (oldAttrs) pname;
       #  version = "1.8.2";
       #}))
-      ags
+      #ags
       ags_1
       btop
       brightnessctl # for brightness control
