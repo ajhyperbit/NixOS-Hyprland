@@ -288,7 +288,7 @@ in {
       kdePackages.kate
       #libsForQt5.sddm-kcm
       #libsForQt5.kwin
-      neofetch
+      #neofetch
       fastfetch
       ghfetch
       screenfetch
@@ -424,7 +424,7 @@ in {
 
       #School
       beekeeper-studio
-      onedrivegui
+      #onedrivegui
       #Libreoffice
       libreoffice-qt
       hunspell
@@ -812,7 +812,7 @@ in {
       package = pkgs.mariadb;
     };
 
-    onedrive.enable = true;
+    #onedrive.enable = true;
 
     #asusd = {
     #  enable = true;
