@@ -581,7 +581,7 @@ in {
       win-spice
       adwaita-icon-theme
 
-      mitmproxy #man in the middle proxy
+      #mitmproxy #man in the middle proxy
     ])
     ++ [
       python-packages
