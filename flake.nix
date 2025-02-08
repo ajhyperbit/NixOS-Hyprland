@@ -20,6 +20,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ags.url = "github:aylur/ags/v1";
+
     #Secureboot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";

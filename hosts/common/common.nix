@@ -435,11 +435,12 @@ in {
       #distrobox
 
       # Hyprland Stuff
-      (ags.overrideAttrs (oldAttrs: {
-        inherit (oldAttrs) pname;
-        version = "1.8.2";
-      }))
-      #ags
+      #(ags.overrideAttrs (oldAttrs: {
+      #  inherit (oldAttrs) pname;
+      #  version = "1.8.2";
+      #}))
+      ags
+      ags_1
       btop
       brightnessctl # for brightness control
       cava
