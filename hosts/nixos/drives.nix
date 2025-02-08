@@ -26,22 +26,22 @@
     ];
   };
 
-  fileSystems."/run/media/ajhyperbit/Transfer" = {
-    device = "/dev/disk/by-uuid/F7F7-F2D7";
-    fsType = "exfat";
-    options = [
-      # If you don't have this options attribute, it'll default to "defaults"
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-      #LINK: https://github.com/NixOS/nixpkgs/issues/55807 ?
-      "uid=1000"
-      "gid=100"
-      "dmask=007"
-      "fmask=117"
-    ];
-  };
+  #fileSystems."/run/media/ajhyperbit/Transfer" = {
+  #  device = "/dev/disk/by-uuid/F7F7-F2D7";
+  #  fsType = "exfat";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults"
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    #LINK: https://github.com/NixOS/nixpkgs/issues/55807 ?
+  #    "uid=1000"
+  #    "gid=100"
+  #    "dmask=007"
+  #    "fmask=117"
+  #  ];
+  #};
 
   #fileSystems."/etc/ddclient" = {
   #  device = "/home/ajhyperbit/private/ddclient";
