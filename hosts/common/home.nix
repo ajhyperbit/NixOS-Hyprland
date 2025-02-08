@@ -22,23 +22,23 @@
 
   home.file = {
     #LINK - https://github.com/nix-community/home-manager/commit/91551c09d48583230b36cf759ad703b5f1d83d9a
-    "/.config/ags".source = config.lib.file.mkOutOfStoreSymlink ../../config/ags;
+    #"/.config/ags".source = config.lib.file.mkOutOfStoreSymlink ../../config/ags;
     #"/.config/btop".source = config.lib.file.mkOutOfStoreSymlink ../../config/btop; #Changes made to this on the fly is an issue
-    "/.config/cava".source = config.lib.file.mkOutOfStoreSymlink ../../config/cava;
-    "/.config/fastfetch".source = config.lib.file.mkOutOfStoreSymlink ../../config/fastfetch;
+    #"/.config/cava".source = config.lib.file.mkOutOfStoreSymlink ../../config/cava;
+    #"/.config/fastfetch".source = config.lib.file.mkOutOfStoreSymlink ../../config/fastfetch;
     #"/.config/hypr".source = config.lib.file.mkOutOfStoreSymlink ../../config/hypr;
-    "/.config/kitty".source = config.lib.file.mkOutOfStoreSymlink ../../config/kitty;
-    "/.config/Kvantum".source = config.lib.file.mkOutOfStoreSymlink ../../config/Kvantum;
-    "/.config/nvim".source = config.lib.file.mkOutOfStoreSymlink ../../config/nvim;
-    "/.config/qt5ct".source = config.lib.file.mkOutOfStoreSymlink ../../config/qt5ct;
-    "/.config/qt6ct".source = config.lib.file.mkOutOfStoreSymlink ../../config/qt6ct;
-    "/.config/rofi".source = config.lib.file.mkOutOfStoreSymlink ../../config/rofi;
-    "/.config/swappy".source = config.lib.file.mkOutOfStoreSymlink ../../config/swappy;
-    "/.config/swaync".source = config.lib.file.mkOutOfStoreSymlink ../../config/swaync;
-    "/.config/Thunar".source = config.lib.file.mkOutOfStoreSymlink ../../config/Thunar;
-    "/.config/wallust".source = config.lib.file.mkOutOfStoreSymlink ../../config/wallust;
-    "/.config/waybar".source = config.lib.file.mkOutOfStoreSymlink ../../config/waybar;
-    "/.config/wlogout".source = config.lib.file.mkOutOfStoreSymlink ../../config/wlogout;
+    #"/.config/kitty".source = config.lib.file.mkOutOfStoreSymlink ../../config/kitty;
+    #"/.config/Kvantum".source = config.lib.file.mkOutOfStoreSymlink ../../config/Kvantum;
+    #"/.config/nvim".source = config.lib.file.mkOutOfStoreSymlink ../../config/nvim;
+    #"/.config/qt5ct".source = config.lib.file.mkOutOfStoreSymlink ../../config/qt5ct;
+    #"/.config/qt6ct".source = config.lib.file.mkOutOfStoreSymlink ../../config/qt6ct;
+    #"/.config/rofi".source = config.lib.file.mkOutOfStoreSymlink ../../config/rofi;
+    #"/.config/swappy".source = config.lib.file.mkOutOfStoreSymlink ../../config/swappy;
+    #"/.config/swaync".source = config.lib.file.mkOutOfStoreSymlink ../../config/swaync;
+    #"/.config/Thunar".source = config.lib.file.mkOutOfStoreSymlink ../../config/Thunar;
+    #"/.config/wallust".source = config.lib.file.mkOutOfStoreSymlink ../../config/wallust;
+    #"/.config/waybar".source = config.lib.file.mkOutOfStoreSymlink ../../config/waybar;
+    #"/.config/wlogout".source = config.lib.file.mkOutOfStoreSymlink ../../config/wlogout;
 
     #"/.config/xfce4".source = config.lib.file.mkOutOfStoreSymlink ../../assets/xfce4;
   };
