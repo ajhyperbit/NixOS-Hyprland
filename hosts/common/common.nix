@@ -583,6 +583,8 @@ in {
       adwaita-icon-theme
 
       #mitmproxy #man in the middle proxy
+
+      cyberchef #Cyber Swiss Army Knife for encryption, encoding, compression and data analysis
     ])
     ++ [
       python-packages
