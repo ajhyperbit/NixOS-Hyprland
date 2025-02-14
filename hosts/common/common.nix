@@ -621,6 +621,7 @@ in {
                   update-props = {
                     # Set quality to high quality instead of the default of auto
                     "bluez5.a2dp.ldac.quality" = "hq";
+                    #"device.profile" = "a2dp-sink";
                   };
                 };
               }
