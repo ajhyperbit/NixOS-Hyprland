@@ -521,6 +521,7 @@ in {
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
+    supportedLocales = "all";
     extraLocaleSettings = {
       LC_ADDRESS = "en_US.UTF-8";
       LC_IDENTIFICATION = "en_US.UTF-8";
