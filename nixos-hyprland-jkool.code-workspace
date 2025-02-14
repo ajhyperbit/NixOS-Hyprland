@@ -1,10 +1,6 @@
 {
 	"folders": [
 		{
-			"name": "nixos-conf",
-			"path": "../dotfiles/nixos-conf"
-		},
-		{
 			"name": "NixOS-Hyprland",
 			"path": "."
 		},
@@ -13,19 +9,10 @@
 			"path": "../.config/hypr"
 		},
 		{
-			"path": "../dotfiles/nixos"
-		},
-		{
 			"path": "../Hyprland-Dots"
 		},
 		{
-			"path": "fufexan-dotfiles"
-		},
-		{
 			"path": "../private"
-		},
-		{
-			"path": "../.config"
 		},
 		{
 			"path": "../NixOS-Hyprland-dev"
