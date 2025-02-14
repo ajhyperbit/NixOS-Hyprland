@@ -1,10 +1,5 @@
 {...}: {
   hardware = {
-    pulseaudio = {
-      enable = false;
-      package = pkgs.pulseaudioFull;
-    };
-
     bluetooth = {
       enable = true;
       powerOnBoot = true;
