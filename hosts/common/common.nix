@@ -479,6 +479,8 @@ in {
       adwaita-icon-theme
 
       cyberchef #Cyber Swiss Army Knife for encryption, encoding, compression and data analysis
+
+      streamlink #Pipe Twtich into something like VLC
     ])
     ++ [
       python-packages
