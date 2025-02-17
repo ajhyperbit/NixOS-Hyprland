@@ -65,6 +65,12 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    #Manage disks declaritively #Future Project
+    #inputs.disko = {
+    #  url = "github:nix-community/disko/latest";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
   };
 
   outputs = inputs @ {
