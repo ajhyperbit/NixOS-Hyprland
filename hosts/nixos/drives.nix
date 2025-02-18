@@ -26,6 +26,20 @@
     ];
   };
 
+  #fileSystems."/run/media/ajhyperbit/Archive" = {
+  #  device = "/dev/disk/by-uuid/9074e293-b54e-4139-b991-7a8064533f66";
+  #  fsType = "btrfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults"
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    "noauto" #Do not mount the filesystem automatically
+  #  ];
+  #};
+
+
   #fileSystems."/run/media/ajhyperbit/Transfer" = {
   #  device = "/dev/disk/by-uuid/F7F7-F2D7";
   #  fsType = "exfat";

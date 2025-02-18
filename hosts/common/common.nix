@@ -688,6 +688,13 @@ in {
     };
 
     #onedrive.enable = true;
+
+    #btrfs.autoScrub = {
+      #enable = true;
+      #interval = "monthly";
+      #fileSystems = [""];
+    #};
+
   };
 
   users.users.ajhyperbit = {
