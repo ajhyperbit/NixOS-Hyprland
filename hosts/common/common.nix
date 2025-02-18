@@ -482,7 +482,9 @@ in {
 
       streamlink #Pipe Twtich into something like VLC
       
-      file-roller
+      file-roller #Appears to have better compatibility with more zip file types.
+
+      gomtree #File system validation
     ])
     ++ [
       python-packages
