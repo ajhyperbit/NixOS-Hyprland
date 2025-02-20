@@ -485,6 +485,8 @@ in {
       file-roller #Appears to have better compatibility with more zip file types.
 
       gomtree #File system validation
+
+      meld #Visual diff and merge tool
     ])
     ++ [
       python-packages
