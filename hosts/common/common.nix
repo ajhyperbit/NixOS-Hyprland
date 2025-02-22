@@ -283,7 +283,7 @@ in {
           obs-move-transition
           obs-command-source
           input-overlay
-          droidcam-obs
+          #droidcam-obs
           obs-composite-blur
         ];
       })
