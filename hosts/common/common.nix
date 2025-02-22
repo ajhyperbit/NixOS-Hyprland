@@ -279,7 +279,7 @@ in {
           obs-vaapi
           obs-teleport
           obs-scale-to-sound
-          obs-nvfbc
+          #obs-nvfbc
           obs-move-transition
           obs-command-source
           input-overlay
