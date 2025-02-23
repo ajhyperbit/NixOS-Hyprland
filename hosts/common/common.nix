@@ -487,6 +487,8 @@ in {
       gomtree #File system validation
 
       meld #Visual diff and merge tool
+
+      quickemu #Quickly create and run optimized virtual machines
     ])
     ++ [
       python-packages
@@ -694,9 +696,9 @@ in {
     #onedrive.enable = true;
 
     #btrfs.autoScrub = {
-      #enable = true;
-      #interval = "monthly";
-      #fileSystems = [""];
+    #  enable = true;
+    #  interval = "weekly";
+    #  fileSystems = ["/"];
     #};
 
   };
