@@ -489,6 +489,8 @@ in {
       meld #Visual diff and merge tool
 
       quickemu #Quickly create and run optimized virtual machines
+      
+      testdisk #Data recovery utilities
     ])
     ++ [
       python-packages
