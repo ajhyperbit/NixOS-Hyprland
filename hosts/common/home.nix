@@ -71,6 +71,29 @@
     };
   };
 
+  #https://discourse.nixos.org/t/tell-gtk-apps-to-use-dark-mode-in-plasma/30831
+  #home-manager.users.ajhyperbit = {
+  #  dconf.settings = {
+  #    "org/gnome/desktop/interface" = {
+  #      color-scheme = "prefer-dark";
+  #    };
+  #  };
+  #  gtk = {
+  #    enable = true;
+  #    theme = {
+  #      name = "Breeze-Dark";
+  #      package = pkgs.gnome.gnome-themes-extra;
+  #    };
+  #  };
+  #  # Wayland, X, etc. support for session vars
+  #  systemd.user.sessionVariables = config.home-manager.users.justinas.home.sessionVariables;
+  #};
+  #qt = {
+  #  enable = true;
+  #  platformTheme = "gnome";
+  #  style = "adwaita-dark";
+  #};
+
   xdg = {
     #  enable = true;
     #  userDirs = {
