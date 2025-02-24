@@ -891,6 +891,15 @@ in {
 
   services.spice-vdagentd.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-kde
+      ];
+    xdgOpenUsePortal = true;
+  };
+
   qt = {
     enable = true;
     style = "breeze";
