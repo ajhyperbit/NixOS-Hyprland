@@ -96,7 +96,7 @@
     system = "x86_64-linux";
     host = "nixos";
     laptop-host = "nixtop";
-    nixwsl = "nixwsl";
+    nix-wsl = "nix-wsl";
     iso = "iso";
     nixserver = "nixserver";
     username = "ajhyperbit";
@@ -333,13 +333,13 @@
           })
         ];
       };
-      "${nixwsl}" = nixpkgs.lib.nixosSystem rec {
+      "${nix-wsl}" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
           inherit system;
           inherit inputs;
           inherit username;
-          inherit nixwsl;
+          inherit nix-wsl;
           inherit laptop-host;
           inherit home;
           inherit self;
@@ -353,7 +353,7 @@
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
-          ./hosts/${nixwsl}/nix-wsl.nix
+          ./hosts/${nix-wsl}/nix-wsl.nix
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
