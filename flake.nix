@@ -91,6 +91,7 @@
     system = "x86_64-linux";
     host = "nixos";
     laptop-host = "nixtop";
+    nix-wsl = "nix-wsl";
     iso = "iso";
     nixserver = "nixserver";
     username = "ajhyperbit";
@@ -271,6 +272,76 @@
         };
         modules = [
           ./hosts/${laptop-host}/config.nix
+          ./hosts/${laptop-host}/hardware.nix
+          ./hosts/common/common.nix
+          ./hosts/common/users.nix
+          ./modules/intel-drivers.nix
+          nixos-hardware.nixosModules.framework-11th-gen-intel
+          home-manager.nixosModules.home-manager
+          fw-fanctrl.nixosModules.default
+          #lanzaboote.nixosModules.lanzaboote #Secureboot
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ajhyperbit = {
+              imports = [
+                ./hosts/common/home.nix
+                ./hosts/${laptop-host}/home.nix
+              ];
+            };
+            home-manager.extraSpecialArgs = {inherit inputs self username stateVersion-hm;};
+            home-manager.backupFileExtension = "backup";
+          }
+          stylix.nixosModules.stylix
+
+          {
+            environment.systemPackages = [alejandra.defaultPackage.${system}];
+          }
+
+          (
+            {
+              pkgs,
+              lib,
+              ...
+            }: {
+              environment.systemPackages = [
+              ];
+
+              #boot.loader.systemd-boot.enable = lib.mkForce false;
+
+              #boot.lanzaboote = {
+              #  enable = true;
+              #  pkiBundle = "var/lib/sbctl";
+              #};
+            }
+          )
+
+          ({
+            self,
+            system,
+            ...
+          }: {
+            environment.systemPackages = with self.inputs.nix-alien.packages.${system}; [
+              nix-alien
+            ];
+          })
+        ];
+      };
+      "${nix-wsl}" = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+          inherit username;
+          inherit nix-wsl;
+          inherit laptop-host;
+          inherit home;
+          inherit self;
+          inherit stateVersion-host;
+          inherit stateVersion-hm;
+        };
+        modules = [
+          ./hosts/${nix-wsl}/config.nix
           ./hosts/${laptop-host}/hardware.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
