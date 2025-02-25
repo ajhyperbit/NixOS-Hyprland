@@ -356,7 +356,7 @@
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
-
+          nix-wsl.nixosModules.default
           #lanzaboote.nixosModules.lanzaboote #Secureboot
           {
             home-manager.useGlobalPkgs = true;
