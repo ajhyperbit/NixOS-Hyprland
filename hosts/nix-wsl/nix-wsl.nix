@@ -1,6 +1,6 @@
-{lib, pkgs, ...}: {
+{lib, pkgs, config, ...}: {
       lib.mkMerge = {
-        boot.binfmt.registrations = mkIf cfg.register {
+        boot.binfmt.registrations = {
         WSLInterop = {
           magicOrExtension = "MZ";
           fixBinary = true;
