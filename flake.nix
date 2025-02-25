@@ -71,6 +71,10 @@
     #  url = "github:nix-community/disko/latest";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+    };
   };
 
   outputs = inputs @ {
@@ -86,6 +90,7 @@
     lanzaboote,
     nix-alien,
     nixos-generators,
+    nix-wsl,
     ...
   }: let
     system = "x86_64-linux";
@@ -103,6 +108,7 @@
     #so stateVersion-host and stateVersion-hm can be the same so stateVersion-hm can be removed
     stateVersion-hm = "24.05";
     stateVersion-host-iso = "25.05";
+    stateVersion-host-wsl = "24.11";
 
     #Learned patching from here
     #LINK: https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
@@ -338,17 +344,19 @@
           inherit home;
           inherit self;
           inherit stateVersion-host;
+          inherit stateVersion-host-wsl;
           inherit stateVersion-hm;
         };
         modules = [
-          ./hosts/${nix-wsl}/config.nix
-          ./hosts/${nix-wsl}/hardware.nix
+          ./hosts/${laptop-host}/config.nix
+          ./hosts/${laptop-host}/hardware.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
+
           #lanzaboote.nixosModules.lanzaboote #Secureboot
           {
             home-manager.useGlobalPkgs = true;
