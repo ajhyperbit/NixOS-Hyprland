@@ -690,7 +690,7 @@ in {
     rpcbind.enable = false;
     nfs.server.enable = false;
 
-    upower.enable = true;
+    upower.enable = lib.mkForce true;
 
     mysql = {
       enable = true;
