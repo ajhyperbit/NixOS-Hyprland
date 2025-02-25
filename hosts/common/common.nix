@@ -705,6 +705,10 @@ in {
     #  fileSystems = ["/"];
     #};
 
+    samba = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   users.users.ajhyperbit = {
