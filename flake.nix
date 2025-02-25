@@ -357,6 +357,11 @@
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
           nix-wsl.nixosModules.default
+
+          {
+            wsl.enable = true;
+          }
+
           #lanzaboote.nixosModules.lanzaboote #Secureboot
           {
             home-manager.useGlobalPkgs = true;
