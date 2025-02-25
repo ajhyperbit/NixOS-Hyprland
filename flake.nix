@@ -90,13 +90,13 @@
     lanzaboote,
     nix-alien,
     nixos-generators,
-    nix-wsl,
+    nixos-wsl,
     ...
   }: let
     system = "x86_64-linux";
     host = "nixos";
     laptop-host = "nixtop";
-    nix-wsl = "nixwsl";
+    nixwsl = "nixwsl";
     iso = "iso";
     nixserver = "nixserver";
     username = "ajhyperbit";
@@ -333,13 +333,13 @@
           })
         ];
       };
-      "${nix-wsl}" = nixpkgs.lib.nixosSystem rec {
+      "${nixwsl}" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {
           inherit system;
           inherit inputs;
           inherit username;
-          inherit nix-wsl;
+          inherit nixwsl;
           inherit laptop-host;
           inherit home;
           inherit self;
@@ -356,7 +356,7 @@
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
-          nix-wsl.nixosModules.default
+          nixos-wsl.nixosModules.default
 
           {
             wsl.enable = true;
