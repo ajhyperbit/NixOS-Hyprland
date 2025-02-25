@@ -353,6 +353,7 @@
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
+          ./hosts/${nixwsl}/nix-wsl.nix
           nixos-hardware.nixosModules.framework-11th-gen-intel
           home-manager.nixosModules.home-manager
           fw-fanctrl.nixosModules.default
