@@ -342,7 +342,7 @@
         };
         modules = [
           ./hosts/${nix-wsl}/config.nix
-          ./hosts/${laptop-host}/hardware.nix
+          ./hosts/${nix-wsl}/hardware.nix
           ./hosts/common/common.nix
           ./hosts/common/users.nix
           ./modules/intel-drivers.nix
