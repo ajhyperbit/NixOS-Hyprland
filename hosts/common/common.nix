@@ -900,8 +900,8 @@ in {
   xdg.portal = {
     enable = true;
     extraPortals = [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-kde
+      #xdg-desktop-portal-gtk
+      #xdg-desktop-portal-kde
       ];
     xdgOpenUsePortal = true;
   };
