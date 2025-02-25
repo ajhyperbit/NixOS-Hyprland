@@ -96,7 +96,7 @@
     system = "x86_64-linux";
     host = "nixos";
     laptop-host = "nixtop";
-    nix-wsl = "nix-wsl";
+    nix-wsl = "nixwsl";
     iso = "iso";
     nixserver = "nixserver";
     username = "ajhyperbit";
