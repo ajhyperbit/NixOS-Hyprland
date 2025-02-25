@@ -9,5 +9,5 @@
           preserveArgvZero = true;
         };
       };
-    }
+    };
 }
