@@ -9,5 +9,8 @@
           preserveArgvZero = true;
         };
       };
-    };
+
+
+    environment.sessionVariables = lib.mkForce {}
+  };
 }
