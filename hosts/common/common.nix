@@ -495,6 +495,8 @@ in {
       testdisk #Data recovery utilities
 
       easyeffects #Audio effects for PipeWire applications
+
+      nixfmt-rfc-style #Official formatter for Nix code
     ])
     ++ [
       python-packages
