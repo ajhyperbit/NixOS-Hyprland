@@ -26,6 +26,10 @@
     ];
   };
 
+  #filesystems."/home/ajhyperbit/mnt/Archive" = {
+  #  device = "/dev/disk/by-uuid/4fd45309-e0dc-4124-8c19-36c011aad8eb"
+  #};
+
   fileSystems."/run/media/ajhyperbit/Archive" = {
     device = "/dev/disk/by-uuid/4fd45309-e0dc-4124-8c19-36c011aad8eb";
     fsType = "btrfs";
@@ -38,6 +42,7 @@
       "noauto" #Do not mount the filesystem automatically
       "compress=zstd" #Enable default zstd compression
       "subvolid=258"
+      "subvol=@"
     ];
   };
 }
