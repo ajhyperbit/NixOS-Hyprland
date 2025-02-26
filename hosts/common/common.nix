@@ -483,7 +483,7 @@ in {
       cyberchef #Cyber Swiss Army Knife for encryption, encoding, compression and data analysis
 
       streamlink #Pipe Twtich into something like VLC
-      
+
       file-roller #Appears to have better compatibility with more zip file types.
 
       gomtree #File system validation
@@ -491,8 +491,10 @@ in {
       meld #Visual diff and merge tool
 
       quickemu #Quickly create and run optimized virtual machines
-      
+
       testdisk #Data recovery utilities
+
+      easyeffects #Audio effects for PipeWire applications
     ])
     ++ [
       python-packages
@@ -606,6 +608,8 @@ in {
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      extraConfig = {
+      };
       wireplumber = {
         configPackages = [
           (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/11-bluetooth-policy.conf" ''
@@ -635,6 +639,7 @@ in {
                   update-props = {
                     # Set quality to high quality instead of the default of auto
                     "bluez5.a2dp.ldac.quality" = "hq";
+                    #1"bluez5.auto-connect" = "[a2dp_sink]"
                     #"device.profile" = "a2dp-sink";
                   };
                 };
@@ -902,7 +907,7 @@ in {
     extraPortals = [
       #xdg-desktop-portal-gtk
       #xdg-desktop-portal-kde
-      ];
+    ];
     xdgOpenUsePortal = true;
   };
 
