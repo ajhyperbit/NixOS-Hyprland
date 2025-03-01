@@ -706,11 +706,11 @@ in {
 
     #onedrive.enable = true;
 
-    btrfs.autoScrub = {
-      enable = true;
-      interval = "weekly";
+    #btrfs.autoScrub = {
+    #  enable = true;
+    #  interval = "weekly";
     #  fileSystems = ["/"];
-    };
+    #};
 
     samba = {
       enable = true;
