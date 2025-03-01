@@ -6,8 +6,7 @@
         type = "disk";
         device = "/dev/disk/by-id/ata-ST2000NE0025-2FL101_ZDS1968N";
         content = {
-          type = "table";
-          format = "gpt";
+          type = "gpt";
           partitions = {
             DATA = {
               size = "100%";
