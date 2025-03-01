@@ -6,7 +6,8 @@
         type = "disk";
         device = "/dev/disk/by-id/ata-ST2000NE0025-2FL101_ZDS1968N";
         content = {
-          type = "gpt";
+          type = "table";
+          format = "gpt";
           partitions = {
             DATA = {
               size = "100%";
@@ -26,6 +27,8 @@
                       "exec" # Permit execution of binaries and other executable files
                       "auto" #Mount the filesystem automatically
                       "compress=zstd" #Enable default zstd compression
+                      "uid=ajhyperbit"
+                      "gid=100"
                     ];
                   };
                   "@/.snapshots" = {
