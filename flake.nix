@@ -209,6 +209,7 @@
           ./modules/nvidia-drivers.nix
           ./modules/vm-guest-services.nix
           ./hosts/${host}/disko/DATA.nix
+          #./hosts/${host}/disko/SATASSD.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
