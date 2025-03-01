@@ -497,6 +497,8 @@ in {
       easyeffects #Audio effects for PipeWire applications
 
       nixfmt-rfc-style #Official formatter for Nix code
+
+      disko #Declarative disk partitioning and formatting using nix
     ])
     ++ [
       python-packages
