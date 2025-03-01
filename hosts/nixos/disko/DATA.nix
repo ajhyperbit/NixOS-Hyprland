@@ -16,7 +16,7 @@
                 # unless their parent is mounted
                 subvolumes = {
                   # Subvolume name is different from mountpoint
-                  "/@DATA" = {
+                  "/DATA" = {
                     mountpoint = "/run/media/ajhyperbit/DATA";
                     mountOptions = [
                       "users" # Allows any user to mount and unmount
@@ -25,16 +25,26 @@
                       "auto" #Mount the filesystem automatically
                       "compress=zstd" #Enable default zstd compression
                     ];
-                  };
-                  "/.snapshots" = {
-                    mountpoint = "/run/media/ajhyperbit/DATA/.snapshots";
-                    mountOptions = [
-                      "users" # Allows any user to mount and unmount
-                      "nofail" # Prevent system from failing if this drive doesn't mount
-                      "exec" # Permit execution of binaries and other executable files
-                      "auto" #Mount the filesystem automatically
-                      "compress=zstd" #Enable default zstd compression
-                    ];
+                    "/@DATA" = {
+                      mountpoint = "/run/media/ajhyperbit/DATA/@DATA";
+                      mountOptions = [
+                        "users" # Allows any user to mount and unmount
+                        "nofail" # Prevent system from failing if this drive doesn't mount
+                        "exec" # Permit execution of binaries and other executable files
+                        "auto" #Mount the filesystem automatically
+                        "compress=zstd" #Enable default zstd compression
+                      ];
+                    };
+                    "/.snapshots" = {
+                      mountpoint = "/run/media/ajhyperbit/DATA/.snapshots";
+                      mountOptions = [
+                        "users" # Allows any user to mount and unmount
+                        "nofail" # Prevent system from failing if this drive doesn't mount
+                        "exec" # Permit execution of binaries and other executable files
+                        "auto" #Mount the filesystem automatically
+                        "compress=zstd" #Enable default zstd compression
+                      ];
+                    };
                   };
                 };
               };
