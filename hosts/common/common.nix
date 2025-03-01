@@ -504,6 +504,8 @@ in {
       python-packages
     ];
 
+  disko.rootMountPoint = "/";
+
   hardware = {
     bluetooth = {
       enable = true;
