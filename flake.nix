@@ -208,6 +208,7 @@
           ./hosts/common/users.nix
           ./modules/nvidia-drivers.nix
           ./modules/vm-guest-services.nix
+          ./hosts/${host}/disko/DATA.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
