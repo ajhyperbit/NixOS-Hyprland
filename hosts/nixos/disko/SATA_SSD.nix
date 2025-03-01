@@ -1,4 +1,5 @@
-{
+{ 
+  disko.rootMountPoint = "/";
   disko.devices = {
     disk = {
       SATASSD = {
@@ -15,8 +16,8 @@
                 # Subvolumes must set a mountpoint in order to be mounted,
                 # unless their parent is mounted
                 subvolumes = {
-                  # Subvolume name is different from mountpoint
-                  "/@SATASSD" = {
+                  "@" = {};
+                  "@/SATA SSD" = {
                     mountpoint = "/run/media/ajhyperbit/SATA SSD";
                     mountOptions = [
                       "users" # Allows any user to mount and unmount
