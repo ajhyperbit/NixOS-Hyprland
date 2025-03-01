@@ -21,12 +21,12 @@
                   "@/DATA" = {
                     mountpoint = "/run/media/ajhyperbit/DATA";
                     mountOptions = [
-                      #"users" # Allows any user to mount and unmount
+                      "users" # Allows any user to mount and unmount
                       "nofail" # Prevent system from failing if this drive doesn't mount
                       "exec" # Permit execution of binaries and other executable files
                       "auto" #Mount the filesystem automatically
                       "compress=zstd" #Enable default zstd compression
-                      "uid=ajhyperbit"
+                      #"uid=ajhyperbit"
                       "gid=100"
                     ];
                   };
