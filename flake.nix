@@ -67,10 +67,10 @@
     };
 
     #Manage disks declaritively #Future Project
-    #inputs.disko = {
-    #  url = "github:nix-community/disko/latest";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    inputs.disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -91,6 +91,7 @@
     nix-alien,
     nixos-generators,
     nixos-wsl,
+    disko,
     ...
   }: let
     system = "x86_64-linux";
@@ -224,6 +225,8 @@
           stylix.nixosModules.stylix
 
           agenix.nixosModules.default
+
+          disko.nixosModules.disko
 
           {
             environment.systemPackages = [alejandra.defaultPackage.${system}];
