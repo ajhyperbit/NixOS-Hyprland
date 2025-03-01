@@ -17,7 +17,9 @@
                 # unless their parent is mounted
                 subvolumes = {
                   # Subvolume name is different from mountpoint
-                  "@" = {};
+                  "@" = {
+                    mountpoint = "/mnt/DATA";
+                    };
                   "@/DATA" = {
                     mountpoint = "/run/media/ajhyperbit/DATA";
                     mountOptions = [
