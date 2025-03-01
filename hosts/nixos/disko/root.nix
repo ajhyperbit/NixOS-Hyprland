@@ -1,0 +1,9 @@
+{
+  disko.devices = {
+    #disk = {
+    #  root = {
+    #
+    #  };
+    #};
+  };
+}
