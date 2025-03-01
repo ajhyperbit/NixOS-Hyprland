@@ -3,7 +3,7 @@
     disk = {
       Archive = {
         type = "disk";
-        device = "/dev/disk/by-uuid/4fd45309-e0dc-4124-8c19-36c011aad8eb";
+        #device = "/dev/disk/by-id/ata-ST6000VN0033-2EE110_ZADBCVNZ";
         content = {
           type = "gpt";
           partitions = {

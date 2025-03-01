@@ -1,5 +1,4 @@
 {
-  options.disko.options.rootMountPoint = "/";
   disko.devices = {
     disk = {
       DATA = {
