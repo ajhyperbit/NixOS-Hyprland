@@ -26,18 +26,18 @@
   #  ];
   #};
 
-  fileSystems."/run/media/ajhyperbit/DATA" = {
-    device = "/dev/disk/by-uuid/82009cc9-9290-4277-ac8e-7f824d166485e";
-    fsType = "btrfs";
-    options = [
-      # If you don't have this options attribute, it'll default to "defaults"
-      # boot options for fstab. Search up fstab mount options you can use
-      "users" # Allows any user to mount and unmount
-      "nofail" # Prevent system from failing if this drive doesn't mount
-      "exec" # Permit execution of binaries and other executable files
-      "auto" #Mount the filesystem automatically
-    ];
-  };
+  #fileSystems."/run/media/ajhyperbit/DATA" = {
+  #  device = "/dev/disk/by-uuid/82009cc9-9290-4277-ac8e-7f824d166485e";
+  #  fsType = "btrfs";
+  #  options = [
+  #    # If you don't have this options attribute, it'll default to "defaults"
+  #    # boot options for fstab. Search up fstab mount options you can use
+  #    "users" # Allows any user to mount and unmount
+  #    "nofail" # Prevent system from failing if this drive doesn't mount
+  #    "exec" # Permit execution of binaries and other executable files
+  #    "auto" #Mount the filesystem automatically
+  #  ];
+  #};
 
   #fileSystems."/run/media/ajhyperbit/Archive" = {
   #  device = "/dev/disk/by-uuid/4fd45309-e0dc-4124-8c19-36c011aad8eb";
