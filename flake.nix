@@ -110,6 +110,7 @@
     stateVersion-hm = "24.05";
     stateVersion-host-iso = "25.05";
     stateVersion-host-wsl = "24.11";
+    stateVersion = "24.11"; #Keep this at current nixos version for new installs
 
     #Learned patching from here
     #LINK: https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26
@@ -548,6 +549,28 @@
             }: {
               imports = [
                 ./hosts/iso/default.nix
+                (modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix")
+              ];
+            }
+          )
+        ];
+      };
+
+      minimal = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit stateVersion
+        };
+        system = "x86_64-linux";
+        modules = [
+          (
+            {
+              pkgs,
+              lib,
+              modulesPath,
+              ...
+            }: {
+              imports = [
+                ./hosts/minimal/config.nix
                 (modulesPath + "/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix")
               ];
             }

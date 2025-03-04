@@ -3,7 +3,7 @@
     disk = {
       root = {
         type = "disk";
-        #device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_500GB_S58SNM0RC03948A"; #FIXME - needs disk
+        #device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_500GB_S5H7NS0N583877Z"; #FIXME - needs disk
         content = {
           type = "gpt";
           partitions = {
@@ -40,6 +40,13 @@
                       "noatime"
                     ];
                   };
+                  "@/home" = {
+                    #mountpoint = "/home";
+                    mountOptions = [
+                      "compress=zstd" #Enable default zstd compression
+                    ];
+                  };
+
                   "@/.snapshots" = {
                     #mountpoint = "/.snapshots";
                     mountOptions = [
