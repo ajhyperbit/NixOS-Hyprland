@@ -108,13 +108,17 @@
                 # unless their parent is mounted
                 subvolumes = {
                   # Subvolume name is different from mountpoint
-                  "@" = {};
-                  "@/DATA" = {
+                  "@" = {
                     mountpoint = "/run/media/ajhyperbit/DATA";
                     mountOptions = [
                       "compress=zstd" #Enable default zstd compression
                     ];
                   };
+                  #"@/DATA" = {
+                  #  mountpoint = "/run/media/ajhyperbit/DATA";
+                  #  mountOptions = [
+                  #    "compress=zstd" #Enable default zstd compression
+                  #  ];
                   "@/.snapshots" = {
                     mountOptions = [
                       "compress=zstd" #Enable default zstd compression
