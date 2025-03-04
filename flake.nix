@@ -563,7 +563,7 @@
       #NOTE - build with "nixos-generate --flake ~/NixOS-Hyprland#minimal -f iso"
       minimal = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit stateVersion
+          inherit stateVersion;
         };
         system = "x86_64-linux";
         modules = [
