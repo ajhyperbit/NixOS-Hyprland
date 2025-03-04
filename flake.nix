@@ -209,9 +209,9 @@
           ./hosts/common/users.nix
           ./modules/nvidia-drivers.nix
           ./modules/vm-guest-services.nix
-          #./hosts/${host}/disko/DATA.nix
+          ./hosts/${host}/disko/DATA.nix
           #./hosts/${host}/disko/SATASSD.nix
-          ./hosts/${host}/disko/disko.nix
+          #./hosts/${host}/disko/disko.nix
           home-manager.nixosModules.home-manager
           nixos-hardware.nixosModules.common-cpu-amd
           nixos-hardware.nixosModules.common-cpu-amd-pstate
