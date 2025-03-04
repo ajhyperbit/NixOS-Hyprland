@@ -11,7 +11,6 @@
               start = "2MiB";
               end = "1G";
               type = "EF00";
-              bootable = true;
               content = {
                 type = "filesystem";
                 format = "vfat";
