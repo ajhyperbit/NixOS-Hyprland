@@ -21,6 +21,10 @@
                     mountpoint = "/run/media/ajhyperbit/DATA";
                     mountOptions = [
                       "compress=zstd" #Enable default zstd compression
+                      "uid=1000"
+                      "gid=100"
+                      "dmask=007"
+                      "fmask=117"
                     ];
                   };
                   #"@/DATA" = {
@@ -28,11 +32,12 @@
                   #  mountOptions = [
                   #    "compress=zstd" #Enable default zstd compression
                   #  ];
-                  "@/.snapshots" = {
-                    mountOptions = [
-                      "compress=zstd" #Enable default zstd compression
-                    ];
-                  };
+                  #"@/.snapshots" = {
+                  #  mountpoint = "";
+                  #  mountOptions = [
+                  #    "compress=zstd" #Enable default zstd compression
+                  #  ];
+                  #};
                 };
               };
             };
