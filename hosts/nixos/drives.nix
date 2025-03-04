@@ -27,7 +27,7 @@
   };
 
   #fileSystems."/run/media/ajhyperbit/DATA" = {
-  #  device = "/dev/disk/by-uuid/82009cc9-9290-4277-ac8e-7f824d166485e";
+  #  device = "/dev/disk/by-uuid/2e7ff43d-029f-40ab-85af-aa0543f08bf2";
   #  fsType = "btrfs";
   #  options = [
   #    # If you don't have this options attribute, it'll default to "defaults"
