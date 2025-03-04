@@ -23,7 +23,15 @@
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
 
-    kernelModules = ["vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
+    kernelModules = [
+      "vfio_virqfd"
+      "vfio_pci"
+      "vfio_iommu_type1"
+      "vfio"
+      #From https://github.com/NixOS/nixos-hardware/blob/master/asus/rog-strix/x570e/default.nix
+      "btintel" # Bluetooth driver for Intel AX200 802.11ax
+      "nct6775" # Temperature and Fan Sensor for Nuvoton NCT6798D-R
+    ];
 
     initrd = {
       availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
