@@ -210,6 +210,7 @@
           ./modules/vm-guest-services.nix
           #./hosts/${host}/disko/DATA.nix
           #./hosts/${host}/disko/SATASSD.nix
+          ./hosts/${host}/disko/disko.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
