@@ -25,6 +25,9 @@
                       "gid=100"
                       "dmask=007"
                       "fmask=117"
+                      "users"
+                      "nofail"
+                      "exec"
                     ];
                   };
                   #"@/DATA" = {
