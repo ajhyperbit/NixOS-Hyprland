@@ -216,7 +216,7 @@
           nixos-hardware.nixosModules.common-cpu-amd
           nixos-hardware.nixosModules.common-cpu-amd-pstate
           nixos-hardware.nixosModules.common-cpu-amd-zenpower
-          
+
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -560,6 +560,7 @@
         ];
       };
 
+      #NOTE - build with "nixos-generate --flake ~/NixOS-Hyprland#minimal -f iso"
       minimal = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit stateVersion
