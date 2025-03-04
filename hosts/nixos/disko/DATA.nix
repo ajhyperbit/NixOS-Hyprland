@@ -18,16 +18,9 @@
                 subvolumes = {
                   # Subvolume name is different from mountpoint
                   "@" = {
-                    mountpoint = "/run/media/ajhyperbit/DATA";
+                    mountpoint = "/home/ajhyperbit/media/DATA";
                     mountOptions = [
                       "compress=zstd" #Enable default zstd compression
-                      "uid=1000"
-                      "gid=100"
-                      "dmask=007"
-                      "fmask=117"
-                      "users"
-                      "nofail"
-                      "exec"
                     ];
                   };
                   #"@/DATA" = {
