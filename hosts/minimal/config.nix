@@ -28,6 +28,18 @@
 
   networking.hostName = "minimal";
 
+  environment.systemPackages = with pkgs; [
+  ];
+
+  programs = {
+    git.enable = true;
+
+    zsh = {
+      enable = true;
+      enableBashCompletion = true;
+    };
+  };
+
   users.users = {
     ajhyperbit = {
       isNormalUser = true;
