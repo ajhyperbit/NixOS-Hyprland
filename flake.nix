@@ -213,6 +213,10 @@
           #./hosts/${host}/disko/SATASSD.nix
           ./hosts/${host}/disko/disko.nix
           home-manager.nixosModules.home-manager
+          nixos-hardware.nixosModules.common-cpu-amd
+          nixos-hardware.nixosModules.common-cpu-amd-pstate
+          nixos-hardware.nixosModules.common-cpu-amd-zenpower
+          
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
