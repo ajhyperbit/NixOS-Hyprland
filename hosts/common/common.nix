@@ -499,6 +499,8 @@ in {
       nixfmt-rfc-style #Official formatter for Nix code
 
       disko #Declarative disk partitioning and formatting using nix
+
+      cura-appimage
     ])
     ++ [
       python-packages
