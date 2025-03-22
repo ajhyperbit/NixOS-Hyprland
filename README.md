@@ -1,6 +1,8 @@
 #### If you've happened upon this repository, this is a fork for personal use. I would say I am still learning to code in general and have started with NixOS as my Linux distro. Anything I do may not follow the best practices of Nix or any language that may be used in this repository. If you use anything in this repository as inspiration, please research what it is doing (much like you should anything you use.)
 Feel free to use issues or pull requests if you have feedback or anything else. No promises anything will come of it due to my inexperience, but it is appreciated nonetheless.
 
+### I am now using [this repo](https://github.com/ajhyperbit/NixOS) instead.
+
 ## Regular readme follows below
 <div align="center">
 
