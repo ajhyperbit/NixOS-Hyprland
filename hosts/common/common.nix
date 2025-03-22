@@ -189,7 +189,6 @@ in {
       xdg-user-dirs
       xdg-utils
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-kde
       fastfetch
       (mpv.override {scripts = [mpvScripts.mpris];}) # with tray
       #ranger #Minimalistic/Terminal file manager
